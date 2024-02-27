@@ -2,21 +2,22 @@ import Link from "next/link";
 import Search from "../ui/search";
 import Pagination from "../ui/index/pagination";
 
+
 async function getDiseases(query, page, specialty) {
   const resposnse = await fetch(
-    `http://localhost:3000/api/disease?q=${query}&page=${page}&specialty=${specialty}`
+    `https://eordonnances.vercel.app/api/disease?q=${query}&page=${page}&specialty=${specialty}`
   );
   const data = await resposnse.json();
   return data;
 }
 
 async function countDiseases() {
-  const resposnse = await fetch(`http://localhost:3000/api/disease/count`);
+  const resposnse = await fetch(`https://eordonnances.vercel.app/api/disease/count`);
   const data = await resposnse.json();
   return data;
 }
 async function getSpecialties() {
-  const resposnse = await fetch(`http://localhost:3000/api/disease/specialties`);
+  const resposnse = await fetch(`https://eordonnances.vercel.app/api/disease/specialties`);
   const data = await resposnse.json();
   return data;
 }
