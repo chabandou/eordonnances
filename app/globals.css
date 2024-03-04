@@ -13,16 +13,6 @@
   --border: #133C55;
 }
 
-/* @keyframes move {
-	0% {
-		background-position: 0% 0%;
-	}
-	100% {
-		background-position: 100% 100%;
-	}
-
-} */
-
 
 .disease-card {
   aspect-ratio: 3.75 / 1;
@@ -32,15 +22,14 @@
   position: relative;
   width: 73vmin;
   overflow: hidden;
-  transition: all 0.5s ease-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .disease-card::before {
-  /* background: linear-gradient(130deg, transparent 0% 33%, var(--g1) 66%, var(--g2) 83.3%, var(--g3) 100%); */
-  background: linear-gradient(-45deg, var(--g1), var(--g2), var(--g3), var(--g1), var(--g2), var(--g3));
-  background-size: 600% 600%;
+  background: linear-gradient(130deg, transparent 0% 33%, var(--g1) 66%, var(--g2) 83.3%, var(--g3) 100%);
+  background-size: 300% 300%;
   background-position: 0% 0%;
-  /* transition: background-position 0.35s ease-in-out; */
+  transition: background-position 0.35s ease-in-out;
   border-radius: inherit;
   content: "";
   height: 100%;
@@ -49,19 +38,17 @@
   top: 0px;
   width: 100%;
   z-index: 1;
+  
 }
 
 .disease-card:hover::before {
-  opacity: 1;
-  /* animation: move 5s ease infinite; */
   background-position: 100% 100%;
-
-
 }
 
 .disease-card:hover {
-  /* transform: scale(1.02, 1.06); */
-  /* border: 0.3vmin solid transparent; */
+  transform: scale(1.02, 1.06);
+  border: 0.3vmin solid transparent;
+  transition: all 0.5s ease-out;
 }
 
 .disease-card-content {
