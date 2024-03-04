@@ -6,7 +6,171 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --card-color: rgba(23, 23, 23);
+  --g1: #00C6A7;
+  --g2: #008148;
+  --g3: #133C55; 
+  --border: #133C55;
 }
+
+
+.disease-card {
+  aspect-ratio: 3.75 / 1;
+  border: 0.3vmin solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  width: 73vmin;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.disease-card::before {
+  background: linear-gradient(130deg, transparent 0% 33%, var(--g1) 66%, var(--g2) 83.3%, var(--g3) 100%);
+  background-size: 300% 300%;
+  background-position: 0% 0%;
+  transition: background-position 0.35s ease-in-out;
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+  
+}
+
+.disease-card:hover::before {
+  background-position: 100% 100%;
+}
+
+.disease-card:hover {
+  transform: scale(1.02, 1.06);
+  border: 0.3vmin solid transparent;
+  transition: all 0.5s ease-out;
+}
+
+.disease-card-content {
+  background: radial-gradient(
+    rgba(255, 255, 255, 0.1) 5%,
+    transparent 8%
+  );
+  background-position: 0% 0%;
+  background-size: 5vmin 5vmin;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.icon {
+  position: absolute;
+  width: 50%;
+  top: 150%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+}
+
+.disease-card:hover .icon {
+  opacity: 1;
+  top: 90%;
+  left: 75%;
+  transform: translate(-50%, -50%) rotate(5deg);
+  transition: 0.5s ease-in-out;
+}
+
+.disease-card:hover h2 {
+  color: aliceblue;
+  transition: 0.5s ease-in-out;
+}
+
+.disease-card-Dermatologie {
+  --g1: #e5989b;
+  --g2: #b5838d;
+  --g3: #6d6875; 
+}
+
+/* ------------ */
+
+
+
+
+
+.specialty-cards:hover > .specialty-card::after {
+  opacity: 1;
+}
+
+.specialty-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  height: 260px;
+  flex-direction: column;
+  position: relative;
+  width: 300px;  
+}
+
+.specialty-card:hover::before {
+  opacity: 1;
+}
+
+.specialty-card::before,
+.specialty-card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+}
+
+.specialty-card::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  z-index: 3;
+}
+
+.specialty-card::after {  
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(255, 255, 255, 0.4),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+.specialty-card > .specialty-card-content {
+  background-color: var(--card-color);
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  inset: 1.5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 2;
+}
+
+.specialty-text {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  z-index: 99;
+}
+
+
 
 @media (prefers-color-scheme: dark) {
   :root {

@@ -1,7 +1,6 @@
 import Disease from "@/models/diseaseModel";
 import { connectToMongoDB } from "@/app/libs/mongodb";
 import { NextResponse, NextRequest } from "next/server";
-import { log } from "console";
 
 const ITEMS_PER_PAGE = 25;
 export async function GET(NextRequest) {

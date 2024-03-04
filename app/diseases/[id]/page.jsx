@@ -9,7 +9,6 @@ export default async function diseasePage({ params }) {
   }
   const { foundDisease } = await getDisease(id);
   const { Rx, disease } = foundDisease;
-  // console.log(foundDisease);
 
   return (
     <div className="flex flex-col ">
@@ -23,7 +22,7 @@ export default async function diseasePage({ params }) {
               )}
         </h2>
       </div>
-      {Rx[0].name ? <RxArray Rx={Rx} /> : <RxObject Rx={Rx} />}
+      { typeof Rx[0].name === "string" ? <RxArray Rx={Rx} /> : typeof Rx[0] === "object" ? <RxObject Rx={Rx} /> : <RxArray Rx={Rx} />}
     </div>
   );
 }
