@@ -1,0 +1,18 @@
+dermato 27 ***
+gastro 26 ***
+uro 19 **
+urgences 19 **
+pneu 12 **
+ORL 10 **
+gynéco 10 **
+neuro 9 *
+ophtalmo 8 *
+chir 7 *
+infec 7 *
+cardio 6 *
+générale 5
+pédiatrie 4
+psych 3
+rhumato 3
+onco 1
+ortho 1

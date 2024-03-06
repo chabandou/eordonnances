@@ -5,10 +5,11 @@ import Image from "next/image";
 import { useRef } from "react";
 import stetho from "@/public/stetho.svg"
 import clsx from "clsx";
+import Stetho from "@/app/ui/index/Stetho";
 
 export default function DiseaseCard({ d }) {
   const diseaseCardRef = useRef();
- 
+  
 
   return (
     <Link
@@ -30,7 +31,7 @@ export default function DiseaseCard({ d }) {
               : d.disease.specialty.join(", ")}
           </h3>
 
-          <Image className="icon" src={stetho} alt="stetho"/>
+          <Stetho className="icon"/>
           </div>
         </div>
     </Link>

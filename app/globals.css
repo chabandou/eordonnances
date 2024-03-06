@@ -22,7 +22,13 @@
   position: relative;
   width: 73vmin;
   overflow: hidden;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-out;
+}
+
+.disease-card:hover {
+  transform: scale(1.02, 1.06);
+  border: 0.3vmin solid transparent;
+  
 }
 
 .disease-card::before {
@@ -38,6 +44,7 @@
   top: 0px;
   width: 100%;
   z-index: 1;
+
   
 }
 
@@ -45,11 +52,7 @@
   background-position: 100% 100%;
 }
 
-.disease-card:hover {
-  transform: scale(1.02, 1.06);
-  border: 0.3vmin solid transparent;
-  transition: all 0.5s ease-out;
-}
+
 
 .disease-card-content {
   background: radial-gradient(
@@ -61,6 +64,8 @@
   width: 100%;
   height: 100%;
   z-index: 2;
+  border-radius: inherit;
+
 }
 
 .icon {
@@ -71,21 +76,39 @@
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: 0.5s ease-in-out;
+  
 }
 
 .disease-card:hover .icon {
   opacity: 1;
   top: 90%;
-  left: 75%;
   transform: translate(-50%, -50%) rotate(5deg);
-  transition: 0.5s ease-in-out;
 }
 
 .disease-card:hover h2 {
   color: aliceblue;
-  transition: 0.5s ease-in-out;
 }
 
+.disease-card-Dermatologie {
+  --g1: #e5989b;
+  --g2: #b5838d;
+  --g3: #6d6875; 
+}
+.disease-card-Chirurgie {
+  --g1: #2b2d42;
+  --g2: #8d99ae;
+  --g3: #edf2f4; 
+}
+.disease-card-Cardiologie {
+  --g1: #d90429;
+  --g2: #ef233c;
+  --g3: #a8dadc; 
+}
+.disease-card-Neurologie {
+  --g1: #faa307;
+  --g2: #f48c06;
+  --g3: #ffddd2; 
+}
 .disease-card-Dermatologie {
   --g1: #e5989b;
   --g2: #b5838d;
