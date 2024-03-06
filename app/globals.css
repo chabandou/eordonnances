@@ -193,7 +193,28 @@
   z-index: 99;
 }
 
+/* ********************************************** */
 
+.main-icon {
+  width: 50%;
+
+}
+.main-icon path{
+  transition: fill 300ms ease-in-out;
+}
+.specialty-card:hover .main-icon path {
+  fill: var(--g1);
+}
+
+.specialty-card span {
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+.specialty-card:hover span {
+  opacity: 1;
+  text-decoration: underline var(--g1) 2px solid ;
+  text-underline-offset: 10px;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {

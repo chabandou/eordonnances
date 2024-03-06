@@ -84,7 +84,6 @@ export default async function Page({ searchParams }) {
   const currentPage = searchParams?.page || 1;
 
   const diseasesCount = await countDiseases(q, specialty);
-  console.log(diseasesCount);
   const totalPages = Math.ceil(diseasesCount / ITEMS_PER_PAGE);
   const diseases = await getDiseases(q, currentPage, specialty);
   const specialties = await getSpecialties();

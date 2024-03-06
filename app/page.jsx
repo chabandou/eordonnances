@@ -3,17 +3,26 @@
 import { useRef } from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import Lungs from "@/app/ui/icons/Lungs";
+import Brain from "@/app/ui/icons/Brain";
+import Skin from "@/app/ui/icons/Skin";
+import Ambulance from "@/app/ui/icons/Ambulance";
+import Stomach from "@/app/ui/icons/Stomach";
+import Heart from "@/app/ui/icons/Heart";
+import Uterus from "@/app/ui/icons/Uterus";
+import Throat from "@/app/ui/icons/Throat";
+import Bladder from "@/app/ui/icons/Bladder";
 
 const specialties = [
-  "Cardiologie",
-  "Dermatologie",
-  "Endocrinologie",
-  "Gastro-entérologie",
-  "Hématologie",
-  "Neurologie",
-  "Pédiatrie",
-  "Pneumologie",
-  "Infectiologie"
+  { name: "Dermatologie", icon: <Skin className="main-icon disease-card-Dermatologie" /> },
+  { name: "Cardiologie", icon: <Heart className="main-icon disease-card-Cardiologie" /> },
+  { name: "Gastro-entérologie", icon: <Stomach className="main-icon .disease-card-Gastro-entérologie" /> },
+  { name: "Urologie", icon: <Bladder className="main-icon disease-card-Uregences" /> },
+  { name: "Neurologie", icon: <Brain className="main-icon disease-card-Neurologie" /> },
+  { name: "Pneumologie", icon: <Lungs className="main-icon disease-card-Pneumologie" /> },
+  { name: "Gynécologie", icon: <Uterus className="main-icon disease-card-Urologie" /> },
+  { name: "ORL", icon: <Throat className="main-icon disease-card-ORL" /> },
+  { name: "Uregences", icon: <Ambulance className="main-icon disease-card-Gynécologie" /> },
 ];
 
 export default function Home() {
@@ -36,14 +45,15 @@ export default function Home() {
         {specialties.map((s, i) => (
           <div ref={specialtyCardRefs[i]} key={i} className="specialty-card">
             <div
-              href={`/diseases?specialty=${s}`}
-              className={
-                "specialty-card-content"
-              }
+              href={`/diseases?specialty=${s.name}`}
+              className={"specialty-card-content"}
+            ></div>
+            <Link
+              href={`/diseases?specialty=${s.name}`}
+              className="specialty-text w-full h-full flex flex-col flex-wrap justify-center items-center"
             >
-            </div>
-            <Link href={`/diseases?specialty=${s}`} className="specialty-text w-full h-full flex justify-center items-center">
-              <span>{s}</span>
+              {s.icon && s.icon}
+              <span className={`disease-card-${s.name}`}>{s.name}</span>
             </Link>
           </div>
         ))}
