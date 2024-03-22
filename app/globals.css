@@ -6,33 +6,432 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --card-color: rgba(23, 23, 23);
-  --g1: #00C6A7;
+  --card-color: hsl(0, 0%, 9%);
+  --text-color: hsl(0, 0%, 91%);
+  --text-color-secondary: #212529;
+  /* --border: hsla(0, 0%, 100%, 0.06); */
+  --border: #0f0f0f;
+  --g1: #00c6a7;
   --g2: #008148;
-  --g3: #133C55; 
-  --border: #133C55;
+  --g3: #133c55;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.container {
+  position: relative;
+  left: 78px;
+  width: calc(100% - 78px);
+
+}
+
+/* ******************** COLORS ************************** */
+
+.disease-card-Dermatologie {
+  --g1: #ff9d7e;
+  --g2: hsl(12, 59%, 70%);
+  --g3: #49537d;
+}
+.disease-card-Chirurgie {
+  --g1: #2b2d42;
+  --g2: #8d99ae;
+  --g3: #edf2f4;
+}
+.disease-card-Cardiologie {
+  --g1: #d90429;
+  --g2: #ef233c;
+  --g3: #a8dadc;
+}
+.disease-card-Neurologie {
+  --g1: #f48c06;
+  --g2: #faa307;
+  --g3: #ffddd2;
+}
+.disease-card-Gynécologie {
+  --g1: #ff7096;
+  --g2: #ff477e;
+  --g3: #ff0a54;
+}
+.disease-card-Gastro-entérologie {
+  --g1: #b88b4a;
+  --g2: #754043;
+  --g3: #533e2d;
+}
+.disease-card-Urologie {
+  --g1: #9d4edd;
+  --g2: #4361ee;
+  --g3: #3a0ca3;
+}
+.disease-card-ORL {
+  --g1: #3793ff;
+  --g2: #0017e4;
+  --g3: hsl(239, 94%, 25%);
+}
+
+/* ********************* NAVBAR ********************* */
+
+@keyframes nav {
+  from {
+    width: 78px;
+  }
+  to {
+    width: 250px;
+  }
+}
+
+@keyframes gradient {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+.nav-container {
+  color: rgb(207, 207, 207);
+  background: var(--card-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  position: fixed;
+  width: 78px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  /* transition: width 0.6s cubic-bezier(0.76, 0, 0.24, 1); */
+  transition: width 0.6s ease;
+  z-index: 9;
+}
+
+.menu {
+  position: relative;
+}
+
+.menu::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(var(--transformJS)) scale(0.5);
+  width: 100%;
+  height: 50px;
+  border-radius: 12px;
+  background: linear-gradient(to right, var(--g1), var(--g2), var(--g3), var(--g1));
+  background-size: 200%;
+  animation: background-pan 3s ease-in-out infinite;
+  z-index: 1;
+  opacity: 0;
+  /* box-shadow: var(); */
+  transition: all 0.3s ease;
+}
+
+.nav-container:hover .menu::before {
+  opacity: 1;
+  transform: translateY(var(--transformJS))
+}
+
+.nav-container:hover {
+  width: 250px;
+  animation: nav 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+
+}
+
+
+.nav-container header {
+  margin: 2.5rem 0;
+
+}
+
+
+.nav-container header svg {
+  width: 45px;
+}
+
+.nav-container .nav-link path {
+  fill: hsl(218, 11%, 65%)
+}
+.nav-container .nav-link:hover path {
+  fill: hsl(0, 0%, 100%)
+}
+
+.nav-container .nav-link.active{
+  background-color: hsla(0, 0%, 100%, 0.198);
+  color: hsl(0, 0%, 100%)
+
+}
+
+.nav-container:hover .nav-link.active {
+  background: none;
+  color: rgb(156 163 175)
+}
+
+.nav-container .nav-link.active path {
+  fill: hsl(0, 0%, 100%)
+}
+
+.nav-link {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  gap: 4px;
+  border-radius: 12px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 10px 0px;
+  transition: all 0.35s ease-in-out;
+  z-index: 11;
+}
+
+/* .nav-link:hover {
+  background-color: hsla(0, 0%, 100%, 0.198);
+} */
+
+
+.nav-container .nav-link i {
+  min-width: 30px;
+  margin: 0 7.5px;
+}
+
+.nav-container span {
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-20px);
+  width: fit-content;
+  flex-shrink: 1;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease;
+  white-space: nowrap;
+  /* position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px; */
+}
+
+.nav-container header span {
+  font-weight: 700;
+  transform: translateX(-16px);
+}
+
+.nav-container:hover  {
+  /* width: 20%; */
+}
+
+.nav-container:hover span {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+
+
+
+.nav-link:hover span {
+  color: rgba(230, 230, 230, 0.924);
+}
+/* .nav-link:hover svg path {
+  fill: rgb(0, 0, 0);
+} */ 
+
+/* ********************* SEARCH PAGE ********************* */
+
+/* ------------ Specialty DropDown ------------ */
+
+.dropdown {
+  width: 35%;
+  height: fit-content;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 9;
+}
+.input-box {
+  width: 100%;
+  height: 3rem;
+  box-sizing: border-box;
+  outline: 0.3mm solid rgba(255, 255, 255, 0.602);
+  border-radius: 2mm;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.input-box:empty::after {
+  content: "Spécialité";
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 300%;
+  height: fit-content;
+  background: var(--card-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-top: 5px;
+  border-radius: 2mm;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0px, 1fr));
+  place-items: center;
+  overflow: hidden;
+  gap: 5px;
+  box-sizing: border-box;
+  /* align-items: center;
+  justify-content: space-between; */
+  flex-direction: column;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s ease-out;
+  z-index: 9;
+  text-align: center;
+}
+.list input {
+  display: none;
+}
+.list label {
+  display: flex;
+  width: 100%;
+  height: 4rem;
+  align-items: center;
+  justify-content: flex-start;
+
+  font-size: 14px;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  z-index: 9;
+}
+.list label .material-icons-outlined,
+.input-box .material-icons-outlined {
+  margin-right: 5px;
+  font-size: 22px;
+}
+.list label:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+input:checked + label {
+  color: rgb(20, 117, 213);
+  background: rgb(26, 26, 26);
+}
+input:checked + label::before {
+  /* content: "done";
+  font-family: "Material Icons";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translate(0, -50%);
+  font-size: 18px; */
+}
+.open {
+  outline: 0.7mm solid rgb(20, 117, 213);
+}
+
+.list.open {
+  outline: none;
+  opacity: 1;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15), 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+  visibility: visible;
+  max-height: 600px;
+}
+
+.search-box {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 8px;
+}
+#search {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 1mm;
+  border: none;
+  outline: 0.3mm solid rgba(255, 255, 255, 0.15);
+}
+#search:focus {
+  outline: 0.5mm solid rgba(255, 255, 255, 0.35);
+}
+
+/* -------------- END of Specialty DropDown ------------ */
+
+@keyframes background-pan {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+
+.specialty-h2 {
+  background: linear-gradient(
+    to right,
+    var(--g1),
+    var(--g2),
+    var(--g3),
+    var(--g1)
+  );
+  animation: background-pan 1.5s ease-in-out 1;
+  background-size: 200%;
+  width: fit-content;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 .disease-card {
   aspect-ratio: 3.75 / 1;
   border: 0.3vmin solid var(--border);
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
   position: relative;
   width: 73vmin;
   overflow: hidden;
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
+  background-color: var(--card-color);
 }
 
 .disease-card:hover {
   transform: scale(1.02, 1.06);
   border: 0.3vmin solid transparent;
-  
 }
 
 .disease-card::before {
-  background: linear-gradient(130deg, transparent 0% 33%, var(--g1) 66%, var(--g2) 83.3%, var(--g3) 100%);
+  background: linear-gradient(
+    130deg,
+    transparent 0% 33%,
+    var(--g1) 66%,
+    var(--g2) 83.3%,
+    var(--g3) 100%
+  );
   background-size: 300% 300%;
   background-position: 0% 0%;
   transition: background-position 0.35s ease-in-out;
@@ -44,96 +443,94 @@
   top: 0px;
   width: 100%;
   z-index: 1;
-
-  
 }
 
 .disease-card:hover::before {
   background-position: 100% 100%;
 }
 
-
-
 .disease-card-content {
-  background: radial-gradient(
+  /* background: radial-gradient(
     rgba(255, 255, 255, 0.1) 5%,
     transparent 8%
   );
   background-position: 0% 0%;
   background-size: 5vmin 5vmin;
-  width: 100%;
-  height: 100%;
   z-index: 2;
+   */
+  /* border: var(--border) 0.3vmin solid;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
   border-radius: inherit;
-
+  position: relative;
+  transition: border 0.3s ease-in-out; */
 }
+
+/* .disease-card:hover .disease-card-content {
+  border: 0.3vmin solid transparent;
+  
+} */
+
+/* .disease-card-content span {
+  position: absolute;
+  top: 14%;
+  right: 3%;
+  z-index: 2;
+  
+} */
 
 .icon {
   position: absolute;
-  width: 50%;
-  top: 150%;
-  left: 75%;
+  width: 40%;
+  top: 120%;
+  left: 80%;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: 0.5s ease-in-out;
-  
+  z-index: 1;
 }
 
 .disease-card:hover .icon {
   opacity: 1;
-  top: 90%;
-  transform: translate(-50%, -50%) rotate(5deg);
+  top: 85%;
+  transform: translate(-50%, -50%) rotate(7deg);
+}
+.stetho {
+  position: absolute;
+  width: 50%;
+  top: 180%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.disease-card:hover .stetho {
+  opacity: 1;
+  top: 120%;
+  transform: translate(-50%, -50%) rotate(7deg);
 }
 
 .disease-card:hover h2 {
-  color: aliceblue;
+  color: rgb(255, 255, 255);
 }
 
-.disease-card-Dermatologie {
-  --g1: #e5989b;
-  --g2: #b5838d;
-  --g3: #6d6875; 
-}
-.disease-card-Chirurgie {
-  --g1: #2b2d42;
-  --g2: #8d99ae;
-  --g3: #edf2f4; 
-}
-.disease-card-Cardiologie {
-  --g1: #d90429;
-  --g2: #ef233c;
-  --g3: #a8dadc; 
-}
-.disease-card-Neurologie {
-  --g1: #faa307;
-  --g2: #f48c06;
-  --g3: #ffddd2; 
-}
-.disease-card-Dermatologie {
-  --g1: #e5989b;
-  --g2: #b5838d;
-  --g3: #6d6875; 
-}
-
-/* ------------ */
-
-
-
-
+/* ************************* SPECIALTIES CARDS ************************ */
 
 .specialty-cards:hover > .specialty-card::after {
   opacity: 1;
 }
 
 .specialty-card {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 15px;
   cursor: pointer;
   display: flex;
   height: 260px;
   flex-direction: column;
   position: relative;
-  width: 300px;  
+  width: 300px;
 }
 
 .specialty-card:hover::before {
@@ -149,23 +546,23 @@
   opacity: 0;
   position: absolute;
   top: 0px;
-  transition: opacity 500ms;
+  transition: opacity 600ms;
   width: 100%;
 }
 
 .specialty-card::before {
   background: radial-gradient(
-    800px circle at var(--mouse-x) var(--mouse-y), 
+    800px circle at var(--mouse-x) var(--mouse-y),
     rgba(255, 255, 255, 0.06),
     transparent 40%
   );
   z-index: 3;
 }
 
-.specialty-card::after {  
+.specialty-card::after {
   background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y), 
-    rgba(255, 255, 255, 0.4),
+    600px circle at var(--mouse-x) var(--mouse-y),
+    hsla(0, 0%, 100%, 0.4),
     transparent 40%
   );
   z-index: 1;
@@ -193,49 +590,52 @@
   z-index: 99;
 }
 
-/* ********************************************** */
+/* ******************** SPECIALTY CARD MAIN ICON + TEXT ************************** */
 
 .main-icon {
   width: 50%;
-
+  position: absolute;
+  transition: transform 600ms ease;
+  z-index: 6;
 }
-.main-icon path{
-  transition: fill 300ms ease-in-out;
+.main-icon path {
+  transition: fill 500ms ease-in-out;
 }
 .specialty-card:hover .main-icon path {
   fill: var(--g1);
 }
+.specialty-card:hover .main-icon {
+  transform: translate(0, -2rem);
+}
 
 .specialty-card span {
+  visibility: hidden;
   opacity: 0;
-  transition: all 300ms ease-in-out;
+  position: relative;
+  transition: visibility 0ms, opacity 600ms ease 200ms, transform 600ms ease;
+  z-index: 5;
+}
+
+.specialty-card:hover span::after {
+  transform: scaleX(1);
+}
+
+.specialty-card span::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  /* transform-origin: bottom right; */
+  height: 3px;
+  bottom: -8px;
+  left: 0;
+  background-color: var(--g1);
+  transition: transform 600ms ease 200ms;
 }
 .specialty-card:hover span {
+  visibility: visible;
   opacity: 1;
-  text-decoration: underline var(--g1) 2px solid ;
+  transform: translate(0, 64px);
+  /* text-decoration: underline var(--g1) 2px solid ; */
   text-underline-offset: 10px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }

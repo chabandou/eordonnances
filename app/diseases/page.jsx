@@ -1,24 +1,20 @@
-import Link from "next/link";
+import { connectToMongoDB } from "@/app/libs/mongodb";
+import Disease from "@/models/diseaseModel";
 import Search from "../ui/search";
 import Pagination from "../ui/index/pagination";
-import * as fs from "node:fs";
-import Disease from "@/models/diseaseModel";
-import { connectToMongoDB } from "@/app/libs/mongodb";
-import DiseaseCard from "../ui/index/DiseaseCard";
-
-
+import DiseaseCards from "@/app/ui/index/DiseaseCards";
 
 async function countDiseases(q, specialty) {
   const query = q
-  ? specialty
-    ? {
-        "disease.name": { $regex: `${q}`, $options: "i" },
-        "disease.specialty": { $regex: `${specialty}`, $options: "i" },
-      }
-    : { "disease.name": { $regex: `${q}`, $options: "i" } }
-  : specialty
-  ? { "disease.specialty": { $regex: `${specialty}`, $options: "i" } }
-  : {};
+    ? specialty
+      ? {
+          "disease.name": { $regex: `${q}`, $options: "i" },
+          "disease.specialty": { $regex: `${specialty}`, $options: "i" },
+        }
+      : { "disease.name": { $regex: `${q}`, $options: "i" } }
+    : specialty
+    ? { "disease.specialty": { $regex: `${specialty}`, $options: "i" } }
+    : {};
   await connectToMongoDB(`countDiseases`);
   const count = await Disease.countDocuments(query);
   return count;
@@ -28,8 +24,8 @@ async function getSpecialties() {
   const specialties = await Disease.aggregate([
     { $match: {} }, // filter by query
     { $project: { "disease.name": 0, DDx: 0, Dx: 0, _id: 0, Rx: 0 } }, // remove Rx, DDx and Dx fields
-  ])
-  return specialties
+  ]);
+  return specialties;
 }
 
 // async function getMedications() {
@@ -64,7 +60,7 @@ async function getDiseases(q, currentPage, specialty) {
         }
       : { "disease.name": { $regex: `${q}`, $options: "i" } }
     : specialty
-    ? { "disease.specialty": `${specialty}`}
+    ? { "disease.specialty": `${specialty}` }
     : {};
   await connectToMongoDB("getDiseases");
   const diseases = await Disease.aggregate([
@@ -73,12 +69,11 @@ async function getDiseases(q, currentPage, specialty) {
   ])
     .limit(ITEMS_PER_PAGE) // limit to 25 documents retrieved
     .skip(offset); // skip the first 25 items
-  return  JSON.parse(JSON.stringify(diseases));
+  return JSON.parse(JSON.stringify(diseases));
 }
 
 const ITEMS_PER_PAGE = 20;
 export default async function Page({ searchParams }) {
-
   const q = searchParams?.q || "";
   const specialty = searchParams?.specialty || "";
   const currentPage = searchParams?.page || 1;
@@ -93,18 +88,20 @@ export default async function Page({ searchParams }) {
     return array.filter((item, index) => array.indexOf(item) === index);
   }
 
-  const finalSpecialties = removeDuplicates(specialtiesArray)
+  const finalSpecialties = removeDuplicates(specialtiesArray);
 
   return (
-    <main className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 place-items-center bg-gray-800 bg-opacity-30">
+    <main className="container flex flex-col items-center">
       <Search
         placeholder="Rechercher une maladie"
         specialties={finalSpecialties}
       />
-      {diseases.map((d) => (
-        <DiseaseCard key={d._id} d={d} />
-      ))}
-      <Pagination className="mt-4" totalPages={totalPages} />
+      <div className="min-h-[80dvh]">
+        <DiseaseCards q={q} specialty={specialty} diseases={diseases} />
+      </div>
+      <div className="m-4">
+        <Pagination totalPages={totalPages} />
+      </div>
     </main>
   );
 }
