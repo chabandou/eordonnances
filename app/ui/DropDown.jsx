@@ -55,6 +55,10 @@ export default function DropDown({ items, pathname, searchParams, replace }) {
     <div className="dropdown">
       <div className="input-box"></div>
       <div className="list">
+        <input onClick={() => handleFilter("")} type="radio" name="item" id="all" className="radio" />
+        <label htmlFor="all">
+          <span className="name">All</span>
+        </label>
         {items.map((item, i) => (
           <>
             <input

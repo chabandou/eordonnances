@@ -3,6 +3,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import DropDown from "@/app/ui/DropDown";
+import SearchGlass from "@/app/ui/icons/SearchGlass";
 
 export default function Search({ placeholder, specialties }) {
   const searchParams = useSearchParams();
@@ -21,18 +22,19 @@ export default function Search({ placeholder, specialties }) {
 
 
   return (
-    <section className="flex justify-center items-center p-0 w-1/3 m-3 gap-2">
-      <div className="relative flex flex-1 grow transition-all duration-300 ease-in-out *:hover:text-gray-400 *:hover:border-gray-600 *:hover:placeholder:text-gray-400">
+    <section className="flex justify-center items-center w-[40%] m-4 p-0 gap-4 h-fit">
+      <div className="relative w-full flex flex-1 grow transition-all duration-300 ease-in-out">
         <label htmlFor="search" className="sr-only">
           Search
         </label>
         <input
-          className="peer flex-grow w-full h-12 rounded-lg border-2 border-white border-opacity-60 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-200 bg-gray-950 bg-opacity-40 transition-all duration-300 ease-in-out focus:bg-opacity-60 text-slate-100 hover:bg-gray-900"
+          className="search-box flex-grow w-full h-14 "
+          id="search"
           placeholder={placeholder}
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get("q")?.toString()}
         />
-        <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-white peer-focus:text-gray-200" />
+        <SearchGlass className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 peer-focus:text-white" />
       </div>
       {/* <select
         onChange={(e) => handleFilter(e.target.value)}

@@ -40,7 +40,7 @@ export default function Navbar() {
           </div>
         </Link>
       </header>
-      <div className="menu flex flex-col items-start justify-start gap-y-6 mt-4 m-auto">
+      <div className="menu flex h-fit flex-col items-start justify-start gap-y-3 mt-4 m-auto">
         <NavLink href="/" title="Accueil" icon={<Home />} i={0} />
         <NavLink href="/diseases" title="Recherchez" icon={<Search />} i={1} />
         <NavLink href="/diseases/add" title="Ajouter" icon={<Add />} i={2} />
