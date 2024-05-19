@@ -1,23 +1,29 @@
 "use client";
 
 import { useEffect } from "react";
+import Arrow from "@/app/ui/icons/Arrow";
 
 export default function DropDown({ items, pathname, searchParams, replace }) {
   useEffect(() => {
     var input = document.querySelector(".input-box");
+    let arrow = document.querySelector(".arrow");
+    let list = document.querySelector(".list");
+
     input.onclick = function () {
       this.classList.toggle("open");
-      let list = this.nextElementSibling;
+
       list.classList.toggle("open");
+      arrow.classList.toggle("open");
+
     };
 
     var rad = document.querySelectorAll(".radio");
     rad.forEach((item) => {
       item.addEventListener("change", () => {
         input.innerHTML = item.nextElementSibling.innerHTML;
-        let list = document.querySelector(".list");
         input.classList.toggle("open");
         list.classList.remove("open");
+        arrow.classList.remove("open");
         // input.click();
       });
     });
@@ -54,10 +60,12 @@ export default function DropDown({ items, pathname, searchParams, replace }) {
   return (
     <div className="dropdown">
       <div className="input-box"></div>
+      <Arrow className="arrow" />
+
       <div className="list">
         <input onClick={() => handleFilter("")} type="radio" name="item" id="all" className="radio" />
         <label htmlFor="all">
-          <span className="name">All</span>
+          <span className="name">Tous</span>
         </label>
         {items.map((item, i) => (
           <>

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function CardsWithSpecialty({ specialty, diseases }) {
   return (
     <AnimatePresence>
-      <div className="w-3/4 text-left m-2 mt-4">
+      <div className="specialty-h w-3/4 text-left m-2 mt-4">
         <h2
           key={specialty}
           className={`text-[3.5rem] font-bold specialty-h2 disease-card-${specialty} uppercase`}

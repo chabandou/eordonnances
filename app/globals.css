@@ -11,9 +11,10 @@
   --text-color-secondary: #212529;
   /* --border: hsla(0, 0%, 100%, 0.06); */
   --border: hsl(0, 0%, 6%);
-  --g1: #00c6a7;
+  --g1: #00c7a9;
   --g2: #008148;
   --g3: #133c55;
+  --g1dark: 171, 100%, 39%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -68,7 +69,7 @@ body {
   --g2: #faa307;
   --g3: #ffddd2;
 }
-.disease-card-Gynécologie {
+.disease-card-Gynéco-Obstétrique {
   --g1: #ff7096;
   --g2: #ff477e;
   --g3: #ff0a54;
@@ -83,7 +84,7 @@ body {
   --g2: #4361ee;
   --g3: #3a0ca3;
 }
-.disease-card-ORL {
+.disease-card-Oto-rhino-laryngologie {
   --g1: #3793ff;
   --g2: #0017e4;
   --g3: hsl(239, 94%, 25%);
@@ -138,8 +139,8 @@ body {
   width: 100%;
   height: 56px;
   border-radius: 12px;
-  background: linear-gradient(to right, var(--g3), transparent);
-  /* background-size: 200%; */
+  background: linear-gradient(to right, hsl(var(--g1dark), 0.75), transparent);
+  /* background-size: -200%; */
   /* animation: background-pan 3s ease-in-out infinite; */
   z-index: 1;
   opacity: 0;
@@ -263,25 +264,23 @@ body {
   background: var(--card-color);
   border-radius: 12px;
   padding-left: 40px;
+  font-size: 1rem;
   transition: all 0.4s ease-in-out;
+  position: relative;
 }
 .search-box::placeholder {
   color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
 }
 .search-box:hover::placeholder {
-  background: linear-gradient(
-    to right,
-    var(--g1),
-    var(--g2),
-    var(--g3),
-    var(--g1)
-  );
-  animation: background-anim 1.5s ease-in-out infinite;
-  background-size: 200%;
+  background-color: var(--g1);
   width: fit-content;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  transition: background-color 0.4s ease-in-out;
 }
 
 #search {
@@ -293,27 +292,61 @@ body {
   outline: 0.5mm solid rgba(255, 255, 255, 0.15);
   position: relative;
 }
+
+#search:hover {
+  outline: 0.5mm solid transparent;
+}
+
 #search:focus {
   outline: 0.5mm solid rgba(255, 255, 255, 0.35);
 }
 
-#search:hover {
-  outline: 0.5mm solid rgba(255, 255, 255, 0);
-  background: linear-gradient(
-        to bottom,
-        oklch(0.1 0.2 240 / 0.95),
-        oklch(0.1 0.2 240 / 0.95)
-      )
-      padding-box,
-    conic-gradient(from 0deg in oklch longer hue, oklch(1 0.37 0) 0 0)
-      border-box;
-
-  border: .5mm solid transparent;
+.search-container {
+  position: relative;
 }
 
-@keyframes outline-anim {
+@property --gradientAngle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.search-container::after,
+.search-container::before {
+  content: "";
+  position: absolute;
+  background: conic-gradient(
+    from var(--gradientAngle),
+    var(--g1),
+    var(--g2),
+    var(--g3),
+    var(--g2),
+    var(--g1)
+  );
+  inset: -0.5mm;
+  border-radius: 12px;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.4s ease-in-out;
+}
+
+.search-container::before {
+  filter: blur(1mm);
+}
+
+.search-container:hover::before {
+  opacity: 0.7;
+  animation: gradientRotate 10s linear infinite;
+}
+
+.search-container:hover::after {
+  opacity: 1;
+  animation: gradientRotate 10s linear infinite;
+}
+
+@keyframes gradientRotate {
   to {
-    transform: rotate(1turn);
+    --gradientAngle: 360deg;
   }
 }
 
@@ -324,22 +357,93 @@ body {
 .search-box:focus ~ svg path {
   fill: rgb(255, 255, 255);
 }
+.search-box:hover ~ svg path {
+  fill: var(--g1);
+}
 
 /* ------------ Specialty DropDown ------------ */
 
 .dropdown {
   width: 33%;
   height: 100%;
+  border-radius: 12px;
   box-sizing: border-box;
   position: relative;
   z-index: 9;
 }
+
+/* .dropdown::after,
+.dropdown::before {
+  content: "";
+  position: absolute;
+  background: conic-gradient(
+    from var(--gradientAngle),
+    var(--g1),
+    var(--g2),
+    var(--g3),
+    var(--g2),
+    var(--g1)
+  );
+  background-size: 220%;
+  inset: 0;
+  border-radius: 12px;
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.dropdown::before {
+  filter: blur(1mm);
+  z-index: 7;
+}
+
+
+.dropdown:hover::before {
+  opacity: 0.7;
+  animation: gradientRotate 10s linear infinite;
+}
+
+.dropdown:hover::after {
+  opacity: 1;
+  animation: gradientRotate 10s linear infinite;
+}
+
+.dropdown.open::after,
+.dropdown.open::before {
+  opacity: 0;
+} */
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  /* border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(255, 255, 255, 0.6); */
+  z-index: 10;
+  transition: all 0.5s ease-in-out;
+}
+
+.arrow path {
+  fill: rgba(255, 255, 255, 0.6);
+}
+.dropdown:hover .arrow path {
+  fill: rgba(255, 255, 255, 0.8);
+}
+
+.arrow.open {
+  transform: translateY(-50%) rotate3d(1, 0, 0, 180deg);
+  outline: none;
+}
+
 .input-box {
   width: 100%;
   height: 3.4rem;
   box-sizing: border-box;
   outline: 0.5mm solid rgba(255, 255, 255, 0.15);
-  border-radius: 2mm;
+  border-radius: 12px;
   padding: 10px 15px;
   font-size: 14px;
   cursor: pointer;
@@ -347,11 +451,28 @@ body {
   align-items: center;
   justify-content: flex-start;
   position: relative;
+  z-index: 11;
+  transition: all 0.4s ease-in-out;
+}
+
+.input-box:hover {
+  outline: 0.5mm solid rgba(255, 255, 255, 0.35);
+}
+
+.input-box:focus {
+  outline: 0.5mm solid rgba(255, 255, 255, 0.35);
 }
 
 .input-box:empty::after {
-  content: "Spécialité";
+  content: "Spécialités";
   color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
+
+.dropdown:hover .input-box:empty::after {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .list {
@@ -373,7 +494,7 @@ body {
   opacity: 0;
   overflow: hidden;
   visibility: hidden;
-  transition: 0.25s ease-out;
+  transition: 0.35s ease-out;
   z-index: 15;
   text-align: left;
 }
@@ -413,36 +534,21 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 input:checked + label {
-  color: rgb(20, 117, 213);
+  color: var(--g1);
+  font-weight: 600;
   background: rgb(26, 26, 26);
 }
-input:checked + label::before {
-  /* content: "done";
-  font-family: "Material Icons";
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translate(0, -50%);
-  font-size: 18px; */
-}
+
 .open {
-  outline: 0.7mm solid var(--g3);
+  outline: 0.7mm solid hsl(var(--g1dark), 0.65);
 }
 
 .list.open {
-  outline: none;
-  outline: 0.7mm solid var(--g3);
   opacity: 1;
   visibility: visible;
   max-height: 1350%;
   z-index: 15;
 }
-
-/* .search-box {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 8px;
-} */
 
 /* -------------- END of Specialty DropDown ------------ */
 
@@ -463,12 +569,42 @@ input:checked + label::before {
     var(--g3),
     var(--g1)
   );
-  animation: background-pan 1.5s ease-in-out 1;
+  animation: background-pan 1.5s ease-in-out 0.5s 1;
   background-size: 200%;
   width: fit-content;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+}
+
+.specialty-h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(var(--background-end-rgb)) 50%,
+    rgb(var(--background-end-rgb)) 100%
+  );
+  background-size: 400%;
+  background-position: 0% center;
+  display: block;
+  margin-top: 1rem;
+  animation: background-forward 1.2s ease-in-out 1;
+}
+
+@keyframes background-forward {
+  from {
+    background-position: 70% center;
+  }
+  to {
+    background-position: 0% center;
+  }
 }
 
 .disease-card {
@@ -547,7 +683,7 @@ input:checked + label::before {
 .icon {
   position: absolute;
   width: 40%;
-  top: 120%;
+  top: 110%;
   left: 80%;
   transform: translate(-50%, -50%);
   opacity: 0;
@@ -558,12 +694,12 @@ input:checked + label::before {
 .disease-card:hover .icon {
   opacity: 1;
   top: 85%;
-  transform: translate(-50%, -50%) rotate(7deg);
+  transform: translate(-50%, -60%) rotate(7deg);
 }
 .stetho {
   position: absolute;
   width: 50%;
-  top: 180%;
+  top: 170%;
   left: 80%;
   transform: translate(-50%, -50%);
   opacity: 0;
@@ -574,7 +710,7 @@ input:checked + label::before {
 .disease-card:hover .stetho {
   opacity: 1;
   top: 120%;
-  transform: translate(-50%, -50%) rotate(7deg);
+  transform: translate(-50%, -60%) rotate(7deg);
 }
 
 .disease-card:hover h2 {
@@ -703,4 +839,72 @@ input:checked + label::before {
   transform: translate(0, 64px);
   /* text-decoration: underline var(--g1) 2px solid ; */
   text-underline-offset: 10px;
+}
+
+/* ************************************ DETAILS PAGE **************************** */
+
+.detail-card {
+  color: white;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  height: 100%;
+  position: relative;
+}
+
+.detail-card h1,
+ul {
+  z-index: 10;
+  /* color: white; */
+}
+
+.Rx-card {
+  background-image: conic-gradient(
+    from -95deg,
+    var(--g1),
+    var(--g3),
+    var(--g3),
+    var(--g1),
+    var(--g3),
+    var(--g3),
+    var(--g1)
+  );
+  color: hsl(0, 0%, 4%);
+}
+
+.Rx-card::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 10px;
+  background: hsl(0, 0%, 96%);
+}
+
+.Rx-h1 {
+  position: absolute;
+
+  top: -35px;
+  left: -10px;
+  right: 0;
+  z-index: 10;
+}
+
+.Rx-card h1 {
+  background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 4rem;
+}
+
+.divider {
+  width: 7px;
+  height: 100%;
+  background-image: radial-gradient(circle at 50% 50%, var(--g1), transparent);
+  transform: scaleY(1.5);
+  z-index: 0;
+}
+
+.disease-def {
+  height: 100%;
 }

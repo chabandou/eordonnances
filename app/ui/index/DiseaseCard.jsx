@@ -51,7 +51,7 @@ const specialties = [
   { name: "ORL", icon: <Throat className="icon" /> },
   {
     name: "Uregences",
-    icon: <Ambulance className=" icon" />,
+    icon: <Ambulance className="icon" />,
   },
 ];
 
@@ -65,7 +65,6 @@ export default function DiseaseCard({ d, i }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      layout
       className="p-0 max-h-fit m-4"
     >
       <Link

@@ -41,9 +41,14 @@ const specialties = [
   },
   {
     name: "Gynécologie",
-    icon: <Uterus className="main-icon disease-card-Gynécologie" />,
+    icon: <Uterus className="main-icon disease-card-Gynéco-Obstétrique" />,
+    href: "Gynéco-Obstétrique",
   },
-  { name: "ORL", icon: <Throat className="main-icon disease-card-ORL" /> },
+  {
+    name: "ORL",
+    icon: <Throat className="main-icon disease-card-Oto-rhino-laryngologie" />,
+    href: "Oto-rhino-laryngologie",
+  },
   {
     name: "Uregences",
     icon: <Ambulance className="main-icon disease-card-Uregences" />,
@@ -73,11 +78,11 @@ export default function SpecialtyCards() {
             className={"specialty-card-content"}
           ></div>
           <Link
-            href={`/diseases?specialty=${s.name}`}
+            href={`/diseases?specialty=${s.href ? s.href : s.name}`}
             className="specialty-text w-full h-full flex flex-col flex-wrap justify-center items-center"
           >
             {s.icon && s.icon}
-            <span className={`disease-card-${s.name} specialty-text-main`}>
+            <span className={`disease-card-${s.href ? s.href : s.name} specialty-text-main`}>
               {s.name}
             </span>
           </Link>

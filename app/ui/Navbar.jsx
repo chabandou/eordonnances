@@ -31,7 +31,7 @@ export default function Navbar() {
     }
   }, []);
   return (
-    <div className="nav-container py-3 px-4 m-auto">
+    <div className="nav-container py-3 px-4 m-auto z-50">
       <header className="flex flex-col w-fit items-start justify-start gap-y-6 m-auto">
         <Link className="hover:cursor-pointer text-2xl font-bold" href="/">
           <div className="flex items-center justify-start gap-1">
