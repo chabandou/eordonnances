@@ -3,6 +3,7 @@ import Disease from "@/models/diseaseModel";
 import Search from "../ui/search";
 import Pagination from "../ui/index/pagination";
 import DiseaseCards from "@/app/ui/index/DiseaseCards";
+import { log } from "console";
 
 async function countDiseases(q, specialty) {
   const query = q

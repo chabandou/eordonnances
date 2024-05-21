@@ -8,7 +8,11 @@ const diseaseSchema = new Schema({
     specialty: {
       type: Schema.Types.Mixed,
       required: true,
-    }
+    },
+    definition: {
+      type: String,
+      required: true,
+    },
   },
   Rx: Schema.Types.Mixed,
   Dx: [

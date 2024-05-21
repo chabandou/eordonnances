@@ -36,8 +36,8 @@ export default async function diseasePage({ params }) {
         <div className="disease-def flex w-full gap-4">
           <div className="divider"></div>
           <p>
-            {disease.description
-              ? disease.description
+            {disease.definition
+              ? disease.definition
               : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque scelerisque dapibus. Integer a ultricies turpis. Etiam ut dignissim metus. Pellentesque nisl orci, lacinia lacinia gravida blandit, interdum et augue. Etiam maximus vel nulla quis consequat. Aliquam semper cursus erat quis venenatis. Vestibulum consectetur tortor non quam sagittis facilisis."}
           </p>
         </div>
