@@ -35,10 +35,10 @@ export async function GET(NextRequest) {
 
 // this worked once for sure
 export async function POST(request) {
-  const data = await request.json();
+  // const data = await request.json();
   console.log(request);
-  await connectToMongoDB();
-  await Disease.create(data);
+  // await connectToMongoDB();
+  // await Disease.create(data);
   return NextResponse.json({ message: "disease created" }, { status: 201 });
 }
 

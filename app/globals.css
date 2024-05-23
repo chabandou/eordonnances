@@ -47,6 +47,11 @@ body {
   width: calc(100% - 78px);
 }
 
+input {
+  background: var(--card-color);
+  color: var(--text-color);
+}
+
 /* ******************** COLORS ************************** */
 
 .disease-card-Dermatologie {
