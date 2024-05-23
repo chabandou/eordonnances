@@ -11,7 +11,7 @@ export async function POST(request, response) {
       }. Spécialité: ${data.specialty}. Définition: ${
         data.definition
       }. Rx: ${data.Rx.map((rx) => {
-        return `${rx.mdc} - ${rx.dosage} - ${rx.quantity} - ${rx.instructions}`;
+        return `medicament: ${rx.mdc} - dosage: ${rx.dosage} - quantity: ${rx.quantity} - instructions: ${rx.instructions}`;
       })}.`,
     });
 
