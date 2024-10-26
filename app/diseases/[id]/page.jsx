@@ -1,8 +1,11 @@
-
 import { connectToMongoDB } from "@/app/libs/mongodb";
 import Disease from "@/models/diseaseModel";
+import Medication from "../../../models/medicationModel";
 import Link from "next/link";
 import RxCard from "@/app/ui/details/RxCard";
+import RxArray from "@/app/ui/details/RxArray";
+import RxObject from "@/app/ui/details/RxObject";
+import Image from "next/image";
 
 export default async function diseasePage({ params }) {
   const id = params.id;
@@ -17,8 +20,8 @@ export default async function diseasePage({ params }) {
     }
     return foundDisease;
   }
+
   const { Rx, disease } = await getDisease(id);
- 
 
   return (
     <section className="flex flex-col w-full justify-center items-center gap-4 mt-4 z-[5]">
@@ -44,16 +47,25 @@ export default async function diseasePage({ params }) {
           </p>
         </div>
       </div>
-      <div className="w-3/4 grid grid-cols-2 gap-4">
+      <div className="w-3/4 grid grid-cols-3 gap-4">
         <div
           id="Rx"
-          className="detail-card Rx-card w-full m-0 flex justify-center items-start flex-col gap-4"
+          style={{ backgroundColor: "transparent" }}
+          className="detail-card col-span-2 w-full aspect-[1/1.15] m-0 flex justify-center items-start flex-col gap-4"
         >
-          <RxCard Rx={Rx} />
+          <Image
+            src="/rx-illustration.svg"
+            alt="rx-illustration"
+            fill
+            className="w-full h-full object-contain"
+          />
+          <RxCard Rx={Rx}>
+            {Array.isArray(Rx) ? <RxArray Rx={Rx} /> : <RxObject Rx={Rx} />}
+          </RxCard>
         </div>
-        <div className="detail-card w-full m-0 flex justify-center items-start flex-col gap-4">
+        <div className="detail-card w-full m-0 flex justify-between items-start flex-col gap-4">
           <h1 className="text-2xl font-bold">Dx</h1>
-          <p>Diagnosis</p>
+          <p className="h-full">Diagnosis</p>
         </div>
       </div>
     </section>

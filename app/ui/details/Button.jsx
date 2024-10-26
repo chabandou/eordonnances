@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Print from "@/app/ui/icons/Print";
 
 export default function Button({ Text, Icon }) {
@@ -25,9 +26,12 @@ export default function Button({ Text, Icon }) {
   };
 
   return (
-    <button id="print-button" className="print-button text-white" onClick={printElement}>
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+     id="print-button" className="print-button text-white" onClick={printElement}>
       {Text}
       <Print width={37} height={37} />
-    </button>
+    </motion.button>
   );
 }
