@@ -28,7 +28,7 @@ export default function Search({ placeholder, specialties }) {
           Search
         </label>
         <input
-          className="search-box flex-grow w-full h-14 "
+          className="search-box ps-10 flex-grow w-full h-14 "
           id="search"
           placeholder={placeholder}
           onChange={(e) => handleSearch(e.target.value)}

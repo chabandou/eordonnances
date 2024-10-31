@@ -286,7 +286,6 @@ input {
 .search-box {
   background: var(--card-color);
   border-radius: 12px;
-  padding-left: 40px;
   font-size: 1rem;
   transition: all 0.4s ease-in-out;
   position: relative;
@@ -306,7 +305,7 @@ input {
   transition: background-color 0.4s ease-in-out;
 }
 
-#search {
+.search-box {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -316,11 +315,11 @@ input {
   position: relative;
 }
 
-#search:hover {
+.search-box:hover {
   outline: 0.5mm solid transparent;
 }
 
-#search:focus {
+.search-box:focus {
   outline: 0.5mm solid rgba(255, 255, 255, 0.35);
 }
 
@@ -882,42 +881,17 @@ ul {
 }
 
 .Rx-card {
-  background-image: conic-gradient(
-    from -95deg,
-    var(--g1),
-    var(--g3),
-    var(--g3),
-    var(--g1),
-    var(--g3),
-    var(--g3),
-    var(--g1)
-  );
-  color: hsl(0, 0%, 4%);
+  padding: 0;
+  background-image: linear-gradient(-45deg, #454B54 0%, #68717F 64%, #99A6BA 100%);
+  border-radius: 9%;
 }
 
 .Rx-card::before {
   content: "";
   position: absolute;
-  inset: 7px;
-  border-radius: 10px;
+  inset: 10px;
+  border-radius: 8.5%;
   background: hsl(0, 0%, 96%);
-}
-
-.Rx-h1 {
-  position: absolute;
-
-  top: -35px;
-  left: -10px;
-  right: 0;
-  z-index: 10;
-}
-
-.Rx-card h1 {
-  background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 4rem;
 }
 
 .print-button {

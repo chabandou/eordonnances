@@ -33,8 +33,7 @@ export default async function RxArray({ Rx }) {
             : { nom: { $regex: `${q}`, $options: "i" } }
         ),
       };
-
-      console.log(query.$and.map((n) => n.nom));
+      
       await connectToMongoDB("getMadication");
       const foundMdc = await Medication.find(query).limit(1);
       if (foundMdc) {
@@ -43,7 +42,7 @@ export default async function RxArray({ Rx }) {
     }
   }
   return (
-    <div className="Rx-content w-full flex justify-center">
+    <div className="Rx-content w-full h-full flex justify-center">
       <ul className="w-[85%] translate-x-[2%] space-y-6 text-lg text-gray-900/90">
         {Rx.map((mdc, index) => (
           <li className="w-full flex flex-col items-center" key={index}>

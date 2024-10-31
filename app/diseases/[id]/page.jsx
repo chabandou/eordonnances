@@ -24,7 +24,7 @@ export default async function diseasePage({ params }) {
   const { Rx, disease } = await getDisease(id);
 
   return (
-    <section className="flex flex-col w-full justify-center items-center gap-4 mt-4 z-[5]">
+    <section className="flex flex-col w-full justify-center items-center gap-4 my-4 z-[5]">
       <div
         className={`detail-card m-1 w-3/4 flex justify-center items-start flex-row gap-4 disease-card-${disease.specialty}`}
       >
@@ -50,18 +50,26 @@ export default async function diseasePage({ params }) {
       <div className="w-3/4 grid grid-cols-3 gap-4">
         <div
           id="Rx"
-          style={{ backgroundColor: "transparent" }}
-          className="detail-card col-span-2 w-full aspect-[1/1.15] m-0 flex justify-center items-start flex-col gap-4"
+          className="detail-card Rx-card col-span-2 w-full min-h-[800px] flex justify-center items-center"
         >
-          <Image
+          {/* <Image
             src="/rx-illustration.svg"
             alt="rx-illustration"
             fill
             className="w-full h-full object-contain"
-          />
-          <RxCard Rx={Rx}>
-            {Array.isArray(Rx) ? <RxArray Rx={Rx} /> : <RxObject Rx={Rx} />}
-          </RxCard>
+            /> */}
+          <div className="w-[calc(100%-20px)] min-h-[calc(100%-20px)] my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
+            <Image
+              src="/waveT.svg"
+              alt="waveT"
+              width={100}
+              height={100}
+              className="absolute top-[-5px] left-[-2px] w-2/3"
+            />
+            <RxCard Rx={Rx}>
+              {Array.isArray(Rx) ? <RxArray Rx={Rx} /> : <RxObject Rx={Rx} />}
+            </RxCard>
+          </div>
         </div>
         <div className="detail-card w-full m-0 flex justify-between items-start flex-col gap-4">
           <h1 className="text-2xl font-bold">Dx</h1>
