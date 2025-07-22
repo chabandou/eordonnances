@@ -24,7 +24,7 @@ export default async function diseasePage({ params }) {
   const { Rx, disease } = await getDisease(id);
 
   return (
-    <section className="flex flex-col w-full justify-center items-center gap-4 my-4 z-[5]">
+    <section className="flex flex-col w-full justify-center items-center gap-8 my-4 z-[5]">
       <div
         className={`detail-card m-1 w-3/4 flex justify-center items-start flex-row gap-4 disease-card-${disease.specialty}`}
       >
@@ -47,10 +47,10 @@ export default async function diseasePage({ params }) {
           </p>
         </div>
       </div>
-      <div className="w-3/4 grid grid-cols-3 gap-4">
+      <div className="w-3/4 grid grid-cols-3 gap-8">
         <div
           id="Rx"
-          className="detail-card Rx-card col-span-2 w-full min-h-[800px] flex justify-center items-center"
+          className="detail-card Rx-card col-span-2 w-full min-h-[700px] h-fit flex justify-center items-center relative"
         >
           {/* <Image
             src="/rx-illustration.svg"
@@ -58,6 +58,20 @@ export default async function diseasePage({ params }) {
             fill
             className="w-full h-full object-contain"
             /> */}
+            <Image
+              src="/pill-bottle.svg"
+              alt="waveT"
+              width={100}
+              height={100}
+              className="w-1/6 absolute top-0 left-0  -translate-y-1/4 -translate-x-1/4 z-40"
+            />
+            <Image
+              src="/pills.svg"
+              alt="waveT"
+              width={100}
+              height={100}
+              className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40"
+            />
           <div className="w-[calc(100%-20px)] min-h-[calc(100%-20px)] my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
             <Image
               src="/waveT.svg"
@@ -65,6 +79,20 @@ export default async function diseasePage({ params }) {
               width={100}
               height={100}
               className="absolute top-[-5px] left-[-2px] w-2/3"
+            />
+            <Image
+              src="/waveB.svg"
+              alt="waveB"
+              width={100}
+              height={100}
+              className="absolute bottom-[-8%] right-[-2%] w-full"
+            />
+            <Image
+              src="/Union.svg"
+              alt="waveT"
+              width={100}
+              height={100}
+              className="absolute top-1/2 left-1/2 w-2/3 -translate-x-1/2 -translate-y-1/2"
             />
             <RxCard Rx={Rx}>
               {Array.isArray(Rx) ? <RxArray Rx={Rx} /> : <RxObject Rx={Rx} />}

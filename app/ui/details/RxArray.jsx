@@ -44,15 +44,20 @@ export default async function RxArray({ Rx }) {
   return (
     <div className="Rx-content w-full h-full flex justify-center">
       <ul className="w-[85%] translate-x-[2%] space-y-6 text-lg text-gray-900/90">
+      {/* // list medications */}
+
         {Rx.map((mdc, index) => (
           <li className="w-full flex flex-col items-center" key={index}>
+            {/* // Display medication name and quantity */}
             <div className="flex items-center justify-between w-full gap-x-2">
-              <span className="font-bold">💊 {mdc.name ? mdc.name : mdc}</span>
+              <span className="text-md lg:text-lg font-bold lg:leading-snug">💊 {mdc.name ? mdc.name : mdc}</span>
               {mdc.dosage && <span className="h-[2px] bg-gray-900/90 w-fit grow"/>}
               {/* {mdc.name && getMedication(mdc.name)} //TODO: add getMedication function */}
-              <span>{mdc.quantity && mdc.quantity}</span>
+              <span className="text-md lg:text-lg lg:leading-normal">{mdc.quantity && mdc.quantity}</span>
             </div>
-            <span className="">
+
+            {/* // Display medication dosage and instructions */}
+            <span className="text-md max-w-xs ms-2 -translate-y-1 lg:text-lg lg:leading-relaxed">
               {mdc.dosage &&
                 (typeof mdc.dosage === "string"
                   ? mdc.dosage
@@ -60,7 +65,7 @@ export default async function RxArray({ Rx }) {
                       index === 0 ? dsg : ` | ${dsg}`
                     ))}
             </span>
-            <span>
+            <span className="text-sm max-w-sm ms-2 lg:text-md lg:leading-relaxed">
               {mdc.instructions &&
                 (Array.isArray(mdc.instructions) ? (
                   <>

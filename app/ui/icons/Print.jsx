@@ -1,22 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 const SvgComponent = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 256 256"
-    {...props}
-  >
-    <path
-      fill="#fff"
-      strokeMiterlimit={10}
-      d="M0 256V0h256v256z"
-      fontFamily="none"
-      fontSize="none"
-      fontWeight="none"
-      style={{
-        mixBlendMode: "normal",
-      }}
-      textAnchor="none"
-    />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...props}>
     <path
       fill="#996c33"
       strokeMiterlimit={10}
@@ -31,5 +15,5 @@ const SvgComponent = (props) => (
       transform="scale(4)"
     />
   </svg>
-)
-export default SvgComponent
+);
+export default SvgComponent;

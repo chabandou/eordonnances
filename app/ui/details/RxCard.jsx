@@ -20,7 +20,7 @@ export default function RxCard({ Rx, children }) {
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="z-99 print-button absolute top-[10%] left-[82%] h-fit"
+        className="z-99 print-button absolute top-[5%] left-[85%] h-fit"
         onClick={() => setOpen(!open)}
         title="Imprimer la prescription"
       >

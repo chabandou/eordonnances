@@ -32,15 +32,15 @@ export default function Navbar() {
   }, []);
   return (
     <div className="nav-container py-3 px-4 m-auto z-50">
-      <header className="flex flex-col w-fit items-start justify-start gap-y-6 m-auto">
+      <header className="hidden lg:flex flex-row lg:flex-col w-fit items-start justify-start gap-y-6 m-auto">
         <Link className="hover:cursor-pointer text-2xl font-bold" href="/">
-          <div className="flex items-center justify-start gap-1">
+          <div className="hidden lg:flex items-center justify-start gap-1">
             <Rx className="" />
             <span>eOrdonnances</span>
           </div>
         </Link>
       </header>
-      <div className="menu flex h-fit flex-col items-start justify-start gap-y-3 mt-4 m-auto">
+      <div className="menu flex h-fit flex-row lg:flex-col  lg:items-start justify-center lg:gap-y-3 lg:mt-4 lg:m-auto">
         <NavLink href="/" title="Accueil" icon={<Home />} i={0} />
         <NavLink href="/diseases" title="Recherchez" icon={<Search />} i={1} />
         <NavLink href="/diseases/add" title="Ajouter" icon={<Add />} i={2} />
@@ -55,12 +55,12 @@ function NavLink({ href, title, icon, i }) {
     <Link
       href={href}
       className={clsx(
-        "nav-link flex text-md text-gray-400 hover:text-gray-400 hover:cursor-pointer",
+        "nav-link flex items-center justify-center text-md text-gray-400 hover:cursor-pointer transition-all duration-300 ease-in-out",
         pathname === href && "active"
       )}
     >
       <i>{icon}</i>
-      <span>{title}</span>
+      <span className="hidden lg:inline">{title}</span>
     </Link>
   );
 }
