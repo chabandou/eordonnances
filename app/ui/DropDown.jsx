@@ -58,11 +58,11 @@ export default function DropDown({ items, pathname, searchParams, replace }) {
   }
 
   return (
-    <div className="dropdown">
+    <div className="dropdown w-full lg:w-1/3">
       <div className="input-box"></div>
       <Arrow className="arrow" />
 
-      <div className="list">
+      <div className="list w-full lg:w-[300%] h-[75vh] lg:h-fit grid grid-cols-1 lg:grid-cols-3 ">
         <input onClick={() => handleFilter("")} type="radio" name="item" id="all" className="radio" />
         <label htmlFor="all">
           <span className="name">Tous</span>

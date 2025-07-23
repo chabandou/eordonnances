@@ -445,7 +445,6 @@ input {
 /* ------------ Specialty DropDown ------------ */
 
 .dropdown {
-  width: 33%;
   height: 100%;
   border-radius: 12px;
   box-sizing: border-box;
@@ -560,14 +559,10 @@ input {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 300%;
-  height: fit-content;
   background: var(--card-color);
   border: 0.3mm solid hsl(0, 0%, 18%);
   margin-top: 5px;
-  border-radius: 2mm;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0px, 100%));
+  border-radius: 2mm;  
   place-items: center;
   gap: 5px;
   box-sizing: border-box;
@@ -631,6 +626,15 @@ input:checked + label {
   z-index: 15;
 }
 
+@media screen and (max-width: 768px) {
+
+  .list.open {
+    overflow-y: auto;
+  }
+}
+
+
+
 /* -------------- END of Specialty DropDown ------------ */
 
 @keyframes background-pan {
@@ -689,12 +693,12 @@ input:checked + label {
 }
 
 .disease-card {
-  aspect-ratio: 3.75 / 1;
+
   border: 0.3vmin solid var(--border);
   border-radius: 15px;
   cursor: pointer;
   position: relative;
-  width: 73vmin;
+  /* width: 73vmin; */
   overflow: hidden;
   transition: all 0.3s ease-out;
   background-color: var(--card-color);

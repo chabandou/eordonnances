@@ -65,22 +65,22 @@ export default function DiseaseCard({ d, i }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="p-0 max-h-fit m-4"
+      className="w-[90%] lg:w-full p-0 lg:max-h-fit m-2 lg:m-3"
     >
       <Link
         key={d._id}
         href={`/diseases/${d._id}`}
-        className="hover:cursor-pointer border-transparent rounded-3xl text-xl sm:w-full lg:w-1/3"
+        className="hover:cursor-pointer border-transparent rounded-3xl text-xl w-full lg:w-1/3"
       >
         <div
           ref={diseaseCardRef}
-          className={`disease-card disease-card-${d.disease.specialty}`}
+          className={`disease-card lg:w-[73vmin] lg:aspect-[3.75/1] nx-auto disease-card-${d.disease.specialty}`}
         >
           <div
             className=" *:z-10 z-[5] flex flex-col rounded-3xl p-4 gap-3 disease-card-content"
             key={d._id}
           >
-            <h2 className="font-bold text-gray-300 text-2xl transition ease-out duration-250">
+            <h2 className="font-bold text-gray-300 text-2xl line-clamp-1 transition ease-out duration-250">
               {d.disease.name}
             </h2>
             <h3 className="text-white text-opacity-80 uppercase text-base tracking-wide">

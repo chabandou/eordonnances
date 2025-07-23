@@ -69,7 +69,7 @@ export default function SpecialtyCards() {
   return (
     <div
       onMouseMove={(e) => handleMouseMove(e)}
-      className="w-4/5 lg:w-full m-auto flex flex-wrap justify-center items-center gap-3 specialty-cards pt-4 pb-[calc(78px+1rem)] lg:pb-4 lg:my-auto"
+      className="w-4/5 lg:w-full m-auto flex flex-wrap justify-center items-center gap-3 specialty-cards "
     > 
       {specialties.map((s, i) => (
         <div ref={specialtyCardRefs[i]} key={i} className="specialty-card lg:w-1/4 md:w-1/3 sm:w-2/3 w-full relative">

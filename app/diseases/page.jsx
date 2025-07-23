@@ -95,15 +95,15 @@ export default async function Page({ searchParams }) {
   const finalSpecialties = removeDuplicates(specialtiesArray);
 
   return (
-    <main className="container flex flex-col items-center">
+    <main className="container flex flex-col items-center min-h-screen py-4">
       <Search
         placeholder="Rechercher une maladie"
         specialties={finalSpecialties}
       />
-      <div className="min-h-[80dvh]">
+      <div className="flex-1 w-full flex flex-col items-center justify-center">
         <DiseaseCards q={q} specialty={specialty} diseases={diseases} />
       </div>
-      <div className="m-4">
+      <div className="py-4">
         <Pagination totalPages={totalPages} />
       </div>
     </main>
