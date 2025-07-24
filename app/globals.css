@@ -557,8 +557,8 @@ input {
 
 .list {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 105%;
+  right: 0;
   background: var(--card-color);
   border: 0.3mm solid hsl(0, 0%, 18%);
   margin-top: 5px;
@@ -624,7 +624,13 @@ input:checked + label {
   visibility: visible;
   max-height: 1350%;
   z-index: 15;
+
 }
+
+.input-box.open:hover {
+  outline: 0.7mm solid hsl(var(--g1dark), 0.75);
+}
+
 
 @media screen and (max-width: 768px) {
 

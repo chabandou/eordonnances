@@ -95,7 +95,7 @@ export default async function Page({ searchParams }) {
   const finalSpecialties = removeDuplicates(specialtiesArray);
 
   return (
-    <main className="container flex flex-col items-center min-h-screen py-4">
+    <main className="w-full flex flex-col items-center justify-center min-h-screen py-4">
       <Search
         placeholder="Rechercher une maladie"
         specialties={finalSpecialties}

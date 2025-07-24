@@ -22,7 +22,7 @@ export default function Search({ placeholder, specialties }) {
 
 
   return (
-    <section className="w-4/5 lg:w-[40%] flex flex-col lg:flex-row justify-center items-center  m-4 p-0 gap-4 h-fit ">
+    <section className="w-4/5 lg:w-[50%] flex flex-col lg:flex-row justify-center items-center  m-4 p-0 gap-4 h-fit ">
       <div className="search-container relative w-full flex flex-1 grow transition-all duration-300 ease-in-out">
         <label htmlFor="search" className="sr-only">
           Search

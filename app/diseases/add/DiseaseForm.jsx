@@ -2,7 +2,14 @@
 
 import clsx from "clsx";
 import { useForm, useFieldArray } from "react-hook-form";
+
+
 import Rx from "@/app/ui/icons/Rx";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
+
 
 export default function DiseaseForm() {
   async function addDisease(data) {
@@ -53,10 +60,10 @@ export default function DiseaseForm() {
   return (
     <>
       <form
-        className="flex flex-col gap-2 w-1/2"
+        className="w-full lg:w-1/2 flex flex-col gap-2"
         onSubmit={handleSubmit((data) => addDisease(data))}
       >
-        <label htmlFor="name" className="text-xl font-semibold">
+        <label htmlFor="name" className="text-xl font-semibold mt-2">
           Nom de la maladie
         </label>
         <div className="relative search-container w-full flex flex-1 grow transition-all duration-300 ease-in-out hover:-translate-y-1">
@@ -65,10 +72,10 @@ export default function DiseaseForm() {
             id="name"
             {...register("name", { required: true, minLength: 3 })}
             placeholder="E.g. Diabete"
-            className="search-box input input-bordered input-primary w-full p-4 mb-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70"
+            className="search-box input input-bordered input-primary w-full p-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70"
           />
         </div>
-        <label htmlFor="specialty" className="text-xl font-semibold">
+        <label htmlFor="specialty" className="text-xl font-semibold mt-4">
           Spécialité
         </label>
         <div className="relative search-container w-full flex flex-1 grow transition-all duration-300 ease-in-out hover:-translate-y-1">
@@ -78,10 +85,10 @@ export default function DiseaseForm() {
             {...register("specialty", { required: true })}
             placeholder="E.g. Endocrinologie"
             required
-            className="search-box input input-bordered input-primary w-full p-4 mb-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70"
+            className="search-box input input-bordered input-primary w-full p-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70"
           />
         </div>
-        <label htmlFor="definition" className="text-xl font-semibold">
+        <label htmlFor="definition" className="text-xl font-semibold mt-4">
           Définition
         </label>
         <div className="relative search-container w-full flex flex-1 grow transition-all duration-300 ease-in-out hover:-translate-y-1">
@@ -91,10 +98,10 @@ export default function DiseaseForm() {
             {...register("definition", { required: true, minLength: 15 })}
             placeholder="E.g. Une maladie métabolique..."
             required
-            className="search-box input input-bordered input-primary w-full p-4 mb-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70"
+            className="search-box input input-bordered input-primary w-full p-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70"
           />
         </div>
-        <div className=" border border-dotted flex-col flex-wrap gap-4 w-full p-4 rounded-lg">
+        <div className=" border border-dotted flex-col flex-wrap gap-4 w-full p-4 rounded-lg mt-4">
           <label className="grow text-2xl font-bold mb-4">Rx</label>
           <div className="flex flex-col gap-4">
             {fields.map((field, index) => {
@@ -102,7 +109,7 @@ export default function DiseaseForm() {
                 <div
                   key={field.id}
                   className={clsx(
-                    "form-control grid grid-cols-2 gap-4 border-b border-dotted p-4 rounded-md",
+                    "form-control grid grid-cols-1 lg:grid-cols-2 gap-4 border-b border-dotted p-4 rounded-md",
                     index === fields.length - 1 && "border-b-0"
                   )}
                 >
@@ -162,8 +169,11 @@ export default function DiseaseForm() {
                       onClick={() => {
                         remove(index);
                       }}
+                      className="lg:col-span-2 flex items-center justify-center hover:bg-red-500/50 text-red-300 hover:text-white p-4 rounded-lg self-center border-2 border-red-400/80 hover:border-transparent active:bg-[#008148] active:scale-95 transition-all duration-300"
                     >
-                      Supprimer
+                     
+                      <TrashIcon className="w-6 h-6 transition-all duration-300" />
+                      <span className="sr-only">Supprimer le médicament</span>
                     </button>
                   )}
                 </div>
@@ -179,12 +189,9 @@ export default function DiseaseForm() {
                   instructions: "",
                 });
               }}
-              className="flex group items-center hover:bg-gray-500/50 text-gray-300 hover:text-white p-4 rounded-lg self-center border-2 border-gray-400/80 hover:border-transparent active:bg-[#008148] active:scale-95 transition-all duration-300"
+              className="w-full md:w-1/2 lg:h-1/3 flex group items-center hover:bg-gray-500/50 text-gray-300 hover:text-white p-4 rounded-lg self-center border-2 border-gray-400/80 hover:border-transparent active:bg-[#008148] active:scale-95 transition-all duration-300"
             >
-              +{" "}
-              {
-                <Rx className="w-6 h-6 -translate-x-[0.15rem] *:fill-gray-300 group-hover:*:fill-white transition-all duration-300" />
-              }{" "}
+              <PlusCircleIcon className="w-6 h-6 -translate-x-[0.15rem] mr-2 transition-all duration-300" />
               Médicament
             </button>
           </div>
@@ -193,7 +200,8 @@ export default function DiseaseForm() {
           type="submit"
           className="search-container group relative my-2 p-4 min-h-16 rounded-lg bg-[#323232] text-white text-2xl font-bold hover:bg-transparent active:bg-[hsl(153,100%,15%)] active:scale-95 hover:-translate-y-1 transition-all ease-in-out duration-500"
         >
-          <span className="absolute inset-0 content-center group-hover:backdrop-blur-md">Ajouter</span>
+          <span className="text-2xl absolute inset-0 content-center group-hover:backdrop-blur-md">Ajouter <ChevronDoubleRightIcon className="w-8 h-8 inline-block group-hover:translate-x-1 transition-all duration-300" /></span>
+          <span className="sr-only">Ajouter la maladie</span>
         </button>
       </form>
     </>
