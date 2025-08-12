@@ -24,13 +24,15 @@ export default async function diseasePage({ params }) {
   const { Rx, disease } = await getDisease(id);
 
   return (
-    <section className="flex flex-col w-full justify-center items-center gap-8 my-4 z-[5]">
+    <section className="flex flex-col w-full justify-center items-center gap-8 my-4 z-[5] px-4 md:px-0">
       <div
-        className={`detail-card m-1 w-3/4 flex justify-center items-start flex-row gap-4 disease-card-${disease.specialty}`}
+        className={`detail-card p-6 md:p-8  m-1 w-full md:w-3/4 flex flex-col md:flex-row justify-center items-start gap-4 disease-card-${disease.specialty}`}
       >
-        <div className="w-fit max-w-[50%] flex flex-col gap-4 z-[5]">
-          <h1 className="text-3xl font-bold uppercase ">{disease.name}</h1>
-          <h2 className="text-xl ">
+        <div className="w-full md:w-fit md:max-w-[50%] flex flex-row md:flex-col justify-between gap-4 z-[5]">
+          <h1 className="text-2xl md:text-3xl self-start font-bold uppercase ">
+            {disease.name}
+          </h1>
+          <h2 className={`text-xl self-start md:self-start md:text-xl font-semibold text-color-specialty disease-card-${disease.specialty}`}>
             {typeof disease.specialty === "string"
               ? disease.specialty
               : disease.specialty.map((s, index) =>
@@ -38,19 +40,19 @@ export default async function diseasePage({ params }) {
                 )}
           </h2>
         </div>
-        <div className="disease-def flex w-full gap-4">
+        <div className="disease-def flex flex-col md:flex-row w-full md:gap-4">
           <div className="divider"></div>
-          <p>
+          <p className=" text-justify">
             {disease.definition
               ? disease.definition
               : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque scelerisque dapibus. Integer a ultricies turpis. Etiam ut dignissim metus. Pellentesque nisl orci, lacinia lacinia gravida blandit, interdum et augue. Etiam maximus vel nulla quis consequat. Aliquam semper cursus erat quis venenatis. Vestibulum consectetur tortor non quam sagittis facilisis."}
           </p>
         </div>
       </div>
-      <div className="w-3/4 grid grid-cols-3 gap-8">
+      <div className="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
         <div
           id="Rx"
-          className="detail-card Rx-card col-span-2 w-full min-h-[700px] h-fit flex justify-center items-center relative"
+          className="detail-card Rx-card col-span-1 md:col-span-2 w-full min-h-[500px] md:min-h-[700px] h-fit flex justify-center items-center relative"
         >
           {/* <Image
             src="/rx-illustration.svg"
@@ -58,21 +60,21 @@ export default async function diseasePage({ params }) {
             fill
             className="w-full h-full object-contain"
             /> */}
-            <Image
-              src="/pill-bottle.svg"
-              alt="waveT"
-              width={100}
-              height={100}
-              className="w-1/6 absolute top-0 left-0  -translate-y-1/4 -translate-x-1/4 z-40"
-            />
-            <Image
-              src="/pills.svg"
-              alt="waveT"
-              width={100}
-              height={100}
-              className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40"
-            />
-          <div className="w-[calc(100%-20px)] min-h-[calc(100%-20px)] my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
+          <Image
+            src="/pill-bottle.svg"
+            alt="waveT"
+            width={100}
+            height={100}
+            className="w-1/6 absolute top-0 left-0  -translate-y-1/4 -translate-x-1/4 z-40"
+          />
+          <Image
+            src="/pills.svg"
+            alt="waveT"
+            width={100}
+            height={100}
+            className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40"
+          />
+          <div className="w-[calc(100%-10px)] md:w-[calc(100%-20px)] min-h-[calc(100%-10px)] md:min-h-[calc(100%-20px)] my-5 md:my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
             <Image
               src="/waveT.svg"
               alt="waveT"
@@ -99,7 +101,7 @@ export default async function diseasePage({ params }) {
             </RxCard>
           </div>
         </div>
-        <div className="detail-card w-full m-0 flex justify-between items-start flex-col gap-4">
+        <div className="detail-card p-6 md:p-8 w-full m-0 flex justify-between items-start flex-col gap-4">
           <h1 className="text-2xl font-bold">Dx</h1>
           <p className="h-full">Diagnosis</p>
         </div>
