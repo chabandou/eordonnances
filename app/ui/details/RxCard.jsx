@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 export default function RxCard({ Rx, children }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="z-30 w-full bg-transparent h-full">
+    <div className="z-30 w-full bg-transparent min-h-fit flex flex-col justify-center items-center ">
       {children}
       <Modal open={open} onClose={() => setOpen(!open)}>
         <PrintForm />

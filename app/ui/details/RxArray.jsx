@@ -1,5 +1,6 @@
 import Medication from "../../../models/medicationModel";
 import { connectToMongoDB } from "../../../app/libs/mongodb";
+import clsx from "clsx";
 
 export default async function RxArray({ Rx }) {
   async function getMedication(name) {
@@ -42,18 +43,18 @@ export default async function RxArray({ Rx }) {
     }
   }
   return (
-    <div className="Rx-content w-full h-full flex justify-center">
-      <ul className="w-[85%] translate-x-[2%] space-y-6 text-lg text-gray-900/90 pb-8">
+    <div className="Rx-content w-full min-h-full flex justify-center mt-[5rem] mb-8">
+      <ul className="w-[97%] space-y-6 text-lg text-gray-900/90 pb-8">
       {/* // list medications */}
 
         {Rx.map((mdc, index) => (
           <li className="w-full flex flex-col items-center" key={index}>
             {/* // Display medication name and quantity */}
-            <div className="flex items-center justify-between w-full gap-x-2">
-              <span className="text-md lg:text-lg font-bold lg:leading-snug"><span className=" hidden md:inline">💊 </span>{mdc.name ? mdc.name : mdc}</span>
-              {mdc.dosage && <span className="h-[2px] bg-gray-900/90 w-fit grow"/>}
+            <div className="flex items-start justify-between w-full gap-x-2">
+              <span className={clsx("text-lg lg:text-lg font-bold lg:leading-snug", (!mdc.quantity && !mdc.dosage) ? "max-w-full" : "max-w-[33.33%]")}><span className=" hidden md:inline">💊 </span>{mdc.name ? mdc.name : mdc}</span>
+              {mdc.dosage && <span className="h-[2px] mt-[calc(1.75rem/2)] bg-gray-900/90 w-fit grow"/>}
               {/* {mdc.name && getMedication(mdc.name)} //TODO: add getMedication function */}
-              <span className="text-md lg:text-lg lg:leading-normal">{mdc.quantity && mdc.quantity}</span>
+              <span className={clsx(mdc.quantity?.length > 5 ? "w-1/3" : "w-fit", "md:w-max text-md lg:text-lg lg:leading-normal")}>{mdc.quantity && mdc.quantity}</span>
             </div>
 
             {/* // Display medication dosage and instructions */}

@@ -74,7 +74,7 @@ export default async function diseasePage({ params }) {
             height={100}
             className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40"
           />
-          <div className="w-[calc(100%-10px)] md:w-[calc(100%-20px)] min-h-[calc(100%-10px)] md:min-h-[calc(100%-20px)] my-5 md:my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
+          <div className="w-[calc(100%-20px)] min-h-[calc(100%-20px)] my-5 md:my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
             <Image
               src="/waveT.svg"
               alt="waveT"
