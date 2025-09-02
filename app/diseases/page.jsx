@@ -32,27 +32,6 @@ async function getSpecialties() {
   return specialties;
 }
 
-// async function getMedications() {
-//   const resposnse = await fetch(`http://localhost:3000/api/medications`);
-//   const data = await resposnse.json();
-//   const { Rxes } = data;
-//   const preMedications = Rxes.map((Rx) => {
-//     return Rx.Rx
-//   })
-//   const medications = preMedications.flat();
-//   const medicationNames = medications.map((mdc) => {
-//     if (typeof mdc.name === "string") {
-//       return mdc.name
-//     } else if (typeof mdc === "object") {
-//       return Object.values(mdc).flatMap((mdc) => mdc).map((mdc) => mdc.name)
-//     } else {
-//       return mdc
-//     }
-//   });
-//   return medicationNames.flat();
-// }
-
-// const finalMdcNames = await getMedications();
 
 async function getDiseases(q, currentPage, specialty) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
