@@ -2,7 +2,8 @@
 import SpecialtyCards from "./ui/SpecialtyCards";
 
 
-
+export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 60
+export const dynamic = 'force-static';
 
 export default function Home() {
   return (

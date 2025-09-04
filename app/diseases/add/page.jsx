@@ -2,6 +2,8 @@
 import DiseaseForm from "./DiseaseForm";
 import { DocumentPlusIcon } from "@heroicons/react/24/solid";
 
+export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 60
+export const dynamic = 'force-static';
 
 
 

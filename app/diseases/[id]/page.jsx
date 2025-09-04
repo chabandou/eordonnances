@@ -7,6 +7,9 @@ import RxArray from "@/app/ui/details/RxArray";
 import RxObject from "@/app/ui/details/RxObject";
 import Image from "next/image";
 
+export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 60
+export const dynamic = 'force-static';
+
 export default async function diseasePage({ params }) {
   const id = params.id;
   async function getDisease(id) {

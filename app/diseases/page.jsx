@@ -5,8 +5,8 @@ import Pagination from "../ui/index/pagination";
 import DiseaseCards from "@/app/ui/index/DiseaseCards";
 import { log } from "console";
 
-export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 60
-export const dynamic = 'force-static'
+
+export const dynamic = 'force-dynamic';
 
 async function countDiseases(q, specialty) {
   const query = q
