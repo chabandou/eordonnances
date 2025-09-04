@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import Link from "next/link";
 
@@ -72,7 +72,7 @@ export default function SpecialtyCards() {
       className="w-4/5 lg:w-full m-auto flex flex-wrap justify-center items-center gap-3 specialty-cards "
     > 
       {specialties.map((s, i) => (
-        <div ref={specialtyCardRefs[i]} key={i} className="specialty-card lg:w-1/4 md:w-1/3 sm:w-2/3 w-full relative">
+        <ScrollAnimatedCard cardRef={specialtyCardRefs[i]} key={i} className="specialty-card lg:w-1/4 md:w-1/3 sm:w-2/3 w-full relative">
           <div
             href={`/diseases?specialty=${s.name}`}
             className={"specialty-card-content"}
@@ -86,8 +86,74 @@ export default function SpecialtyCards() {
               {s.name}
             </span>
           </Link>
-        </div>
+        </ScrollAnimatedCard>
       ))}
     </div>
   );
 }
+
+
+const ScrollAnimatedCard = ({ children, className = '', cardRef }) => {
+  const [isCenterFocus, setIsCenterFocus] = useState(false);
+  const [supportsHover, setSupportsHover] = useState(true);
+
+  useEffect(() => {
+    // Check if device supports hover
+    const checkHover = () => {
+      const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      setSupportsHover(hasHover);
+      return hasHover;
+    };
+
+    const hasHover = checkHover();
+
+    // Only set up scroll animation on non-hover devices
+    if (!hasHover && cardRef.current) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const ratio = entry.intersectionRatio;
+          
+          // Extra animation when element is centered
+          setIsCenterFocus(ratio > 0.7);
+        });
+      }, observerOptions);
+
+      observer.observe(cardRef.current);
+
+      // Cleanup
+      return () => {
+        if (cardRef.current) {
+          observer.unobserve(cardRef.current);
+        }
+      };
+    }
+
+    // Listen for media query changes (orientation/window resize)
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const handleMediaChange = () => {
+      setSupportsHover(mediaQuery.matches);
+    };
+    
+    mediaQuery.addEventListener('change', handleMediaChange);
+    return () => mediaQuery.removeEventListener('change', handleMediaChange);
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`
+        animated-card 
+        ${isCenterFocus && !supportsHover ? 'center-focus' : ''} 
+        ${className}
+      `}
+    >
+      {children}
+    </div>
+  );
+};

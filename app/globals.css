@@ -940,6 +940,26 @@ input:checked + label {
   text-underline-offset: 10px;
 }
 
+.specialty-card.center-focus .main-icon path {
+  fill: var(--g1);
+}
+
+.specialty-card.center-focus .main-icon {
+  transform: translate(0, -2rem);
+}
+
+.specialty-card.center-focus span {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0, 64px);
+  /* text-decoration: underline var(--g1) 2px solid ; */
+  text-underline-offset: 10px;
+}
+
+.specialty-card.center-focus span::after {
+  transform: scaleX(1);
+}
+
 /* ************************************ DETAILS PAGE **************************** */
 
 .detail-card {
