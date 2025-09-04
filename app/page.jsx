@@ -7,7 +7,7 @@ export const dynamic = 'force-static';
 
 export default function Home() {
   return (
-    <main className="overflow-x-hidden flex items-center justify-center py-4 lg:my-auto">
+    <main className="overflow-x-hidden flex flex-col items-center justify-center py-4 lg:my-auto">
       <SpecialtyCards />
     </main>
   );
