@@ -52,6 +52,8 @@ async function getDiseases(q, currentPage, specialty) {
   ])
     .limit(ITEMS_PER_PAGE) // limit to 25 documents retrieved
     .skip(offset); // skip the first 25 items
+
+  console.log(`specialty: ${specialty}, q: ${q}`);
   return JSON.parse(JSON.stringify(diseases));
 }
 
