@@ -68,12 +68,12 @@ export default function SpecialtyCards() {
   }
   return (
     <>
-      <h1 className="text-3xl lg:text-4xl font-bold text-center mt-10 lg:mt-0 lg:hidden">
+      <h1 className="text-4xl font-bold text-center mt-10 lg:mt-0 lg:hidden uppercase">
         Spécialités
       </h1>
       <div
         onMouseMove={(e) => handleMouseMove(e)}
-      className="w-4/5 lg:w-full m-auto flex flex-wrap justify-center items-center gap-3 specialty-cards my-10 lg:my-0"
+      className="w-4/5 lg:w-full m-auto flex flex-wrap justify-center items-center gap-3 specialty-cards my-14 lg:my-0"
     > 
       {specialties.map((s, i) => (
         <ScrollAnimatedCard cardRef={specialtyCardRefs[i]} key={i} className="specialty-card lg:w-1/4 md:w-1/3 sm:w-2/3 w-full relative">
