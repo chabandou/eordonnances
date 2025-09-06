@@ -75,7 +75,6 @@ export default function DiseaseCard({ d, i }) {
       >
         <ScrollAnimatedCard
           cardRef={diseaseCardRef}
-          rootMargin="-35% 0px -35% 0px"
           className={`disease-card w-full min-h-[120px] lg:aspect-[3.75/1] mx-auto disease-card-${d.disease.specialty}`}
         >
           <div
