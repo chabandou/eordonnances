@@ -80,7 +80,7 @@ export default async function Page({ searchParams }) {
         placeholder="Rechercher une maladie"
         specialties={finalSpecialties}
       />
-      <div className="flex-1 w-full flex flex-col items-center justify-center">
+      <div className="flex-1 w-full flex flex-col items-center justify-center  mt-2 mb-4 lg:mb-0 lg:mt-0">
         <DiseaseCards q={q} specialty={specialty} diseases={diseases} />
       </div>
       <div className="py-4">
