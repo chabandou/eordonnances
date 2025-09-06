@@ -10,7 +10,7 @@ export default function CardsWithSpecialty({ diseases }) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="grid place-items-center gap-0"
+        className="grid place-items-center gap-2 lg:gap-0"
       >
         {diseases.map((d, i) => (
           <DiseaseCard i={i} key={d._id} d={d} />
