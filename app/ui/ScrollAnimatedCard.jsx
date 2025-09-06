@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 
-export default function ScrollAnimatedCard({ children, className = '', cardRef, rootMargin = '-180px 0px -240px 0px' }) {
+export default function ScrollAnimatedCard({ children, className = '', cardRef, rootMargin = '-35% 0px -35% 0px' }) {
   const [isCenterFocus, setIsCenterFocus] = useState(false);
   const [supportsHover, setSupportsHover] = useState(true);
 
