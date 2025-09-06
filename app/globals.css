@@ -889,26 +889,7 @@ input:checked + label {
 .main-icon path {
   transition: fill 500ms ease-in-out;
 }
-@media (hover: hover) and (pointer: fine) {
-  .specialty-card:hover .main-icon path {
-    fill: var(--g1);
-  }
-  .specialty-card:hover .main-icon {
-    transform: translate(0, -2rem);
-  }
 
-  .specialty-card:hover span::after {
-    transform: scaleX(1);
-  }
-
-  .specialty-card:hover span {
-    visibility: visible;
-    opacity: 1;
-    transform: translate(0, 64px);
-    /* text-decoration: underline var(--g1) 2px solid ; */
-    text-underline-offset: 10px;
-  }
-}
 
 .specialty-card span {
   visibility: hidden;
@@ -930,6 +911,31 @@ input:checked + label {
   background-color: var(--g1);
   transition: transform 600ms ease 200ms;
 }
+
+/* hover animations for specialty cards only on devices that support hover */
+
+@media (hover: hover) and (pointer: fine) {
+  .specialty-card:hover .main-icon path {
+    fill: var(--g1);
+  }
+  .specialty-card:hover .main-icon {
+    transform: translate(0, -2rem);
+  }
+
+  .specialty-card:hover span::after {
+    transform: scaleX(1);
+  }
+
+  .specialty-card:hover span {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 64px);
+    /* text-decoration: underline var(--g1) 2px solid ; */
+    text-underline-offset: 10px;
+  }
+}
+
+/* animations for specialty card in mobile */
 
 .specialty-card.center-focus .main-icon path {
   fill: var(--g1);
