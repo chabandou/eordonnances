@@ -74,7 +74,7 @@ export default function SpecialtyCards() {
       </h1>
       <div
         onMouseMove={(e) => handleMouseMove(e)}
-      className="w-4/5 lg:w-full mx-auto flex flex-wrap justify-center items-center gap-3 specialty-cards mt-14 mb-16 lg:mt-0 lg:mb-0"
+      className="w-4/5 lg:w-full mx-auto flex flex-wrap justify-center items-center gap-3 specialty-cards mt-14 mb-20 lg:mt-0 lg:mb-0"
     > 
       {specialties.map((s, i) => (
         <ScrollAnimatedCard cardRef={specialtyCardRefs[i]} key={i} className="specialty-card lg:w-1/4 md:w-1/3 sm:w-2/3 w-full relative">

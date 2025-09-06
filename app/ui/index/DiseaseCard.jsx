@@ -74,7 +74,7 @@ export default function DiseaseCard({ d, i }) {
         className="hover:cursor-pointer border-transparent rounded-3xl text-xl w-full"
       >
         <ScrollAnimatedCard
-          ref={diseaseCardRef}
+          cardRef={diseaseCardRef}
           rootMargin="0px 0px 0px 0px"
           className={`disease-card w-full lg:aspect-[3.75/1] nx-auto disease-card-${d.disease.specialty}`}
         >
