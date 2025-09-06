@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import stetho from "@/public/stetho.svg";
 import clsx from "clsx";
+import ScrollAnimatedCard from "../ScrollAnimatedCard";
 
 import Stetho from "@/app/ui/index/Stetho";
 import Lungs from "@/app/ui/icons/Lungs";
@@ -72,8 +73,9 @@ export default function DiseaseCard({ d, i }) {
         href={`/diseases/${d._id}`}
         className="hover:cursor-pointer border-transparent rounded-3xl text-xl w-full"
       >
-        <div
+        <ScrollAnimatedCard
           ref={diseaseCardRef}
+          rootMargin="-120px 0px -200px 0px"
           className={`disease-card w-full lg:aspect-[3.75/1] nx-auto disease-card-${d.disease.specialty}`}
         >
           <div
@@ -91,7 +93,7 @@ export default function DiseaseCard({ d, i }) {
             {/* <span className="text-white text-opacity-70 text-sm text-right">{i+1}</span> */}
             {icon}
           </div>
-        </div>
+        </ScrollAnimatedCard>
       </Link>
     </motion.div>
   );

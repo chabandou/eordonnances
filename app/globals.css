@@ -696,6 +696,8 @@ input:checked + label {
   }
 }
 
+/* ! ******************** DISEASE CARDS ************************** */
+
 .disease-card {
   border: 0.3vmin solid var(--border);
   border-radius: 15px;
@@ -706,11 +708,6 @@ input:checked + label {
   transition: all 0.3s ease-out;
   background-color: var(--card-color);
   z-index: 2;
-}
-
-.disease-card:hover {
-  transform: scale(1.02, 1.06);
-  border: 0.3vmin solid transparent;
 }
 
 .disease-card::before {
@@ -734,40 +731,6 @@ input:checked + label {
   z-index: 1;
 }
 
-.disease-card:hover::before {
-  background-position: 100% 100%;
-}
-
-.disease-card-content {
-  /* background: radial-gradient(
-    rgba(255, 255, 255, 0.1) 5%,
-    transparent 8%
-  );
-  background-position: 0% 0%;
-  background-size: 5vmin 5vmin;
-  z-index: 2;
-   */
-  /* border: var(--border) 0.3vmin solid;
-  width: calc(100% - 10px);
-  height: calc(100% - 10px);
-  border-radius: inherit;
-  position: relative;
-  transition: border 0.3s ease-in-out; */
-}
-
-/* .disease-card:hover .disease-card-content {
-  border: 0.3vmin solid transparent;
-  
-} */
-
-/* .disease-card-content span {
-  position: absolute;
-  top: 14%;
-  right: 3%;
-  z-index: 2;
-  
-} */
-
 .icon {
   position: absolute;
   width: 40%;
@@ -779,11 +742,6 @@ input:checked + label {
   z-index: 1;
 }
 
-.disease-card:hover .icon {
-  opacity: 1;
-  top: 85%;
-  transform: translate(-50%, -60%) rotate(7deg);
-}
 .stetho {
   position: absolute;
   width: 50%;
@@ -795,13 +753,53 @@ input:checked + label {
   z-index: 1;
 }
 
-.disease-card:hover .stetho {
+/* hover animations in desktop */
+@media (hover: hover) and (pointer: fine) {
+  .disease-card:hover {
+    transform: scale(1.02, 1.06);
+    border: 0.3vmin solid transparent;
+  }
+
+  .disease-card:hover::before {
+    background-position: 100% 100%;
+  }
+
+  .disease-card:hover .icon {
+    opacity: 1;
+    top: 85%;
+    transform: translate(-50%, -60%) rotate(7deg);
+  }
+
+  .disease-card:hover .stetho {
+    opacity: 1;
+    top: 120%;
+    transform: translate(-50%, -60%) rotate(7deg);
+  }
+
+  .disease-card:hover h2 {
+    color: rgb(255, 255, 255);
+  }
+}
+
+/* animations in mobile */
+.disease-card.center-focus {
+  transform: scale(1.02, 1.06);
+  border: 0.3vmin solid transparent;
+}
+.disease-card.center-focus::before {
+  background-position: 100% 100%;
+}
+.disease-card.center-focus .icon {
+  opacity: 1;
+  top: 85%;
+  transform: translate(-50%, -60%) rotate(7deg);
+}
+.disease-card.center-focus .stetho {
   opacity: 1;
   top: 120%;
   transform: translate(-50%, -60%) rotate(7deg);
 }
-
-.disease-card:hover h2 {
+.disease-card.center-focus h2 {
   color: rgb(255, 255, 255);
 }
 
@@ -889,7 +887,6 @@ input:checked + label {
 .main-icon path {
   transition: fill 500ms ease-in-out;
 }
-
 
 .specialty-card span {
   visibility: hidden;
