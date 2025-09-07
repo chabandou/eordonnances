@@ -7,6 +7,8 @@ import RxArray from "@/app/ui/details/RxArray";
 import RxObject from "@/app/ui/details/RxObject";
 import Image from "next/image";
 
+import WaveT from "@/app/ui/rx-shapes/WaveT";
+
 export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 60
 export const dynamic = 'force-static';
 
@@ -78,13 +80,14 @@ export default async function diseasePage({ params }) {
             className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40"
           />
           <div className="w-[calc(100%-20px)] min-h-[calc(100%-20px)] my-5 md:my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
-            <Image
+            {/* <Image
               src="/waveT.svg"
               alt="waveT"
               width={100}
               height={100}
               className="absolute top-[-5px] left-[-2px] w-2/3"
-            />
+            /> */}
+            <WaveT className="absolute top-[-6%] left-[-2%] rotate-3" />
             <Image
               src="/waveB.svg"
               alt="waveB"
