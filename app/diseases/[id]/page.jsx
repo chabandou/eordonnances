@@ -8,6 +8,10 @@ import RxObject from "@/app/ui/details/RxObject";
 import Image from "next/image";
 
 import WaveT from "@/app/ui/rx-shapes/WaveT";
+import WaveB from "@/app/ui/rx-shapes/WaveB";
+import PillBottle from "@/app/ui/rx-shapes/PillBottle";
+import Pills from "@/app/ui/rx-shapes/Pills";
+import Union from "@/app/ui/rx-shapes/Union";
 
 export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 60
 export const dynamic = 'force-static';
@@ -65,20 +69,22 @@ export default async function diseasePage({ params }) {
             fill
             className="w-full h-full object-contain"
             /> */}
-          <Image
+          {/* <Image
             src="/pill-bottle.svg"
             alt="waveT"
             width={100}
             height={100}
             className="w-1/6 absolute top-0 left-0  -translate-y-1/4 -translate-x-1/4 z-40"
-          />
-          <Image
+          /> */}
+          <PillBottle className="w-1/6 absolute top-0 left-0  -translate-y-1/4 -translate-x-1/4 z-40" />
+          {/* <Image
             src="/pills.svg"
             alt="waveT"
             width={100}
             height={100}
             className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40"
-          />
+          /> */}
+          <Pills className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40" />
           <div className="w-[calc(100%-20px)] min-h-[calc(100%-20px)] my-5 md:my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
             {/* <Image
               src="/waveT.svg"
@@ -88,20 +94,22 @@ export default async function diseasePage({ params }) {
               className="absolute top-[-5px] left-[-2px] w-2/3"
             /> */}
             <WaveT className="absolute top-[-6%] left-[-2%] rotate-3" />
-            <Image
+            {/* <Image
               src="/waveB.svg"
               alt="waveB"
               width={100}
               height={100}
               className="absolute bottom-[-8%] right-[-2%] w-full"
-            />
-            <Image
+            /> */}
+            <WaveB className="absolute bottom-[-8%] right-[-2%] w-full" />
+            {/* <Image
               src="/Union.svg"
               alt="waveT"
               width={100}
               height={100}
               className="absolute top-1/2 left-1/2 w-2/3 -translate-x-1/2 -translate-y-1/2"
-            />
+            /> */}
+            <Union className="absolute top-1/2 left-1/2 w-2/3 -translate-x-1/2 -translate-y-1/2" />
             <RxCard Rx={Rx}>
               {Array.isArray(Rx) ? <RxArray Rx={Rx} /> : <RxObject Rx={Rx} />}
             </RxCard>
