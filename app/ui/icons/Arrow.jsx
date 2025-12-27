@@ -6,7 +6,7 @@ const SvgComponent = (props) => (
     {...props}
   >
     <path
-      fill="#fff"
+      fill="currentColor"
       strokeMiterlimit={10}
       d="m30.906 32.004 15.72-27h-10L15 32l21.626 27.004h10z"
       fontFamily="none"

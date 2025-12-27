@@ -2,8 +2,8 @@ import clsx from "clsx";
 
 export default function RxObject({ Rx }) {
   return (
-    <div className="w-full min-h-full flex flex-col justify-center items-center text-black/90 mt-[5rem] mb-8">
-      <ul className="list-disc w-[97%] space-y-4 text-lg text-gray-900/90 pb-8">
+    <div style={{ color: 'var(--rx-text-color)' }} className="w-full min-h-full flex flex-col justify-center items-center mt-[5rem] mb-8">
+      <ul style={{ color: 'var(--rx-text-color)' }} className="list-disc w-[97%] space-y-4 text-lg pb-8">
         {Object.entries(Rx).map(([key, value], index) => (
           <li className="list-item" key={index}>
             <span className="font-bold text-lg mb-4">{key}:</span>

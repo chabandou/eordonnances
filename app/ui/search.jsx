@@ -34,7 +34,7 @@ export default function Search({ placeholder, specialties }) {
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get("q")?.toString()}
         />
-        <SearchGlass className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 peer-focus:text-white" />
+        <SearchGlass className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
       </div>
       <DropDown replace={replace} searchParams={searchParams} pathname={pathname} items={specialties} />
     </section>

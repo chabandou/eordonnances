@@ -81,10 +81,10 @@ export default function DiseaseCard({ d, i }) {
             className=" *:z-10 z-[5] flex flex-col rounded-3xl p-4 gap-3 disease-card-content"
             key={d._id}
           >
-            <h2 className="font-bold text-gray-300 text-2xl line-clamp-1 transition ease-out duration-250">
+            <h2 style={{ color: 'var(--disease-title-color)' }} className="font-bold text-2xl line-clamp-1 transition ease-out duration-250">
               {d.disease.name}
             </h2>
-            <h3 className="text-white text-opacity-80 uppercase text-base tracking-wide">
+            <h3 style={{ color: 'var(--disease-specialty-color)' }} className="uppercase text-base tracking-wide">
               {typeof d.disease.specialty === "string"
                 ? d.disease.specialty
                 : d.disease.specialty.join(", ")}

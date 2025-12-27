@@ -13,7 +13,7 @@ export default function Modal({ children, open, onClose }) {
              animate="visible"
              exit="exit"
              className="modal-content">
-            <span className="text-white">Imprimez votre ordonnance</span>
+             <span style={{ color: 'var(--text-color)' }}>Imprimez votre ordonnance</span>
                 {children}
             </motion.div>
         </div>

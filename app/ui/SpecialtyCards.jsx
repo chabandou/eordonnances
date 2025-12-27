@@ -51,7 +51,7 @@ const specialties = [
     href: "Oto-rhino-laryngologie",
   },
   {
-    name: "Uregences",
+    name: "Urgences",
     icon: <Ambulance className="main-icon disease-card-Uregences" />,
   },
 ];
@@ -77,7 +77,7 @@ export default function SpecialtyCards() {
       className="w-4/5 lg:w-full mx-auto flex flex-wrap justify-center items-center gap-3 specialty-cards mt-14 mb-20 lg:mt-0 lg:mb-0"
     > 
       {specialties.map((s, i) => (
-        <ScrollAnimatedCard cardRef={specialtyCardRefs[i]} key={i} className="specialty-card lg:w-1/4 md:w-1/3 sm:w-2/3 w-full relative">
+        <ScrollAnimatedCard cardRef={specialtyCardRefs[i]} key={i} className={`specialty-card disease-card-${s.href ? s.href : s.name} lg:w-1/4 md:w-1/3 sm:w-2/3 w-full relative`}>
           <div
             href={`/diseases?specialty=${s.name}`}
             className={"specialty-card-content"}

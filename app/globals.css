@@ -6,15 +6,56 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --card-color: hsl(0, 0%, 9%);
-  --text-color: hsl(0, 0%, 91%);
-  --text-color-secondary: #212529;
-  /* --border: hsla(0, 0%, 100%, 0.06); */
-  --border: hsl(0, 0%, 6%);
+  --background-color: white;
+  --card-color: hsl(0, 0%, 98%);
+  --text-color: hsl(0, 20%, 14%);
+  --text-color-secondary: #4a5568;
+  --border: hsl(0, 0%, 90%);
   --g1: #00c7a9;
   --g2: #008148;
   --g3: #133c55;
   --g1dark: 171, 100%, 39%;
+  --text-secondary-rgb: 255, 255, 255;
+  --text-tertiary-rgb: 0, 0, 0;
+  --bg-card-light: hsla(0, 0%, 100%, 0.1);
+  --bg-card-hover: hsla(0, 0%, 100%, 0.4);
+  --bg-hover: rgba(0, 0, 0, 0.08);
+  --bg-selected: rgb(230, 230, 230);
+  --border-rgb: 255, 255, 255;
+  --nav-icon-color: hsl(0, 0%, 30%);
+  --nav-icon-hover: hsl(0, 0%, 10%);
+  --nav-icon-active: hsl(0, 0%, 0%);
+  --nav-active-bg: rgba(0, 0, 0, 0.08);
+  --specialty-text-color: #000;
+  --disease-title-color: #4b5563;
+  --disease-specialty-color: rgba(0, 0, 0, 0.8);
+  --rx-text-color: rgba(0, 0, 0, 0.9);
+}
+
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  --background-color: #000000;
+  --card-color: hsl(0, 0%, 9%);
+  --text-color: hsl(0, 0%, 91%);
+  --text-color-secondary: #a0aec0;
+  --border: hsl(0, 0%, 6%);
+  --text-secondary-rgb: 0, 0, 0;
+  --text-tertiary-rgb: 255, 255, 255;
+  --bg-card-light: hsla(0, 0%, 0%, 0.3);
+  --bg-card-hover: hsla(0, 0%, 0%, 0.6);
+  --bg-hover: rgba(255, 255, 255, 0.08);
+  --bg-selected: rgb(26, 26, 26);
+  --border-rgb: 0, 0, 0;
+  --nav-icon-color: hsl(218, 11%, 65%);
+  --nav-icon-hover: hsl(0, 0%, 100%);
+  --nav-icon-active: hsl(0, 0%, 100%);
+  --nav-active-bg: rgba(255, 255, 255, 0.08);
+  --specialty-text-color: #fff;
+  --disease-title-color: rgba(209, 213, 219, 1);
+  --disease-specialty-color: rgba(255, 255, 255, 0.8);
+  --rx-text-color: rgba(255, 255, 255, 0.9);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +74,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+.dark body {
+  background: var(--background-color);
 }
 
 @layer utilities {
@@ -113,6 +158,11 @@ input {
   --g2: #0017e4;
   --g3: hsl(239, 94%, 25%);
 }
+.disease-card-Urgences {
+  --g1: #ff4757;
+  --g2: #dc2626;
+  --g3: #7f1d1d;
+}
 
 .text-color-specialty {
   background: linear-gradient(45deg, var(--g1), var(--g2), var(--g3));
@@ -151,9 +201,10 @@ input {
   position: fixed;
   left: 0;
   overflow: hidden;
-  /* transition: width 0.6s cubic-bezier(0.76, 0, 0.24, 1); */
   transition: width 0.6s ease;
   z-index: 99;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-container header {
@@ -165,19 +216,19 @@ input {
 }
 
 .nav-container .nav-link path {
-  fill: hsl(218, 11%, 65%);
+  fill: var(--nav-icon-color);
 }
 .nav-container .nav-link:hover path {
-  fill: hsl(0, 0%, 100%);
+  fill: var(--nav-icon-hover);
 }
 
 .nav-container .nav-link.active {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: hsl(0, 0%, 100%);
+  background-color: var(--nav-active-bg);
+  color: var(--nav-icon-active);
 }
 
 .nav-container .nav-link.active path {
-  fill: hsl(0, 0%, 100%);
+  fill: var(--nav-icon-active);
 }
 
 .nav-link {
@@ -224,53 +275,58 @@ input {
   fill: rgb(0, 0, 0);
 } */
 
-@media screen and (max-width: 768px) {
+/* Mobile: bottom navbar */
+@media screen and (max-width: 1023px) {
   .nav-container {
     height: 78px;
-    position: fixed;
     width: 100vw;
     bottom: 0;
-    left: 0;
-    overflow: hidden;
-    /* transition: width 0.6s cubic-bezier(0.76, 0, 0.24, 1); */
-    /* transition: width 0.6s ease; */
-    z-index: 99;
+    top: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* .nav-container:hover {
-    width: 100vw;
-    height: 78px;
-  } */
+  .nav-container header {
+    display: none;
+  }
 
   .nav-link {
     align-items: center;
     justify-content: center;
-    /* gap: 4px;s */
     border-radius: 12px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    /* padding: 10px 0px; */
+    padding: 0;
+    min-width: 60px;
+  }
+
+  .nav-container .menu {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-container .menu > div:last-child {
+    margin-top: 0;
+    flex-grow: 0;
   }
 }
 
-@media screen and (min-width: 768px) {
+/* Desktop: left sidebar */
+@media screen and (min-width: 1024px) {
   .nav-container {
-    height: 100vh;
-    position: fixed;
-    width: 78px;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    /* transition: width 0.6s cubic-bezier(0.76, 0, 0.24, 1); */
-    /* transition: width 0.6s ease; */
-    z-index: 99;
-  }
-
-  .nav-container:hover {
     height: 100vh;
     width: 78px;
     top: 0;
+    bottom: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
+
   .nav-container:hover {
     width: 260px;
     animation: nav 0.6s cubic-bezier(0.76, 0, 0.24, 1);
@@ -298,6 +354,14 @@ input {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     padding: 10px 0px;
+    width: 100%;
+  }
+
+  .nav-container .menu {
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   .menu {
@@ -318,11 +382,8 @@ input {
       hsl(var(--g1dark), 0.75),
       transparent
     );
-    /* background-size: -200%; */
-    /* animation: background-pan 3s ease-in-out infinite; */
     z-index: 1;
     opacity: 0;
-    /* box-shadow: var(); */
     transition: all 0.3s ease;
   }
 
@@ -353,7 +414,7 @@ input {
   position: relative;
 }
 .search-box::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(var(--text-secondary-rgb), 0.6);
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.4px;
@@ -373,7 +434,7 @@ input {
   box-sizing: border-box;
   border-radius: 12px;
   border: none;
-  outline: 0.5mm solid #ffffff26;
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.15);
   position: relative;
 }
 
@@ -382,7 +443,7 @@ input {
 }
 
 .search-box:focus {
-  outline: 0.5mm solid rgba(255, 255, 255, 0.35);
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.35);
 }
 
 .search-container {
@@ -435,11 +496,11 @@ input {
 }
 
 .search-box ~ svg path {
-  fill: rgba(255, 255, 255, 0.6);
+  fill: rgba(var(--text-secondary-rgb), 0.6);
   transition: all 0.4s ease-in-out;
 }
 .search-box:focus ~ svg path {
-  fill: rgb(255, 255, 255);
+  fill: rgb(var(--text-secondary-rgb));
 }
 .search-box:hover ~ svg path {
   fill: var(--g1);
@@ -510,10 +571,10 @@ input {
 }
 
 .arrow path {
-  fill: rgba(255, 255, 255, 0.6);
+  fill: rgba(var(--text-secondary-rgb), 0.6);
 }
 .dropdown:hover .arrow path {
-  fill: rgba(255, 255, 255, 0.8);
+  fill: rgba(var(--text-secondary-rgb), 0.8);
 }
 
 .arrow.open {
@@ -525,7 +586,7 @@ input {
   width: 100%;
   height: 3.4rem;
   box-sizing: border-box;
-  outline: 0.5mm solid rgba(255, 255, 255, 0.15);
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.15);
   border-radius: 12px;
   padding: 10px 15px;
   font-size: 14px;
@@ -539,23 +600,23 @@ input {
 }
 
 .input-box:hover {
-  outline: 0.5mm solid rgba(255, 255, 255, 0.35);
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.35);
 }
 
 .input-box:focus {
-  outline: 0.5mm solid rgba(255, 255, 255, 0.35);
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.35);
 }
 
 .input-box:empty::after {
   content: "Spécialités";
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(var(--text-secondary-rgb), 0.6);
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.4px;
 }
 
 .dropdown:hover .input-box:empty::after {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(var(--text-secondary-rgb), 0.8);
 }
 
 .list {
@@ -563,7 +624,7 @@ input {
   top: 105%;
   right: 0;
   background: var(--card-color);
-  border: 0.3mm solid hsl(0, 0%, 18%);
+  border: 0.3mm solid var(--border);
   margin-top: 5px;
   border-radius: 2mm;
   place-items: center;
@@ -589,7 +650,7 @@ input {
   font-size: 14px;
   box-sizing: border-box;
   cursor: pointer;
-  outline: 0.3mm solid rgba(255, 255, 255, 0.15);
+  outline: 0.3mm solid rgba(var(--border-rgb), 0.15);
   position: relative;
   z-index: 16;
 }
@@ -610,12 +671,12 @@ input {
   font-size: 22px;
 }
 .list label:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-hover);
 }
 input:checked + label {
   color: var(--g1);
   font-weight: 600;
-  background: rgb(26, 26, 26);
+  background: var(--bg-selected);
 }
 
 .open {
@@ -810,7 +871,7 @@ input:checked + label {
 }
 
 .specialty-card {
-  background-color: hsla(0, 0%, 100%, 0.1);
+  background-color: var(--bg-card-light);
   border-radius: 15px;
   cursor: pointer;
   display: flex;
@@ -839,7 +900,7 @@ input:checked + label {
 .specialty-card::before {
   background: radial-gradient(
     800px circle at var(--mouse-x) var(--mouse-y),
-    rgba(255, 255, 255, 0.06),
+    rgba(var(--text-secondary-rgb), 0.06),
     transparent 40%
   );
   z-index: 3;
@@ -847,11 +908,66 @@ input:checked + label {
 
 .specialty-card::after {
   background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y),
-    hsla(0, 0%, 100%, 0.4),
+    800px circle at var(--mouse-x) var(--mouse-y),
+    var(--bg-card-hover),
     transparent 40%
   );
   z-index: 1;
+}
+
+/* Light mode - specialty colored cards with white content */
+.light .specialty-card > .specialty-card-content {
+  background-color: var(--g1);
+  filter: brightness(0.9);
+}
+
+/* Light mode navbar - ensure cohesive colors */
+.light .nav-container {
+  color: hsl(0, 0%, 30%);
+}
+
+.light .nav-link.active {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.light .nav-container span {
+  color: hsl(0, 0%, 0%);
+}
+
+.light .nav-link:hover span {
+  color: hsl(0, 0%, 40%);
+}
+
+.light .nav-link path {
+  fill: hsl(0, 0%, 0%);
+}
+
+.light .nav-link:hover path {
+  fill: hsl(0, 0%, 40%);
+}
+
+.light .specialty-text {
+  color: white;
+}
+
+.light .specialty-card .main-icon path {
+  fill: white;
+}
+
+.dark .specialty-card:hover .main-icon path {
+  fill: var(--g1);
+}
+
+/* ******************** SPECIALTY CARD MAIN ICON + TEXT ************************** */
+
+.main-icon {
+  width: 50%;
+  position: absolute;
+  transition: transform 600ms ease;
+  z-index: 6;
+}
+.main-icon path {
+  transition: fill 500ms ease-in-out;
 }
 
 .specialty-card > .specialty-card-content {
@@ -867,25 +983,13 @@ input:checked + label {
 }
 
 .specialty-text {
-  color: #fff;
+  color: var(--specialty-text-color);
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   z-index: 9;
-}
-
-/* ******************** SPECIALTY CARD MAIN ICON + TEXT ************************** */
-
-.main-icon {
-  width: 50%;
-  position: absolute;
-  transition: transform 600ms ease;
-  z-index: 6;
-}
-.main-icon path {
-  transition: fill 500ms ease-in-out;
 }
 
 .specialty-card span {
@@ -909,9 +1013,22 @@ input:checked + label {
   transition: transform 600ms ease 200ms;
 }
 
+.light .specialty-card span::after {
+  background-color: white;
+}
+
 /* hover animations for specialty cards only on devices that support hover */
 
 @media (hover: hover) and (pointer: fine) {
+  .light .specialty-card:hover .main-icon path {
+    fill: white;
+  }
+  .dark .specialty-card:hover .main-icon path {
+    fill: var(--g1);
+  }
+  .specialty-card:hover .main-icon {
+    transform: translate(0, -2rem);
+  }
   .specialty-card:hover .main-icon path {
     fill: var(--g1);
   }
@@ -957,11 +1074,19 @@ input:checked + label {
 /* ************************************ DETAILS PAGE **************************** */
 
 .detail-card {
-  color: white;
-  background-color: hsla(0, 0%, 100%, 0.1);
+  color: var(--text-color);
+  background-color: var(--bg-card-light);
   border-radius: 15px;
   height: 100%;
   position: relative;
+}
+
+.dark .pagination a:hover:not(.bg-blue-600) {
+  background-color: hsla(0, 0%, 30%, 1);
+}
+
+.pagination a:hover:not(.bg-blue-600) {
+  background-color: hsla(0, 0%, 95%, 1);
 }
 
 .detail-card h1,
@@ -973,9 +1098,9 @@ ul {
 .Rx-card {
   background-image: linear-gradient(
     -45deg,
-    #454b54 0%,
-    #68717f 64%,
-    #99a6ba 100%
+    var(--card-color) 0%,
+    var(--text-color-secondary) 64%,
+    var(--border) 100%
   );
   border-radius: 9%;
 }
@@ -985,7 +1110,7 @@ ul {
   position: absolute;
   inset: 10px;
   border-radius: 8.5%;
-  background: hsl(0, 0%, 96%);
+  background: var(--text-color);
 }
 
 .print-button {
@@ -1069,6 +1194,10 @@ ul {
   background-color: rgba(0, 0, 0, 0.61);
 }
 
+.dark .modal {
+  background-color: rgba(0, 0, 0, 0.61);
+}
+
 .modal-close {
   position: absolute;
   top: 1rem;
@@ -1077,7 +1206,7 @@ ul {
   height: 2rem;
   cursor: pointer;
   z-index: 100;
-  color: white;
+  color: var(--text-color);
 }
 
 .modal-content {
@@ -1110,5 +1239,5 @@ ul {
   margin-bottom: 1rem;
   font-size: 1.2rem;
   color: var(--text-color);
-  background-color: #000000;
+  background-color: var(--text-color);
 }

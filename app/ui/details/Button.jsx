@@ -29,7 +29,7 @@ export default function Button({ Text, Icon }) {
     <motion.button
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-     id="print-button" className="print-button text-white" onClick={printElement}>
+      id="print-button" style={{ color: 'var(--text-color)' }} className="print-button" onClick={printElement}>
       {Text}
       <Print width={37} height={37} />
     </motion.button>

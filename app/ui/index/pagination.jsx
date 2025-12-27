@@ -64,15 +64,15 @@ function PaginationNumber({
   isActive,
   position,
 }) {
-  const className = clsx(
+    const className = clsx(
     'flex h-10 w-10 items-center justify-center text-sm border',
     {
       'rounded-l-xl': position === 'first' || position === 'single',
       'rounded-r-xl': position === 'last' || position === 'single',
       'z-10 bg-blue-600 border-blue-600 text-white': isActive,
-      'hover:bg-gray-100': !isActive && position !== 'middle',
-      'text-gray-300': position === 'middle',
+      'hover:bg-gray-100 dark:hover:bg-gray-700': !isActive && position !== 'middle',
     },
+    position === 'middle' && 'opacity-60'
   );
 
   return isActive || position === 'middle' ? (

@@ -169,7 +169,7 @@ export default function DiseaseForm() {
                       onClick={() => {
                         remove(index);
                       }}
-                      className="lg:col-span-2 flex items-center justify-center hover:bg-red-500/50 text-red-300 hover:text-white p-4 rounded-lg self-center border-2 border-red-400/80 hover:border-transparent active:bg-[#008148] active:scale-95 transition-all duration-300"
+                      className="lg:col-span-2 flex items-center justify-center bg-red-600 text-white hover:bg-red-700 p-4 rounded-lg self-center border-2 border-red-600 hover:border-red-700 active:bg-red-800 active:scale-95 transition-all duration-300"
                     >
                      
                       <TrashIcon className="w-6 h-6 transition-all duration-300" />
@@ -189,7 +189,7 @@ export default function DiseaseForm() {
                   instructions: "",
                 });
               }}
-              className="w-full md:w-1/2 lg:h-1/3 flex group items-center hover:bg-gray-500/50 text-gray-300 hover:text-white p-4 rounded-lg self-center border-2 border-gray-400/80 hover:border-transparent active:bg-[#008148] active:scale-95 transition-all duration-300"
+              className="w-full md:w-1/2 lg:h-1/3 flex group items-center bg-gray-600 text-white hover:bg-gray-700 p-4 rounded-lg self-center border-2 border-gray-600 hover:border-gray-700 active:bg-gray-800 active:scale-95 transition-all duration-300"
             >
               <PlusCircleIcon className="w-6 h-6 -translate-x-[0.15rem] mr-2 transition-all duration-300" />
               Médicament
@@ -198,7 +198,10 @@ export default function DiseaseForm() {
         </div>
         <button
           type="submit"
-          className="search-container group relative my-2 p-4 min-h-16 rounded-lg bg-[#323232] text-white text-2xl font-bold hover:bg-transparent active:bg-[hsl(153,100%,15%)] active:scale-95 hover:-translate-y-1 transition-all ease-in-out duration-500"
+          className="search-container group relative my-2 p-4 min-h-16 rounded-lg text-white text-2xl font-bold active:scale-95 hover:-translate-y-1 transition-all ease-in-out duration-500"
+          style={{
+            background: 'linear-gradient(to right, var(--g1), var(--g2), var(--g3))'
+           }}
         >
           <span className="text-2xl absolute inset-0 content-center group-hover:backdrop-blur-md">Ajouter <ChevronDoubleRightIcon className="w-8 h-8 inline-block group-hover:translate-x-1 transition-all duration-300" /></span>
           <span className="sr-only">Ajouter la maladie</span>
