@@ -22,10 +22,11 @@
   --bg-hover: rgba(0, 0, 0, 0.08);
   --bg-selected: rgb(230, 230, 230);
   --border-rgb: 255, 255, 255;
-  --nav-icon-color: hsl(0, 0%, 30%);
+  --nav-icon-color: var(--g1);
   --nav-icon-hover: hsl(0, 0%, 10%);
   --nav-icon-active: hsl(0, 0%, 0%);
   --nav-active-bg: rgba(0, 0, 0, 0.08);
+  --nav-bg: #f3f4f6;
   --specialty-text-color: #000;
   --disease-title-color: #4b5563;
   --disease-specialty-color: rgba(0, 0, 0, 0.8);
@@ -52,6 +53,7 @@
   --nav-icon-hover: hsl(0, 0%, 100%);
   --nav-icon-active: hsl(0, 0%, 100%);
   --nav-active-bg: rgba(255, 255, 255, 0.08);
+  --nav-bg: var(--card-color);
   --specialty-text-color: #fff;
   --disease-title-color: rgba(209, 213, 219, 1);
   --disease-specialty-color: rgba(255, 255, 255, 0.8);
@@ -87,16 +89,16 @@ body {
 }
 
 @media print {
-  #Rx {
+  #prescription {
     background: none;
     font-size: 2rem;
   }
 
-  #Rx h1 {
+  #prescription h1 {
     display: none;
   }
 
-  #Rx::before {
+  #prescription::before {
     display: none;
   }
 
@@ -196,7 +198,7 @@ input {
 
 .nav-container {
   color: hsl(0, 0%, 81%);
-  background: var(--card-color);
+  background: var(--nav-bg, var(--card-color));
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   position: fixed;
   left: 0;
@@ -205,6 +207,25 @@ input {
   z-index: 99;
   display: flex;
   flex-direction: column;
+}
+
+/* Override any conflicting rules: ensure nav background and icons use our vars */
+.nav-container {
+  background: var(--nav-bg, var(--card-color)) !important;
+}
+.nav-container svg {
+  color: var(--nav-icon-color) !important;
+  filter: brightness(0.88) saturate(0.98);
+}
+.nav-container .nav-link path {
+  fill: var(--nav-icon-color) !important;
+}
+/* Ensure nav link text matches icon color */
+.nav-container .nav-link,
+.nav-container .nav-link span,
+.nav-container header span {
+  color: var(--nav-icon-color) !important;
+  filter: brightness(0.92);
 }
 
 .nav-container header {
@@ -1182,41 +1203,57 @@ ul {
 
 /* ************************ MODAL STYLES ************************ */
 
+/* Mobile-first modal overlay */
 .modal {
-  width: calc(100% - 78px);
-  margin-left: 78px;
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 99;
-  background-color: rgba(0, 0, 0, 0.61);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
 .dark .modal {
-  background-color: rgba(0, 0, 0, 0.61);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
+/* Modal content box */
+.modal-content {
+  position: relative;
+  width: min(95%, 720px);
+  max-width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  background-color: var(--card-color);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: modal 0.24s ease-out;
+}
+
+@keyframes modal {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Close button positioned inside modal-content */
 .modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.5rem;
   width: 2rem;
   height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
   cursor: pointer;
-  z-index: 100;
   color: var(--text-color);
-}
-
-.modal-content {
-  position: absolute;
-  top: 0;
-  width: 70%;
-  background-color: var(--card-color);
-  border-radius: 15px;
-  padding: 2rem;
-  animation: modal 0.5s ease-out;
 }
 /* 
 @keyframes modal {
@@ -1234,10 +1271,10 @@ ul {
   width: 100%;
   padding: 0.5rem;
   border-radius: 5px;
-  border: none;
+  border: 1px solid var(--border);
   outline: none;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--text-color);
-  background-color: var(--text-color);
+  background-color: var(--card-color);
 }

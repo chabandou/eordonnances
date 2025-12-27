@@ -8,12 +8,13 @@ export default function Button({ Text, Icon }) {
     // const element = document.getElementById("Rx");
     const element = document.getElementById("prescription");
     const printWindow = window.open("", "", "height=720,width=1080");
-    const stylesheetURL = document.querySelector('link[rel="stylesheet"]').href;
+    const stylesheetLink = document.querySelector('link[rel="stylesheet"]');
+    const stylesheetURL = stylesheetLink ? stylesheetLink.href : null;
 
     printWindow.document.write("<html><head><title>Print</title>");
-    printWindow.document.write(
-      '<link rel="stylesheet" href="' + stylesheetURL + '">'
-    );
+    if (stylesheetURL) {
+      printWindow.document.write('<link rel="stylesheet" href="' + stylesheetURL + '">');
+    }
     printWindow.document.write('</head><body>');
     printWindow.document.write(element.outerHTML);
     printWindow.document.write("</body></html>");
