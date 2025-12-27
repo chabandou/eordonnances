@@ -64,20 +64,20 @@ export default function DropDown({ items, pathname, searchParams, replace }) {
 
       <div className="list w-full lg:w-[300%] h-[75vh] lg:h-fit grid grid-cols-1 lg:grid-cols-3 ">
         <input onClick={() => handleFilter("")} key={"allInput"} type="radio" name="item" id="all" className="radio" />
-        <label key={"all"} htmlFor="all">
+        <label key={"allLabel"} htmlFor="all">
           <span className="name">Tous</span>
         </label>
         {items.map((item, i) => (
           <>
             <input
               onClick={() => handleFilter(item)}
-              key={i + Math.random()}
+              key={`${item}Input`}
               type="radio"
               name="item"
               id={item}
               className="radio"
             />
-            <label key={item} htmlFor={item}>
+            <label key={`${item}Label`} htmlFor={item}>
               <span className="name">{item}</span>
             </label>
           </>
