@@ -1,0 +1,98 @@
+@property --gradientAngle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes gradientRotate {
+  to {
+    --gradientAngle: 360deg;
+  }
+}
+
+.searchContainer {
+  position: relative;
+}
+
+.searchContainer::after,
+.searchContainer::before {
+  content: "";
+  position: absolute;
+  background: conic-gradient(
+    from var(--gradientAngle),
+    var(--g1),
+    var(--g2),
+    var(--g3),
+    var(--g2),
+    var(--g1)
+  );
+  inset: -0.5mm;
+  border-radius: 12px;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.4s ease-in-out;
+}
+
+.searchContainer::before {
+  filter: blur(1mm);
+}
+
+.searchContainer:hover::before {
+  opacity: 0.7;
+  animation: gradientRotate 10s linear infinite;
+}
+
+.searchContainer:hover::after {
+  opacity: 1;
+  animation: gradientRotate 10s linear infinite;
+}
+
+.searchBox {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: none;
+  background: var(--card-color);
+  font-size: 1rem;
+  transition: all 0.4s ease-in-out;
+  position: relative;
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.15);
+}
+
+.searchBox::placeholder {
+  color: rgba(var(--text-secondary-rgb), 0.6);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
+
+.searchBox:hover::placeholder {
+  background-color: var(--g1);
+  width: fit-content;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: background-color 0.4s ease-in-out;
+}
+
+.searchBox:hover {
+  outline: 0.5mm solid transparent;
+}
+
+.searchBox:focus {
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.35);
+}
+
+.searchBox ~ svg path {
+  fill: rgba(var(--text-secondary-rgb), 0.6);
+  transition: all 0.4s ease-in-out;
+}
+
+.searchBox:focus ~ svg path {
+  fill: rgb(var(--text-secondary-rgb));
+}
+
+.searchBox:hover ~ svg path {
+  fill: var(--g1);
+}

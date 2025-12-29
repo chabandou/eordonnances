@@ -1,0 +1,52 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.modalContent {
+  position: relative;
+  width: min(95%, 720px);
+  max-width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  background-color: var(--card-color);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  /* Animation handled by Framer Motion in this component */
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.modalContent input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  outline: none;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: var(--card-color);
+}

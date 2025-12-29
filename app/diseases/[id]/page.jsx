@@ -104,6 +104,10 @@ async function getDisease(id) {
   }
 }
 
+import Card from "@/app/ui/Card";
+import styles from "@/app/ui/details/DetailsPage.module.css";
+import clsx from "clsx";
+
 export default async function DiseasePage({ params }) {
   const id = params.id;
 
@@ -167,46 +171,43 @@ export default async function DiseasePage({ params }) {
       />
       <section className="flex flex-col w-full justify-center items-center gap-8 my-4 z-[5] px-4 md:px-0">
         {/* Disease Header Card */}
-        <article
-          className={`detail-card p-6 md:p-8 m-1 w-full md:w-3/4 flex flex-col md:flex-row justify-center items-start gap-4 disease-card-${disease.specialty}`}
+        <Card
+          glow={false}
+          className={styles.headerCard}
         >
           <header className="w-full md:w-fit md:max-w-[50%] flex flex-row md:flex-col justify-between gap-4 z-[5]">
-            <h1 className="text-2xl md:text-3xl self-start font-bold uppercase ">
+            <h1 className={styles.title}>
               {disease.name}
             </h1>
-            <h2
-              className={`text-xl self-start md:self-start md:text-xl font-semibold text-color-specialty disease-card-${disease.specialty}`}
-            >
+            <h2 className={clsx(styles.specialtyText, "text-color-specialty")}>
               {typeof disease.specialty === "string"
                 ? disease.specialty
                 : Array.isArray(disease.specialty)
-                ? disease.specialty.map((s, index) =>
-                    index !== disease.specialty.length - 1 ? `${s}, ` : `${s}`
-                  )
+                ? disease.specialty.join(", ")
                 : "Non spécifié"}
             </h2>
           </header>
-          <div className="disease-def flex flex-col md:flex-row w-full md:gap-4">
-            <div className="divider" role="separator"></div>
+          <div className={styles.definitionContainer}>
+            <div className={styles.divider} role="separator"></div>
             <p className="text-justify">
               {disease.definition ||
                 "Aucune définition disponible pour cette maladie."}
             </p>
           </div>
-        </article>
+        </Card>
 
         {/* Main Content Grid */}
         <div className="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
           {/* Rx Card */}
           <article
             id="Rx"
-            className="detail-card Rx-card col-span-1 md:col-span-2 w-full min-h-[500px] md:min-h-[700px] h-fit flex justify-center items-center relative"
+            className={clsx(styles.rxCardWrapper, "col-span-1 md:col-span-2 w-full min-h-[500px] md:min-h-[700px] h-fit")}
             aria-label="Ordonnance médicale"
           >
             <PillBottle className="w-1/6 absolute top-0 left-0 -translate-y-1/4 -translate-x-1/4 z-40" aria-hidden="true" />
             <Pills className="w-1/5 absolute bottom-0 right-0 translate-x-1/4 z-40" aria-hidden="true" />
             
-            <div className="w-[calc(100%-20px)] min-h-[calc(100%-20px)] my-5 md:my-10 flex justify-center items-start flex-col gap-4 relative overflow-hidden rounded-[8.5%]">
+            <div className={styles.rxContent}>
               <WaveT className="absolute top-[-6%] left-[-2%] rotate-3" aria-hidden="true" />
               <WaveB className="absolute bottom-[-8%] right-[-2%] w-full" aria-hidden="true" />
               <Union className="absolute top-1/2 left-1/2 w-2/3 -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />
@@ -228,21 +229,23 @@ export default async function DiseasePage({ params }) {
           </article>
 
           {/* Dx Card */}
-          <aside className="detail-card p-6 md:p-8 w-full m-0 flex justify-between items-start flex-col gap-4" aria-label="Diagnostic">
-            <h2 className="text-2xl font-bold">Dx</h2>
-            <div className="h-full">
-              {Dx && Dx.length > 0 ? (
-                <ul className="space-y-2" role="list">
-                  {Dx.map((dx, index) => (
-                    <li key={index} className="text-gray-700">
-                      {dx}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-500">Diagnostic non disponible</p>
-              )}
-            </div>
+          <aside className="w-full h-full m-0">
+            <Card glow={true} className={styles.dxCard} aria-label="Diagnostic">
+              <h2 className="text-2xl font-bold">Dx</h2>
+              <div className="h-full">
+                {Dx && Dx.length > 0 ? (
+                  <ul className="space-y-2" role="list">
+                    {Dx.map((dx, index) => (
+                      <li key={index} className="text-gray-700 dark:text-gray-300">
+                        {dx}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-500">Diagnostic non disponible</p>
+                )}
+              </div>
+            </Card>
           </aside>
         </div>
 
@@ -250,7 +253,7 @@ export default async function DiseasePage({ params }) {
         <nav className="w-full md:w-3/4 flex justify-start">
           <Link
             href="/diseases"
-            className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors"
+            className="px-6 py-3 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
             aria-label="Retour à la liste des maladies"
           >
             ← Retour à la liste

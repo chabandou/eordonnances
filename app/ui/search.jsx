@@ -4,6 +4,8 @@ import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import DropDown from "@/app/ui/DropDown";
 import SearchGlass from "@/app/ui/icons/SearchGlass";
+import styles from "./Search.module.css";
+import clsx from "clsx";
 
 export default function Search({ placeholder, specialties }) {
   const searchParams = useSearchParams();
@@ -22,13 +24,13 @@ export default function Search({ placeholder, specialties }) {
 
 
   return (
-    <section className="w-4/5 lg:w-[50%] flex flex-col lg:flex-row justify-center items-center  m-4 p-0 gap-4 h-fit ">
-      <div className="search-container relative w-full flex flex-1 grow transition-all duration-300 ease-in-out">
+    <section className="w-4/5 lg:w-[50%] flex flex-col lg:flex-row justify-center items-center m-4 p-0 gap-4 h-fit">
+      <div className={clsx(styles.searchContainer, "flex flex-1 grow transition-all duration-300 ease-in-out")}>
         <label htmlFor="search" className="sr-only">
           Search
         </label>
         <input
-          className="search-box ps-10 flex-grow w-full h-14 "
+          className={clsx(styles.searchBox, "ps-10 flex-grow w-full h-14")}
           id="search"
           placeholder={placeholder}
           onChange={(e) => handleSearch(e.target.value)}

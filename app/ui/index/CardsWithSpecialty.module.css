@@ -1,0 +1,70 @@
+.headerContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  items-center: center;
+  margin: 0.5rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .headerContainer {
+    align-items: flex-start;
+  }
+}
+
+.specialtyTitle {
+  font-size: 2.75rem;
+  line-height: 1;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  background: linear-gradient(
+    to right,
+    var(--g1),
+    var(--g2),
+    var(--g3),
+    var(--g1)
+  );
+  animation: background-pan 1.5s ease-in-out 0.5s 1;
+  background-size: 200%;
+  width: fit-content;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .specialtyTitle {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .specialtyTitle {
+    font-size: 3.5rem;
+    line-height: 1.25;
+    text-align: left;
+  }
+}
+
+.specialtyTitle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px; /* Default underline height */
+  background: linear-gradient(
+    to right,
+    var(--g1),
+    var(--g2),
+    var(--g3)
+  );
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* Global keyframes moved to tailwind.config.js */

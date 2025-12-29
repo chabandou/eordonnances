@@ -9,6 +9,7 @@ import Search from "@/app/ui/icons/Search";
 import Home from "@/app/ui/icons/Home";
 import ThemeToggle from "./ThemeToggle";
 import { useEffect, useRef } from "react";
+import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ export default function Navbar() {
   useEffect(() => {
     const menu = menuRef.current;
     if (!menu) return;
-    const menuLinks = menu.querySelectorAll(".nav-link");
+    const menuLinks = menu.querySelectorAll(`.${styles.navLink}`);
     const handlers = [];
 
     function doCalculations(link) {
@@ -37,33 +38,22 @@ export default function Navbar() {
     };
   }, []);
   return (
-    <div className="nav-container py-3 px-4 z-50">
+    <div className={clsx(styles.navContainer, "py-3 px-4 z-50")}>
       <header className="hidden lg:flex flex-col w-fit items-start justify-start gap-y-6 m-auto">
         <Link className="hover:cursor-pointer text-2xl font-bold" href="/">
-          <div className="hidden lg:flex items-center justify-start gap-1">
+          <div className={clsx("hidden lg:flex items-center justify-start gap-1", styles.branding)}>
             <Rx className="" />
-            <span>eOrdonnances</span>
+            <span className={styles.headerTitle}>eOrdonnances</span>
           </div>
         </Link>
       </header>
-      <div ref={menuRef} className="menu flex h-fit w-full">
+      <div ref={menuRef} className={styles.menu}>
         <NavLink href="/" title="Accueil" icon={<Home />} i={0} />
         <NavLink href="/diseases" title="Recherchez" icon={<Search />} i={1} />
         <NavLink href="/diseases/add" title="Ajouter" icon={<Add />} i={2} />
-        <div className="mt-auto lg:mb-4 lg:flex-grow-0">
-          <div
-            role="button"
-            tabIndex={0}
-            className="nav-link flex items-center justify-center text-md text-gray-400 hover:cursor-pointer transition-all duration-300 ease-in-out"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.currentTarget.querySelector('button')?.click();
-              }
-            }}
-          >
-            <i>
-              <ThemeToggle />
-            </i>
+        <div className="mt-auto lg:mb-4 w-full">
+          <div className={styles.navLink}>
+            <ThemeToggle />
           </div>
         </div>
       </div>
@@ -77,12 +67,12 @@ function NavLink({ href, title, icon, i }) {
     <Link
       href={href}
       className={clsx(
-        "nav-link flex items-center justify-center text-md text-gray-400 hover:cursor-pointer transition-all duration-300 ease-in-out",
-        pathname === href && "active"
+        styles.navLink,
+        pathname === href && styles.active
       )}
     >
-      <i>{icon}</i>
-      <span className="hidden lg:inline">{title}</span>
+      <i className={styles.i}>{icon}</i>
+      <span className={clsx("hidden lg:inline", styles.navLinkSpan)}>{title}</span>
     </Link>
   );
 }

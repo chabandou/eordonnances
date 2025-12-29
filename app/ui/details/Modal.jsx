@@ -1,7 +1,7 @@
-
 import PrintForm from "./PrintForm";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import styles from "./Modal.module.css";
 
 export default function Modal({ children, open, onClose }) {
     const modalRef = useRef(null);
@@ -35,20 +35,20 @@ export default function Modal({ children, open, onClose }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            className="modal"
+            className={styles.modal}
         >
             <motion.div
                 variants={fadeIn}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="modal-content"
+                className={styles.modalContent}
                 ref={modalRef}
                 tabIndex={-1}
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
-                    className="modal-close"
+                    className={styles.closeButton}
                     aria-label="Close dialog"
                     onClick={(e) => {
                         e.stopPropagation();

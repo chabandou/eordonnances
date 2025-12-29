@@ -65,12 +65,12 @@ function PaginationNumber({
   position,
 }) {
     const className = clsx(
-    'flex h-10 w-10 items-center justify-center text-sm border',
+    'flex h-10 w-10 items-center justify-center text-sm border border-[var(--border)]',
     {
       'rounded-l-xl': position === 'first' || position === 'single',
       'rounded-r-xl': position === 'last' || position === 'single',
-      'z-10 bg-blue-600 border-blue-600 text-white': isActive,
-      'hover:bg-gray-100 dark:hover:bg-gray-700': !isActive && position !== 'middle',
+      'z-10 bg-[var(--g2)] border-[var(--g2)] text-white': isActive,
+      'hover:bg-[var(--bg-hover)]': !isActive && position !== 'middle',
     },
     position === 'middle' && 'opacity-60'
   );
@@ -90,10 +90,10 @@ function PaginationArrow({
   isDisabled,
 }) {
   const className = clsx(
-    'flex h-10 w-10 items-center justify-center rounded-xl border',
+    'flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)]',
     {
-      'pointer-events-none text-gray-300': isDisabled,
-      'hover:bg-gray-100': !isDisabled,
+      'pointer-events-none opacity-30': isDisabled,
+      'hover:bg-[var(--bg-hover)]': !isDisabled,
       'mr-2 md:mr-4': direction === 'left',
       'ml-2 md:ml-4': direction === 'right',
     },

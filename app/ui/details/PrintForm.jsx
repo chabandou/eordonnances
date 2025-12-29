@@ -1,6 +1,8 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import styles from "./PrintForm.module.css";
+import clsx from "clsx";
 
 export default function PrintForm({ Rx }) {
     const currentDate = new Date().toDateString();
@@ -19,14 +21,13 @@ export default function PrintForm({ Rx }) {
     const age = watch("age");
     const sex = watch("sex");
     return (
-        <section className="print-sec grid grid-cols-2 place-items-center h-fit">
-        <div id="prescription" className="prescription">
-          <p className="p-date font-bold text-black capitalize">{date}</p>
-          <p className="p-name font-bold text-black text-xl capitalize">{name}</p>
-          <p className="p-age font-bold text-black capitalize">{age}</p>
-          <p className="p-sex font-bold text-black capitalize">{sex}</p>
+        <section className={clsx(styles.printSection, "grid grid-cols-2 place-items-center h-fit")}>
+        <div id="prescription" className={styles.prescription}>
+          <p className={clsx(styles.date, "font-bold text-black capitalize")}>{date}</p>
+          <p className={clsx(styles.name, "font-bold text-black text-xl capitalize")}>{name}</p>
+          <p className={clsx(styles.age, "font-bold text-black capitalize")}>{age}</p>
+          <p className={clsx(styles.sex, "font-bold text-black capitalize")}>{sex}</p>
           {Rx}
-          
         </div>
         <div>
           <form

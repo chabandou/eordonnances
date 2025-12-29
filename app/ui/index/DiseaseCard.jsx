@@ -8,8 +8,11 @@ import { useRef } from "react";
 import stetho from "@/public/stetho.svg";
 import clsx from "clsx";
 import ScrollAnimatedCard from "../ScrollAnimatedCard";
+import Card from "../Card";
+import styles from "./DiseaseCard.module.css";
 
 import Stetho from "@/app/ui/index/Stetho";
+import { getSpecialtyColors } from "@/app/libs/specialties";
 import Lungs from "@/app/ui/icons/Lungs";
 import Brain from "@/app/ui/icons/Brain";
 import Skin from "@/app/ui/icons/Skin";
@@ -58,8 +61,14 @@ const specialties = [
 
 export default function DiseaseCard({ d, i }) {
   const diseaseCardRef = useRef();
-  const icon = specialties.find((s) => s.name === d.disease.specialty)
-    ?.icon || <Stetho className="stetho" />;
+  const specialtyName = typeof d.disease.specialty === "string"
+    ? d.disease.specialty
+    : d.disease.specialty[0];
+  
+  const colors = getSpecialtyColors(specialtyName);
+  
+  const icon = specialties.find((s) => s.name === specialtyName)
+    ?.icon; // We'll handle class in the icon directly or via CSS
 
   return (
     <motion.div
@@ -75,24 +84,42 @@ export default function DiseaseCard({ d, i }) {
       >
         <ScrollAnimatedCard
           cardRef={diseaseCardRef}
-          className={`disease-card w-full min-h-[120px] lg:aspect-[3.75/1] mx-auto disease-card-${d.disease.specialty}`}
-        >
-          <div
-            className=" *:z-10 z-[5] flex flex-col rounded-3xl p-4 gap-3 disease-card-content"
-            key={d._id}
-          >
-            <h2 style={{ color: 'var(--disease-title-color)' }} className="font-bold text-2xl line-clamp-1 transition ease-out duration-250">
-              {d.disease.name}
-            </h2>
-            <h3 style={{ color: 'var(--disease-specialty-color)' }} className="uppercase text-base tracking-wide">
-              {typeof d.disease.specialty === "string"
-                ? d.disease.specialty
-                : d.disease.specialty.join(", ")}
-            </h3>
-            {/* <span className="text-white text-opacity-70 text-sm text-right">{i+1}</span> */}
-            {icon}
-          </div>
-        </ScrollAnimatedCard>
+          className="w-full min-h-[120px] lg:aspect-[3.75/1] mx-auto"
+          render={({ isCenterFocus }) => (
+            <Card
+              specialty={true}
+              glow={true}
+              isCenterFocus={isCenterFocus}
+              style={{
+                "--g1": colors.g1,
+                "--g2": colors.g2,
+                "--g3": colors.g3,
+              }}
+              className={clsx("w-full h-full", styles.card)}
+            >
+              <div className={styles.content}>
+                <h2 className={styles.title}>
+                  {d.disease.name}
+                </h2>
+                <h3 className={styles.specialty}>
+                  {typeof d.disease.specialty === "string"
+                    ? d.disease.specialty
+                    : d.disease.specialty.join(", ")}
+                </h3>
+                
+                {icon ? (
+                  <div className={styles.iconOverlay}>
+                    {icon}
+                  </div>
+                ) : (
+                  <div className={styles.stethoOverlay}>
+                    <Stetho />
+                  </div>
+                )}
+              </div>
+            </Card>
+          )}
+        />
       </Link>
     </motion.div>
   );

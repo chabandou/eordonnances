@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 3.5rem;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.specialtyCard {
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+:global(.light) .specialtyCard {
+  background-color: var(--specialty-bg, var(--g1));
+  filter: brightness(0.9);
+}
+
+/* cardContent removed as Card primitive handles background */
+
+.link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9;
+  text-decoration: none;
+}
+
+.text {
+  color: var(--specialty-text-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  visibility: hidden;
+  opacity: 0;
+  position: relative;
+  transition: all 0.6s ease;
+  z-index: 5;
+}
+
+.text::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: -8px;
+  left: 0;
+  background-color: var(--g1);
+  transition: transform 0.6s ease 0.2s;
+}
+
+:global(.light) .text {
+  color: white;
+}
+
+:global(.light) .text::after {
+  background-color: white;
+}
+
+/* Hover & Focus states */
+@media (hover: hover) and (pointer: fine) {
+  .specialtyCard:hover .text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(64px);
+  }
+  
+  .specialtyCard:hover .text::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Using our Card's centerFocus class (Mobile Scroll) */
+.specialtyCard.centerFocus .text {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(64px);
+}
+
+.specialtyCard.centerFocus .text::after {
+  transform: scaleX(1);
+}
+
+/* Icon Animations */
+.icon {
+  width: 50%;
+  position: absolute;
+  transition: transform 0.6s ease;
+  z-index: 6;
+}
+
+.icon path {
+  transition: fill 0.5s ease-in-out;
+}
+
+:global(.light) .icon path {
+  fill: white;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .specialtyCard:hover .icon {
+    transform: translateY(-2rem);
+  }
+}
+
+.specialtyCard.centerFocus .icon {
+  transform: translateY(-2rem);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global(.dark) .specialtyCard:hover .icon path {
+    fill: var(--g1);
+  }
+}
+
+:global(.dark) .specialtyCard.centerFocus .icon path {
+  fill: var(--g1);
+}

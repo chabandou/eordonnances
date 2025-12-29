@@ -2,13 +2,12 @@
 
 import { useTheme } from "./ThemeContext";
 import clsx from "clsx";
+import styles from "./Navbar.module.css";
 
 function SunIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -33,8 +32,6 @@ function MoonIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -57,16 +54,15 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className={clsx(
-        "nav-link flex items-center justify-center gap-3",
-        "text-gray-400 hover:cursor-pointer transition-all duration-300 ease-in-out"
-      )}
+      className={styles.navLink}
       aria-label="Toggle theme"
     >
-      <i>
-        {theme === "dark" ? <MoonIcon /> : <SunIcon />}
+      <i className={styles.i}>
+        <div className="">
+          {theme === "dark" ? <MoonIcon /> : <SunIcon />}
+        </div>
       </i>
-      <span className="hidden lg:inline">
+      <span className={clsx("hidden lg:inline", styles.navLinkSpan)}>
         {theme === "dark" ? "Sombre" : "Clair"}
       </span>
     </button>

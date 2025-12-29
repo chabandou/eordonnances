@@ -132,7 +132,7 @@ export default function DiseaseForm() {
             placeholder="Ex: Diabète Type 2"
             aria-invalid={errors.name ? "true" : "false"}
             className={clsx(
-              "search-box input input-bordered w-full p-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70",
+              "search-box input w-full p-4 rounded-lg hover:placeholder:opacity-70 focus:placeholder:opacity-70",
               errors.name && "border-red-500"
             )}
           />
@@ -162,7 +162,7 @@ export default function DiseaseForm() {
             })}
             aria-invalid={errors.specialty ? "true" : "false"}
             className={clsx(
-              "search-box input input-bordered w-full p-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a]",
+              "search-box input w-full p-4 rounded-lg",
               errors.specialty && "border-red-500"
             )}
           >
@@ -203,7 +203,7 @@ export default function DiseaseForm() {
             rows={4}
             aria-invalid={errors.definition ? "true" : "false"}
             className={clsx(
-              "search-box input input-bordered w-full p-4 rounded-lg outline outline-[0.5mm] outline-[#ffffff26] focus:outline-[#ffffff9a] hover:placeholder:opacity-70 focus:placeholder:opacity-70 resize-y",
+              "search-box input w-full p-4 rounded-lg hover:placeholder:opacity-70 focus:placeholder:opacity-70 resize-y",
               errors.definition && "border-red-500"
             )}
           />
@@ -248,7 +248,7 @@ export default function DiseaseForm() {
                     })}
                     placeholder="Ex: Metformine"
                     className={clsx(
-                      "search-box input input-bordered w-full p-4 rounded-lg",
+                      "search-box input w-full p-4 rounded-lg",
                       errors.Rx?.[index]?.mdc && "border-red-500"
                     )}
                   />
@@ -272,7 +272,7 @@ export default function DiseaseForm() {
                     })}
                     placeholder="Ex: 500mg"
                     className={clsx(
-                      "search-box input input-bordered w-full p-4 rounded-lg",
+                      "search-box input w-full p-4 rounded-lg",
                       errors.Rx?.[index]?.dosage && "border-red-500"
                     )}
                   />
@@ -296,7 +296,7 @@ export default function DiseaseForm() {
                     })}
                     placeholder="Ex: QSP 3 mois"
                     className={clsx(
-                      "search-box input input-bordered w-full p-4 rounded-lg",
+                      "search-box input w-full p-4 rounded-lg",
                       errors.Rx?.[index]?.quantity && "border-red-500"
                     )}
                   />
@@ -316,7 +316,7 @@ export default function DiseaseForm() {
                       },
                     })}
                     placeholder="Ex: 2x par jour avec repas"
-                    className="search-box input input-bordered w-full p-4 rounded-lg"
+                    className="search-box input w-full p-4 rounded-lg"
                   />
                   {errors.Rx?.[index]?.instructions && (
                     <p className="text-red-500 text-sm">{errors.Rx[index].instructions.message}</p>

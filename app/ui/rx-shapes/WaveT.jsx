@@ -19,7 +19,7 @@ const SvgComponent = (props) => (
       d="m207.59.235.542.418S55.737 32.152 0 98.02V69.2C39.021 29.352 116.525 9.225 163.638.234h43.952Z"
     />
     <path
-      fill="#0D6761"
+      fill="var(--g3)"
       d="M172.794.236C124.672 7.966 38.989 27.237 0 70.022v-22.7C0 6 4.5.236 58 .236h114.794Z"
     />
     <defs>
@@ -31,8 +31,8 @@ const SvgComponent = (props) => (
         y2={-7.29}
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#4B5F5E" />
-        <stop offset={0.345} stopColor="#9DC5C2" stopOpacity={0.74} />
+        <stop stopColor="var(--g3)" />
+        <stop offset={0.345} stopColor="var(--g2)" stopOpacity={0.74} />
       </linearGradient>
       <linearGradient
         id="b"
@@ -42,9 +42,9 @@ const SvgComponent = (props) => (
         y2={67.035}
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#0D6761" />
-        <stop offset={0.48} stopColor="#149B93" />
-        <stop offset={1} stopColor="#1BCDC2" />
+        <stop stopColor="var(--g3)" />
+        <stop offset={0.48} stopColor="var(--g2)" />
+        <stop offset={1} stopColor="var(--g1)" />
       </linearGradient>
     </defs>
   </svg>

@@ -1,0 +1,150 @@
+.dropdown {
+  height: 100%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 9;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  z-index: 10;
+  transition: all 0.5s ease-in-out;
+}
+
+.arrow path {
+  fill: rgba(var(--text-secondary-rgb), 0.6);
+}
+
+.dropdown:hover .arrow path {
+  fill: rgba(var(--text-secondary-rgb), 0.8);
+}
+
+.arrow.open {
+  transform: translateY(-50%) rotate3d(1, 0, 0, 180deg);
+  outline: none;
+}
+
+.inputBox {
+  width: 100%;
+  height: 3.4rem;
+  box-sizing: border-box;
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.15);
+  border-radius: 12px;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 11;
+  transition: all 0.4s ease-in-out;
+  background: var(--card-color);
+  color: var(--text-color);
+}
+
+.inputBox:hover {
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.35);
+}
+
+.inputBox:focus {
+  outline: 0.5mm solid rgba(var(--border-rgb), 0.35);
+}
+
+.inputBox:empty::after {
+  content: "Spécialités";
+  color: rgba(var(--text-secondary-rgb), 0.6);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
+
+.dropdown:hover .inputBox:empty::after {
+  color: rgba(var(--text-secondary-rgb), 0.8);
+}
+
+.list {
+  position: absolute;
+  top: 105%;
+  right: 0;
+  background: var(--card-color);
+  border: 0.3mm solid var(--border);
+  margin-top: 5px;
+  border-radius: 2mm;
+  place-items: center;
+  gap: 5px;
+  box-sizing: border-box;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: 0.35s ease-out;
+  z-index: 15;
+  text-align: left;
+}
+
+.radio {
+  display: none;
+}
+
+.list label {
+  width: 100%;
+  height: 4rem;
+  display: grid;
+  align-content: center;
+  justify-content: start;
+  font-size: 14px;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: 0.3mm solid rgba(var(--border-rgb), 0.15);
+  position: relative;
+  z-index: 16;
+}
+
+.list label span {
+  display: flex; /* Changed from absolute to flex for better layout */
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0px 15px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  z-index: 17;
+}
+
+.list label:hover {
+  background: var(--bg-hover);
+}
+
+.list input:checked + label {
+  color: var(--g1);
+  font-weight: 600;
+  background: var(--bg-selected);
+}
+
+.open {
+  outline: 0.7mm solid hsl(var(--g1dark), 0.65);
+}
+
+.list.open {
+  opacity: 1;
+  visibility: visible;
+  max-height: 1350%;
+  z-index: 15;
+}
+
+.inputBox.open:hover {
+  outline: 0.7mm solid hsl(var(--g1dark), 0.75);
+}
+
+@media screen and (max-width: 768px) {
+  .list.open {
+    overflow-y: auto;
+  }
+}
