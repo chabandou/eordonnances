@@ -4,7 +4,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 
 ## Overview
 
-![app-preview](assets/image.png)
+![app-preview](assets/image-1.png)
 
 **eOrdonnances** provides a specialty-based interface for medical professionals to browse diseases, view treatment recommendations, and access diagnostic information. The application covers 9 major medical specialties including Cardiology, Dermatology, Neurology, Gastroenterology, and more.
 
