@@ -200,7 +200,7 @@ export default function DiseasesPageWrapper({ children, specialty }) {
         {selectedDisease && !isClosing && (
           <motion.div
             key="detail-mode"
-            className="relative flex h-[calc(100vh-78px)] w-full flex-col overflow-hidden bg-[#f8fafc] dark:bg-[var(--background-color)] lg:h-screen lg:flex-row"
+            className="relative flex h-[calc(100vh-78px)] w-full flex-col overflow-hidden bg-[var(--background-color)] lg:h-screen lg:flex-row"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -174,7 +174,7 @@ export default async function Page({ searchParams }) {
          - Handles complex transitions between the list view and the detail view
       */
       <DiseasesPageWrapper specialty={specialty}>
-        <div className="flex flex-col lg:flex-row h-auto min-h-screen lg:h-screen w-full bg-[#f8fafc] dark:bg-[var(--background-color)] overflow-y-auto lg:overflow-hidden relative">
+        <div className="flex flex-col lg:flex-row h-auto min-h-screen lg:h-screen w-full bg-[var(--background-color)] overflow-y-auto lg:overflow-hidden relative">
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

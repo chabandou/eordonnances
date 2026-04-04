@@ -5,11 +5,10 @@ import { getSpecialtyColorsWithShading } from "@/app/libs/specialties";
 import { useTheme } from "@/app/ui/ThemeContext";
 
 export default function DetailsBackground({ specialty }) {
-    const { theme, mounted } = useTheme();
+    const { theme } = useTheme();
     const { darker } = getSpecialtyColorsWithShading(specialty);
 
-    // Default to dark mode logic if not mounted
-    const isDark = mounted ? theme === 'dark' : true;
+    const isDark = theme === 'dark';
 
     // Design request: Always use the darker of the two colors
     const bgColor = darker;

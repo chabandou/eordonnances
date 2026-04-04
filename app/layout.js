@@ -2,8 +2,7 @@
 
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { motion, LayoutGroup } from 'framer-motion'
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { LayoutGroup } from 'framer-motion'
 import { useEffect } from 'react'
 
 import Navbar from "./ui/Navbar";
@@ -13,6 +12,24 @@ import { UIProvider } from "./ui/UIContext";
 import { initViewportTracking } from "./libs/event-utils";
 
 const inter = Inter({ subsets: ["latin"] });
+const themeInitScript = `
+  (function () {
+    try {
+      var savedTheme = localStorage.getItem("theme");
+      var theme = savedTheme === "light" || savedTheme === "dark"
+        ? savedTheme
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      var root = document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(theme);
+      root.style.colorScheme = theme;
+    } catch (error) {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+      document.documentElement.style.colorScheme = "light";
+    }
+  })();
+`;
 
 // export const metadata = {
 //   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://eordonnances.com'),
@@ -113,11 +130,12 @@ export default function RootLayout({ children }) {
   }, []);
 
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className={inter.className}>
         <UIProvider>

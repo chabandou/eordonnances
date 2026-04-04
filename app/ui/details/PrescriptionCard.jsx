@@ -3,11 +3,9 @@
 import Rx from "@/app/ui/icons/Rx";
 import { motion } from "framer-motion";
 import { getSpecialtyColorsWithShading } from "@/app/libs/specialties";
-import { useTheme } from "@/app/ui/ThemeContext";
 import { useRef, useEffect } from 'react';
 
 export default function PrescriptionCard({ Rx: medications, specialty, id }) {
-    const { theme, mounted } = useTheme();
     const scrollContainerRef = useRef(null);
 
     // Scroll Hint Animation
@@ -32,8 +30,6 @@ export default function PrescriptionCard({ Rx: medications, specialty, id }) {
 
     // Get specialty colors with pre-computed shading
     const { darker } = getSpecialtyColorsWithShading(specialty || "Médecine générale");
-
-    const isDark = mounted ? theme === 'dark' : true;
 
     // Dynamic styles for text/icons
     const dynamicStyle = {

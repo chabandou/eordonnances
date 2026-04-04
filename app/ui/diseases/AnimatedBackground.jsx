@@ -108,7 +108,7 @@ const frontVariants = {
 
 export default function AnimatedBackground({ specialty, className }) {
   const { stage } = useTransitionState();
-  const { theme, mounted } = useTheme();
+  const { theme } = useTheme();
   const { clickedSpecialty, setClickedSpecialty, isClosing } = useUI();
 
   // Track if component has rendered once - used to prevent initial animation on variant recreation
@@ -132,8 +132,7 @@ export default function AnimatedBackground({ specialty, className }) {
   const effectiveSpecialty = clickedSpecialty || specialty;
   const { darker, lighter } = getSpecialtyColorsWithShading(effectiveSpecialty);
 
-  // Default to dark mode logic if not mounted
-  const isDark = mounted ? theme === "dark" : true;
+  const isDark = theme === "dark";
 
   // Light Mode: Back=Darker, Front=Lighter
   // Dark Mode: Back=Lighter, Front=Darker
