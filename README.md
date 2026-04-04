@@ -4,6 +4,8 @@ A web application designed to help junior doctors quickly find appropriate medic
 
 ## Overview
 
+![app-preview](assets/image.png)
+
 **eOrdonnances** provides a specialty-based interface for medical professionals to browse diseases, view treatment recommendations, and access diagnostic information. The application covers 9 major medical specialties including Cardiology, Dermatology, Neurology, Gastroenterology, and more.
 
 **Version**: 0.1.0  
@@ -13,6 +15,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 ## Features
 
 ### Core Features ✅
+
 - **Specialty-Based Disease Browsing** - Navigate 9 medical specialties with interactive cards
 - **Disease Search & Filtering** - Search by disease name and filter by specialty
 - **Disease Management** - View, add, and delete diseases with detailed information
@@ -23,6 +26,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 - **Pagination** - Browse diseases with 25 items per page
 
 ### Specialties Covered
+
 - 🫀 Cardiologie (Cardiology)
 - 🧠 Neurologie (Neurology)
 - 🫁 Pneumologie (Pulmonology)
@@ -34,6 +38,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 - 🚑 Urgences (Emergency Medicine)
 
 ### Planned Features 🚀
+
 - User authentication
 - User profiles & favorites
 - Advanced medication filtering
@@ -45,6 +50,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 ## Tech Stack
 
 ### Frontend
+
 - **Next.js 14.1.0** - React framework with App Router
 - **React 18** - UI library with hooks
 - **Tailwind CSS 3.3.0** - Utility-first styling
@@ -53,11 +59,13 @@ A web application designed to help junior doctors quickly find appropriate medic
 - **Heroicons React 2.0.18** - Icon library
 
 ### Backend
+
 - **Node.js** - Runtime environment
 - **MongoDB** with **Mongoose 8.1.3** - NoSQL database & ODM
 - **Nodemailer 6.9.13** - Email service
 
 ### Development
+
 - **ESLint 8** - Code linting
 - **TypeScript** - Type checking (configuration ready)
 - **PostCSS 8** - CSS transformation
@@ -66,30 +74,35 @@ A web application designed to help junior doctors quickly find appropriate medic
 ## Installation
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - bun (preferred) or npm
 - MongoDB instance (local or Atlas)
 
 ### Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd eordonnances
    ```
 
 2. **Install dependencies**
+
    ```bash
    bun install
    ```
 
 3. **Configure environment variables**
    Create a `.env.local` file in the root directory:
+
    ```env
    DB_URL=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/eordonnances
    ```
 
 4. **Run development server**
+
    ```bash
    bun run dev
    ```
@@ -100,18 +113,21 @@ A web application designed to help junior doctors quickly find appropriate medic
 ## Usage
 
 ### Navigation
+
 - **Home** - View medical specialties
 - **Recherchez (Search)** - Search diseases by name or specialty
 - **Ajouter (Add)** - Create new disease entries
 - **Theme Toggle** - Switch between dark and light modes
 
 ### Searching for Diseases
+
 1. Click "Recherchez" or a specialty card
 2. Use the search bar to find diseases by name
 3. Filter by specialty using the dropdown
 4. Click a disease to view full details
 
 ### Adding a Disease
+
 1. Click "Ajouter" in the navigation
 2. Fill in disease information:
    - Disease name
@@ -155,30 +171,36 @@ eordonnances/
 ### Diseases
 
 **GET /api/disease**
+
 - Retrieve paginated disease list
 - Query params: `page`, `q` (search), `specialty`
 - Returns: Array of diseases with pagination
 
 **POST /api/disease**
+
 - Create new disease (currently disabled)
 - Body: Disease object with name, specialty, definition
 
 **DELETE /api/disease**
+
 - Delete disease by ID
 - Query param: `id`
 
 ### Medications
 
 **GET /api/medications/[name]**
+
 - Search medications by name
 - Returns: Medication details
 
 **GET /api/mdcDB**
+
 - Access medication database
 
 ## Data Models
 
 ### Disease
+
 ```javascript
 {
   disease: {
@@ -193,7 +215,9 @@ eordonnances/
 ```
 
 ### Medication
+
 Schema prepared for expansion with:
+
 - CIS codes
 - Pharmaceutical forms
 - Administration routes
@@ -219,6 +243,7 @@ bun run lint
 ## Theme System
 
 The application uses CSS custom properties for theming:
+
 - Light mode: Clean white backgrounds with dark text
 - Dark mode: Dark backgrounds with light text
 - Theme state persists across sessions
@@ -229,11 +254,13 @@ Toggle theme using the icon in the top navigation.
 ## Database Connection
 
 MongoDB connection is established via Mongoose in `app/libs/mongodb.js`. The application:
+
 - Connects to MongoDB on each API request
 - Uses mongoose model caching to prevent duplicate model creation
 - Logs connection status to console
 
 Connection string should be stored in `.env.local`:
+
 ```env
 DB_URL=mongodb+srv://username:password@cluster.mongodb.net/database
 ```
@@ -249,6 +276,7 @@ DB_URL=mongodb+srv://username:password@cluster.mongodb.net/database
 ## Known Limitations & Future Improvements
 
 ### Current Limitations
+
 - No user authentication system
 - Medication model not fully implemented
 - Limited error handling
@@ -257,6 +285,7 @@ DB_URL=mongodb+srv://username:password@cluster.mongodb.net/database
 - Database connection pooling not implemented
 
 ### Recommended Improvements
+
 - [ ] Implement authentication (JWT/OAuth)
 - [ ] Add comprehensive error handling
 - [ ] Input validation with Zod or Joi
@@ -270,11 +299,13 @@ DB_URL=mongodb+srv://username:password@cluster.mongodb.net/database
 ## Environment Variables
 
 Required for development:
+
 ```env
 DB_URL=mongodb://connection-string
 ```
 
 Optional (prepared for future use):
+
 ```env
 POSTGRES_URL=          # For Vercel Postgres
 NODEMAILER_USER=       # For email functionality
@@ -284,11 +315,13 @@ NODEMAILER_PASSWORD=   # For email functionality
 ## Deployment
 
 ### Recommended Platforms
+
 - **Vercel** (recommended for Next.js)
 - **Netlify**
 - **Self-hosted (AWS, DigitalOcean, etc.)**
 
 ### Pre-deployment Checklist
+
 - [ ] Environment variables configured
 - [ ] MongoDB backup strategy in place
 - [ ] Error monitoring set up (Sentry)
@@ -299,6 +332,7 @@ NODEMAILER_PASSWORD=   # For email functionality
 ## Contributing
 
 To contribute to eOrdonnances:
+
 1. Create a feature branch (`git checkout -b feature/YourFeature`)
 2. Make your changes
 3. Commit (`git commit -m 'Add YourFeature'`)
