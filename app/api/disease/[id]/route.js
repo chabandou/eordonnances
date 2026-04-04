@@ -3,7 +3,8 @@ import { connectToMongoDB } from "@/app/libs/mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
-  const { id } = params;
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
   await connectToMongoDB();
   const foundDisease = await Disease.findById(id);
   if (!foundDisease) {

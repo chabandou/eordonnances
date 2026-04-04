@@ -1,126 +1,166 @@
 "use client";
 
-import { motion } from "framer-motion";
-
-import Link from "next/link";
-import Image from "next/image";
-import { useRef } from "react";
-import stetho from "@/public/stetho.svg";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useMemo, useCallback } from "react";
+import { useTransitionState } from "next-transition-router";
+import { useUI } from "../UIContext";
 import clsx from "clsx";
-import ScrollAnimatedCard from "../ScrollAnimatedCard";
-import Card from "../Card";
 import styles from "./DiseaseCard.module.css";
-
-import Stetho from "@/app/ui/index/Stetho";
+import SpecialtyIcon from "../SpecialtyIcon";
 import { getSpecialtyColors } from "@/app/libs/specialties";
-import Lungs from "@/app/ui/icons/Lungs";
-import Brain from "@/app/ui/icons/Brain";
-import Skin from "@/app/ui/icons/Skin";
-import Ambulance from "@/app/ui/icons/Ambulance";
-import Stomach from "@/app/ui/icons/Stomach";
-import Heart from "@/app/ui/icons/Heart";
-import Uterus from "@/app/ui/icons/Uterus";
-import Throat from "@/app/ui/icons/Throat";
-import Bladder from "@/app/ui/icons/Bladder";
+import { DURATIONS, EASINGS, TRANSITIONS } from "@/app/libs/easings";
 
-const specialties = [
-  {
-    name: "Dermatologie",
-    icon: <Skin className="icon" />,
-  },
-  {
-    name: "Cardiologie",
-    icon: <Heart className=" icon" />,
-  },
-  {
-    name: "Gastro-entérologie",
-    icon: <Stomach className="icon" />,
-  },
-  {
-    name: "Urologie",
-    icon: <Bladder className="icon" />,
-  },
-  {
-    name: "Neurologie",
-    icon: <Brain className="icon" />,
-  },
-  {
-    name: "Pneumologie",
-    icon: <Lungs className="icon" />,
-  },
-  {
-    name: "Gynécologie",
-    icon: <Uterus className="icon" />,
-  },
-  { name: "ORL", icon: <Throat className="icon" /> },
-  {
-    name: "Uregences",
-    icon: <Ambulance className="icon" />,
-  },
-];
+// Variants for cleaner state management
+const cardVariants = {
+  hidden: { opacity: 0, y: 20, pointerEvents: "none" },
+  visible: { opacity: 1, y: 0, pointerEvents: "auto" },
+  exit: { opacity: 0, y: -20, pointerEvents: "none" },
+};
 
+// Props: d = disease object, i = index for staggered animation
 export default function DiseaseCard({ d, i }) {
-  const diseaseCardRef = useRef();
-  const specialtyName = typeof d.disease.specialty === "string"
-    ? d.disease.specialty
-    : d.disease.specialty[0];
-  
+  const { stage } = useTransitionState();
+  const cardRef = useRef();
+  const inViewRef = useRef(null);
+  const isInView = useInView(inViewRef, { once: true, margin: "-50px" });
+
+  const specialtyName =
+    typeof d.disease.specialty === "string"
+      ? d.disease.specialty
+      : d.disease.specialty[0];
+
   const colors = getSpecialtyColors(specialtyName);
+  const {
+    selectedDisease,
+    setSelectedDisease,
+    setIsHeroExpanding,
+    setClickedSpecialty,
+    setFlipState,
+  } = useUI();
+
+  // Memoize to prevent hydration mismatch and re-render flicker
+  const matchScore = useMemo(
+    () => Math.floor(Math.random() * 26) + 74,
+    [d._id],
+  );
+
+  // Check if this card is currently selected
+  const isSelected = selectedDisease?.id === d._id;
+  // Check if another card is selected (so this one should fade out)
+  const isOtherSelected = selectedDisease && !isSelected;
+
+  // Determine current interaction state
+  const { isClosing } = useUI();
   
-  const icon = specialties.find((s) => s.name === specialtyName)
-    ?.icon; // We'll handle class in the icon directly or via CSS
+  const currentVariant = useMemo(() => {
+    // If closing, force visible so parent DiseasesPageWrapper can handle the fade-in
+    if (isClosing) return "visible";
+    
+    if (isSelected || isOtherSelected) return "hidden";
+    return isInView ? "visible" : "hidden";
+  }, [isSelected, isOtherSelected, isInView, isClosing]);
+
+  const handleClick = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      // If already selected, ignore
+      if (selectedDisease) return;
+
+      // Capture origin rect for FLIP animation
+      const rect = cardRef.current?.getBoundingClientRect();
+
+      // Trigger animations
+      setIsHeroExpanding(true);
+      setClickedSpecialty(specialtyName);
+
+      // Set FLIP state with origin (target will be set by DiseasesPageWrapper)
+      setFlipState({
+        diseaseId: d._id,
+        originRect: rect
+          ? {
+              x: rect.x,
+              y: rect.y,
+              width: rect.width,
+              height: rect.height,
+            }
+          : null,
+        targetRect: null,
+      });
+
+      // Set selected disease with full data
+      setSelectedDisease({
+        id: d._id,
+        data: d,
+        specialty: specialtyName,
+      });
+    },
+    [
+      d,
+      specialtyName,
+      selectedDisease,
+      setSelectedDisease,
+      setIsHeroExpanding,
+      setClickedSpecialty,
+      setFlipState,
+    ],
+  );
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="w-[90%] lg:w-[40vw] p-0 lg:max-h-fit m-2 mt-4"
-    >
-      <Link
-        key={d._id}
-        href={`/diseases/${d._id}`}
-        className="hover:cursor-pointer border-transparent rounded-3xl text-xl w-full"
-      >
-        <ScrollAnimatedCard
-          cardRef={diseaseCardRef}
-          className="w-full min-h-[120px] lg:aspect-[3.75/1] mx-auto"
-          render={({ isCenterFocus }) => (
-            <Card
-              specialty={true}
-              glow={true}
-              isCenterFocus={isCenterFocus}
-              style={{
-                "--g1": colors.g1,
-                "--g2": colors.g2,
-                "--g3": colors.g3,
-              }}
-              className={clsx("w-full h-full", styles.card)}
-            >
-              <div className={styles.content}>
-                <h2 className={styles.title}>
-                  {d.disease.name}
-                </h2>
-                <h3 className={styles.specialty}>
-                  {typeof d.disease.specialty === "string"
-                    ? d.disease.specialty
-                    : d.disease.specialty.join(", ")}
-                </h3>
-                
-                {icon ? (
-                  <div className={styles.iconOverlay}>
-                    {icon}
-                  </div>
-                ) : (
-                  <div className={styles.stethoOverlay}>
-                    <Stetho />
-                  </div>
-                )}
+    <AnimatePresence>
+      {stage !== "leaving" && (
+        <motion.div
+          key="card-motion"
+          ref={inViewRef}
+          variants={cardVariants}
+          initial="hidden"
+          animate={currentVariant}
+          exit="exit"
+          transition={{
+            delay: i * 0.03, // Stagger effect
+            duration: DURATIONS.normal,
+            ease: EASINGS.outSwift,
+          }}
+          className="w-full px-0 py-2"
+        >
+          <motion.button
+            ref={cardRef}
+            onClick={handleClick}
+            whileHover={{ x: -12 }}
+            transition={{
+              x: { type: "tween", duration: 0.3, ease: EASINGS.easeOutBack },
+            }}
+            className={clsx(
+              styles.card,
+              "group",
+              "cursor-pointer",
+              "text-left",
+            )}
+            style={{
+              "--g1": colors.g1,
+              "--g2": colors.g2,
+              "--g3": colors.g3,
+              borderRadius: "9999px",
+            }}
+          >
+            <div className={styles.iconContainer}>
+              <div className={styles.icon}>
+                <SpecialtyIcon
+                  specialty={specialtyName}
+                  className="h-full w-full"
+                />
               </div>
-            </Card>
-          )}
-        />
-      </Link>
-    </motion.div>
+            </div>
+
+            <div className={styles.textContainer}>
+              <h2 className={styles.title}>{d.disease.name}</h2>
+              <p className={styles.subtitle}>{specialtyName}</p>
+            </div>
+
+            <div className={styles.tail}>{matchScore}%</div>
+          </motion.button>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

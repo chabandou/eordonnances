@@ -5,10 +5,10 @@ This guide provides conventions and patterns for contributing to the eOrdonnance
 ## Build & Development Commands
 
 ```bash
-npm run dev          # Start development server (http://localhost:3000)
-npm run build        # Production build
-npm run start        # Start production server
-npm run lint         # Run ESLint
+bun run dev          # Start development server (http://localhost:3000)
+bun run build        # Production build
+bun run start        # Start production server
+bun run lint         # Run ESLint
 ```
 
 **Note:** No test framework is currently configured. If implementing tests, set up testing first.
@@ -162,7 +162,7 @@ export const dynamic = 'force-dynamic';
 - Keyboard navigation support for all interactive elements
 
 ### Code Quality
-- Run `npm run lint` before committing
+- Run `bun run lint` before committing
 - Follow ESLint configuration (extends next/core-web-vitals)
 - Avoid commented-out code (delete it instead)
 - Keep components focused and single-responsibility
@@ -180,10 +180,10 @@ export const dynamic = 'force-dynamic';
 - Used for notifications when new diseases are added
 
 ## Development Workflow
-1. Run `npm run dev` to start dev server
+1. Run `bun run dev` to start dev server
 2. Make changes following conventions above
 3. Test manually in browser
-4. Run `npm run lint` to check for issues
+4. Run `bun run lint` to check for issues
 5. No automated tests - manual testing required
 
 ## Common Patterns

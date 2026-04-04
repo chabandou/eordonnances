@@ -67,7 +67,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 
 ### Prerequisites
 - Node.js 18+ 
-- npm or yarn
+- bun (preferred) or npm
 - MongoDB instance (local or Atlas)
 
 ### Setup
@@ -80,7 +80,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 
 2. **Install dependencies**
    ```bash
-   npm install
+   bun install
    ```
 
 3. **Configure environment variables**
@@ -91,7 +91,7 @@ A web application designed to help junior doctors quickly find appropriate medic
 
 4. **Run development server**
    ```bash
-   npm run dev
+   bun run dev
    ```
 
 5. **Open in browser**
@@ -204,16 +204,16 @@ Schema prepared for expansion with:
 
 ```bash
 # Start development server with hot reload
-npm run dev
+bun run dev
 
 # Build for production
-npm run build
+bun run build
 
 # Start production server
-npm start
+bun start
 
 # Run ESLint
-npm run lint
+bun run lint
 ```
 
 ## Theme System

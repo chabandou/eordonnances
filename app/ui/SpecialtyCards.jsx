@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ScrollAnimatedCard from "./ScrollAnimatedCard";
 import Lungs from "@/app/ui/icons/Lungs";
 import Brain from "@/app/ui/icons/Brain";
@@ -41,6 +42,7 @@ const specialties = [
 ];
 
 export default function SpecialtyCards() {
+  const router = useRouter();
   const specialtyCardRefs = specialties.map(() => useRef());
 
   return (
@@ -48,34 +50,42 @@ export default function SpecialtyCards() {
       <h1 className="text-4xl font-bold text-center mt-10 lg:mt-0 lg:hidden uppercase">
         Spécialités
       </h1>
-      <div className={clsx(styles.container, "w-4/5 lg:w-full mx-auto")}> 
+      <div className={styles.container}>
         {specialties.map((s, i) => {
           const colors = getSpecialtyColors(s.href || s.name);
+          const bg = colors.g1;
+          const targetHref = `/diseases?specialty=${s.href || s.name}`;
+
           return (
-            <ScrollAnimatedCard 
+            <ScrollAnimatedCard
               key={s.name}
-              cardRef={specialtyCardRefs[i]} 
-              className="lg:w-1/4 md:w-1/3 sm:w-2/3 w-full"
+              cardRef={specialtyCardRefs[i]}
+              className={styles.wrapper} // Wrapper gets the scroll ref logic if possible, or we wrap internal
               render={({ isCenterFocus }) => (
-                <Card
-                  glow={true}
-                  specialty={false}
-                  isCenterFocus={isCenterFocus}
-                  style={{
-                    "--specialty-bg": colors.g1,
-                  }}
-                  className={styles.specialtyCard}
+                <Link
+                  href={targetHref}
+                  className={styles.link}
+                  style={{ "--specialty-bg": bg }}
+                  onMouseEnter={() => router.prefetch(targetHref)}
                 >
-                  <Link
-                    href={`/diseases?specialty=${s.href || s.name}`}
-                    className={styles.link}
+                  <Card
+                    glow={true}
+                    specialty={false} // We handle custom coloring via border
+                    isCenterFocus={isCenterFocus}
+                    className={styles.specialtyCard}
+                    // We don't pass style bg here to avoid overriding internal card bg to white
                   >
-                    {s.icon}
-                    <span className={styles.text}>
-                      {s.name}
-                    </span>
-                  </Link>
-                </Card>
+                    <div className={styles.iconContainer}>{s.icon}</div>
+                  </Card>
+                  <span
+                    className={clsx(
+                      styles.text,
+                      isCenterFocus && styles.visible,
+                    )}
+                  >
+                    {s.name}
+                  </span>
+                </Link>
               )}
             />
           );
@@ -84,6 +94,3 @@ export default function SpecialtyCards() {
     </>
   );
 }
-
-
-

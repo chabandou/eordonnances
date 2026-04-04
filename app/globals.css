@@ -6,7 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --background-color: white;
+  /* Slightly greyish background for light mode */
+  --background-color: #f3f4f6;
   --card-color: hsl(0, 0%, 98%);
   --text-color: hsl(0, 20%, 14%);
   --text-color-secondary: #4a5568;
@@ -32,13 +33,23 @@
   --disease-title-color: #4b5563;
   --disease-specialty-color: rgba(0, 0, 0, 0.8);
   --rx-text-color: rgba(0, 0, 0, 0.9);
+  
+  /* Background Shape Colors - Light Mode */
+  --shape-bg-1: #007A68;
+  --shape-bg-2: #00c7a9;
+  
+  /* Dynamic Viewport Variables (updated via JS) */
+  --vw: 1vw;
+  --vh: 1vh;
+  --viewport-width: 100vw;
+  --viewport-height: 100vh;
 }
 
 .dark {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
+  --background-start-rgb: 10, 10, 10;
   --background-end-rgb: 0, 0, 0;
-  --background-color: #000000;
+  --background-color: #0a0a0a;
   --card-color: hsl(0, 0%, 9%);
   --text-color: hsl(0, 0%, 91%);
   --text-color-secondary: #a0aec0;
@@ -60,6 +71,10 @@
   --disease-title-color: rgba(209, 213, 219, 1);
   --disease-specialty-color: rgba(255, 255, 255, 0.8);
   --rx-text-color: rgba(255, 255, 255, 0.9);
+  
+  /* Background Shape Colors - Dark Mode */
+  --shape-bg-1: #115e59;
+  --shape-bg-2: #042f2e;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -70,19 +85,37 @@
   }
 }
 
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* GPU Acceleration Utilities */
+.gpu-accelerated {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: var(--background-color);
   min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100); /* Mobile-friendly viewport height */
 }
+
 
 .dark body {
   background: var(--background-color);
+}
+
+.background {
+  min-width: 450px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  z-index: 1;
 }
 
 @layer utilities {
@@ -146,3 +179,7 @@ input {
    - Modals: Modal.module.css
    - Print: PrintForm.module.css
 */
+
+/* ******************** VIEW TRANSITIONS REMOVED ******************** */
+/* Using next-transition-router library instead */
+

@@ -1,16 +1,13 @@
 "use client";
-
 import { useState, useMemo } from "react";
-import Arrow from "@/app/ui/icons/Arrow";
 import styles from "./DropDown.module.css";
 import clsx from "clsx";
+import SpecialtyIcon from "./SpecialtyIcon";
+import { getSpecialtyColors } from "@/app/libs/specialties";
 
 export default function DropDown({ items, pathname, searchParams, replace }) {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // Get initial selected specialty from searchParams if exists
-  const initialSpecialty = searchParams.get("specialty") || "";
-  
+
   const handleFilter = (specialty) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", "1");
@@ -23,53 +20,61 @@ export default function DropDown({ items, pathname, searchParams, replace }) {
     setIsOpen(false);
   };
 
+  const selectedSpecialty = searchParams.get("specialty");
+  const colors = getSpecialtyColors(selectedSpecialty);
+
   const selectedValue = useMemo(() => {
-    const specialty = searchParams.get("specialty");
-    return specialty || "Spécialités";
-  }, [searchParams]);
+    return selectedSpecialty || "All specialties";
+  }, [selectedSpecialty]);
 
   return (
-    <div className={clsx(styles.dropdown, "w-full lg:w-1/3")}>
-      <div 
+    <div className={styles.dropdown}>
+      <div
         role="button"
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
-        className={clsx(styles.inputBox, isOpen && styles.open)}
+        className={styles.inputBox}
+        style={{
+          backgroundColor: selectedSpecialty ? colors.g1 : "#3ddcc5"
+        }}
       >
-        {selectedValue}
+        <div className={styles.iconWrapper}>
+          <SpecialtyIcon specialty={selectedSpecialty} className="w-full h-full text-white" />
+        </div>
+        <span>{selectedValue}</span>
       </div>
-      <Arrow className={clsx(styles.arrow, isOpen && styles.open)} />
 
       <div className={clsx(
-        styles.list, 
+        styles.list,
         isOpen && styles.open,
-        "w-full lg:w-[300%] h-[75vh] lg:h-fit grid grid-cols-1 lg:grid-cols-3"
       )}>
-        <div key="all">
-          <input 
-            onChange={() => handleFilter("")} 
-            checked={!searchParams.get("specialty")}
-            type="radio" 
-            name="item" 
-            id="all" 
-            className={styles.radio} 
+        <div className={styles.dropdownItem} key="all">
+          <input
+            onChange={() => handleFilter("")}
+            checked={!selectedSpecialty}
+            type="radio"
+            name="item"
+            id="all"
+            className={styles.radio}
           />
-          <label htmlFor="all">
-            <span className="name">Tous</span>
+          <label className={styles.label} htmlFor="all">
+            <SpecialtyIcon specialty="" className={styles.itemIcon} />
+            Tous
           </label>
         </div>
         {items.map((item) => (
-          <div key={item}>
+          <div className={styles.dropdownItem} key={item}>
             <input
               onChange={() => handleFilter(item)}
-              checked={searchParams.get("specialty") === item}
+              checked={selectedSpecialty === item}
               type="radio"
               name="item"
               id={item}
               className={styles.radio}
             />
-            <label htmlFor={item}>
-              <span className="name">{item}</span>
+            <label className={styles.label} htmlFor={item}>
+              <SpecialtyIcon specialty={item} className={styles.itemIcon} />
+              {item}
             </label>
           </div>
         ))}

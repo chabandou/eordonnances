@@ -8,14 +8,14 @@ import styles from "./Card.module.css";
  * Base Card component following the "Rounded Information Cards" pattern.
  * Supports mouse-tracking glow effects and specialty branding.
  */
-export default function Card({ 
-  children, 
-  className, 
-  style, 
-  glow = true, 
+export default function Card({
+  children,
+  className,
+  style,
+  glow = true,
   specialty = false,
   isCenterFocus = false,
-  onClick 
+  onClick
 }) {
   const cardRef = useRef(null);
 
@@ -44,13 +44,13 @@ export default function Card({
   }, [glow]);
 
   return (
-    <div 
+    <div
       ref={cardRef}
       style={style}
       onClick={onClick}
       data-specialty={specialty}
       className={clsx(
-        styles.card, 
+        styles.card,
         glow && styles.glow,
         isCenterFocus && styles.centerFocus,
         className

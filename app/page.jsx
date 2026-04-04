@@ -1,6 +1,6 @@
 import SpecialtyCards from "./ui/SpecialtyCards";
+import HomeBackground from "./ui/HomeBackground";
 
-export const revalidate = 60;
 export const dynamic = 'force-static';
 
 export const metadata = {
@@ -50,7 +50,8 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <main className="overflow-x-hidden flex flex-col items-center justify-center py-4 lg:my-auto" style={{ backgroundColor: 'var(--background-color, var(--card-color))' }}>
+      <HomeBackground />
+      <main className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-x-hidden p-4" style={{ backgroundColor: 'var(--background-color, var(--card-color))' }}>
         <SpecialtyCards />
       </main>
     </>

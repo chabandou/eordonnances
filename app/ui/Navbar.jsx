@@ -1,78 +1,90 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 import Rx from "@/app/ui/icons/Rx";
 import Add from "@/app/ui/icons/Add";
 import Search from "@/app/ui/icons/Search";
 import Home from "@/app/ui/icons/Home";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import ThemeToggle from "./ThemeToggle";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.css";
+
+import { useUI } from "./UIContext";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { isHeroExpanding } = useUI();
+  const [isHovered, setIsHovered] = useState(false);
 
-  const menuRef = useRef(null);
+  // Hide Navbar on large screens for disease details page: /diseases/[id]
+  // We check if it starts with /diseases/ and has a segment after it, BUT exclude /diseases/add
+  const isDetailsPage = /^\/diseases\/[^/]+$/.test(pathname) && pathname !== '/diseases/add';
+  const isAddPage = pathname === '/diseases/add';
 
-  useEffect(() => {
-    const menu = menuRef.current;
-    if (!menu) return;
-    const menuLinks = menu.querySelectorAll(`.${styles.navLink}`);
-    const handlers = [];
+  const shouldCollapse = isAddPage && !isHovered;
 
-    function doCalculations(link) {
-      menu.style.setProperty("--transformJS", `${link.offsetTop}px`);
-      menu.style.setProperty("--widthJS", `${link.offsetWidth}px`);
-    }
-
-    for (const menuLink of menuLinks) {
-      const handler = () => doCalculations(menuLink);
-      menuLink.addEventListener("mouseenter", handler);
-      handlers.push({ el: menuLink, handler });
-    }
-
-    return () => {
-      handlers.forEach(({ el, handler }) => el.removeEventListener("mouseenter", handler));
-    };
-  }, []);
   return (
-    <div className={clsx(styles.navContainer, "py-3 px-4 z-50")}>
-      <header className="hidden lg:flex flex-col w-fit items-start justify-start gap-y-6 m-auto">
-        <Link className="hover:cursor-pointer text-2xl font-bold" href="/">
-          <div className={clsx("hidden lg:flex items-center justify-start gap-1", styles.branding)}>
-            <Rx className="" />
-            <span className={styles.headerTitle}>eOrdonnances</span>
-          </div>
-        </Link>
-      </header>
-      <div ref={menuRef} className={styles.menu}>
-        <NavLink href="/" title="Accueil" icon={<Home />} i={0} />
-        <NavLink href="/diseases" title="Recherchez" icon={<Search />} i={1} />
-        <NavLink href="/diseases/add" title="Ajouter" icon={<Add />} i={2} />
-        <div className="mt-auto lg:mb-4 w-full">
-          <div className={styles.navLink}>
-            <ThemeToggle />
-          </div>
+    <nav
+      className={clsx(
+        styles.navContainer,
+        isDetailsPage && styles.hiddenOnDesktop,
+        shouldCollapse && styles.collapsed
+      )}
+      style={{
+        opacity: isHeroExpanding ? 0 : 1,
+        transition: 'opacity 0.5s ease',
+        pointerEvents: isHeroExpanding ? 'none' : 'auto'
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Hamburger Icon (Visible when collapsed) */}
+      <div
+        className={styles.hamburgerContainer}
+        onMouseEnter={() => setIsHovered(true)}
+      >
+        <div className={styles.iconWrapper}>
+          <Bars3Icon className="w-6 h-6" />
         </div>
       </div>
-    </div>
+
+      {/* Menu Items (Visible when expanded) */}
+      <div className={styles.menuItems}>
+        <div className={styles.menuItem}>
+          <ThemeToggle />
+        </div>
+        <div className={styles.menuItem}>
+          <NavLink href="/diseases/add" title="AJOUTER" icon={<Add />} />
+        </div>
+        <div className={styles.menuItem}>
+          <NavLink href="/diseases" title="RECHERCHE" icon={<Search />} />
+        </div>
+        <div className={styles.menuItem}>
+          <NavLink href="/" title="ACCUEIL" icon={<Home />} />
+        </div>
+      </div>
+    </nav>
   );
 }
 
-function NavLink({ href, title, icon, i }) {
+function NavLink({ href, title, icon }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const isActive = pathname === href;
+
   return (
     <Link
       href={href}
       className={clsx(
         styles.navLink,
-        pathname === href && styles.active
+        isActive && styles.active
       )}
+      onMouseEnter={() => router.prefetch(href)}
     >
-      <i className={styles.i}>{icon}</i>
-      <span className={clsx("hidden lg:inline", styles.navLinkSpan)}>{title}</span>
+      <div className={styles.iconWrapper}>
+        {icon}
+      </div>
+      <span className={styles.navLabel}>{title}</span>
     </Link>
   );
 }

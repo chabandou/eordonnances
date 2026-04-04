@@ -57,13 +57,11 @@ export default function ThemeToggle() {
       className={styles.navLink}
       aria-label="Toggle theme"
     >
-      <i className={styles.i}>
-        <div className="">
-          {theme === "dark" ? <MoonIcon /> : <SunIcon />}
-        </div>
-      </i>
-      <span className={clsx("hidden lg:inline", styles.navLinkSpan)}>
-        {theme === "dark" ? "Sombre" : "Clair"}
+      <div className={styles.iconWrapper}>
+        {theme === "dark" ? <MoonIcon /> : <SunIcon />}
+      </div>
+      <span className={styles.navLabel}>
+        {theme === "dark" ? "SOMBRE" : "CLAIR"}
       </span>
     </button>
   );

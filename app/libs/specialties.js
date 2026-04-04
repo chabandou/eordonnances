@@ -14,3 +14,39 @@ export const SPECIALTY_COLORS = {
 export const getSpecialtyColors = (specialty) => {
   return SPECIALTY_COLORS[specialty] || SPECIALTY_COLORS["Pneumologie"];
 };
+
+/**
+ * Returns specialty colors with pre-computed darker/lighter variants.
+ * Eliminates repeated lightness comparison logic across components.
+ */
+export const getSpecialtyColorsWithShading = (specialty) => {
+  const colors = getSpecialtyColors(specialty);
+
+  // Inline lightness calculation to avoid circular dependency with utils.js
+  const getLightness = (color) => {
+    if (!color) return 0;
+    if (color.startsWith('hsl')) {
+      const match = color.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+      return match ? parseInt(match[3]) : 0;
+    }
+    if (color.startsWith('#')) {
+      const hex = color.substring(1);
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+      const max = Math.max(r, g, b) / 255;
+      const min = Math.min(r, g, b) / 255;
+      return ((max + min) / 2) * 100;
+    }
+    return 0;
+  };
+
+  const l1 = getLightness(colors.g1);
+  const l2 = getLightness(colors.g2);
+
+  return {
+    ...colors,
+    darker: l1 < l2 ? colors.g1 : colors.g2,
+    lighter: l1 < l2 ? colors.g2 : colors.g1
+  };
+};

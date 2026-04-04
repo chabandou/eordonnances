@@ -1,9 +1,7 @@
 .headerContainer {
   width: 90%;
   display: flex;
-  flex-direction: column;
-  items-center: center;
-  margin: 0.5rem;
+  align-items: center;
   margin-top: 1rem;
 }
 

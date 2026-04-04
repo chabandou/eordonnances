@@ -3,7 +3,8 @@ import Disease from "@/models/diseaseModel";
 import PrintForm from "../../../ui/details/PrintForm";
 
 export default async function Print({ params }) {
-  const id = params.id;
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
   async function getDisease(id) {
     // const response = await fetch(`http://localhost:3000/api/disease/${id}`);
     await connectToMongoDB("get1Disease");

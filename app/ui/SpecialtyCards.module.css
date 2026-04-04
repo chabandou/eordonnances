@@ -1,134 +1,186 @@
+
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 3.5rem;
-  margin-bottom: 5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 1rem;
+  
+  width: 100%;
+  max-width: 75vw;
+  margin: 0 auto;
+  padding: 2rem;
+  
+  /* Let the grid items center themselves within their cells if needed, 
+     but the grid itself fills the container width */
+  place-items: center;
+}
+
+@media (min-width: 768px) {
+  .container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 1.5rem;
+  }
 }
 
 @media (min-width: 1024px) {
   .container {
-    margin-top: 0;
-    margin-bottom: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* max-width is already handled in base class, but can be stricter here if desired */
+    max-width: 75vw;
+    padding-left: 6rem; /* Shift grid right to separate from navbar */
   }
 }
 
-.specialtyCard {
-  height: 260px;
+.link {
+  display: contents;
+}
+
+.wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
-  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: min(75vw, 160px); /* Slightly smaller cards */
+  aspect-ratio: 1;
+  text-decoration: none;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
 }
 
-:global(.light) .specialtyCard {
-  background-color: var(--specialty-bg, var(--g1));
-  filter: brightness(0.9);
-}
-
-/* cardContent removed as Card primitive handles background */
-
-.link {
+/* The card itself - now circular */
+/* Light Mode Default */
+.specialtyCard {
   width: 100%;
   height: 100%;
-  display: flex;
+  --brand-card-radius: 50%;
+  border-radius: 50% !important;
+  display: flex !important;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  z-index: 9;
-  text-decoration: none;
-}
-
-.text {
-  color: var(--specialty-text-color);
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  text-transform: uppercase;
-  visibility: hidden;
-  opacity: 0;
+  justify-content: center;
   position: relative;
-  transition: all 0.6s ease;
-  z-index: 5;
+  z-index: 10; /* Above text */
+  background-color: white;
+  border: 4px solid var(--specialty-bg, var(--g1)) !important;
+  transition: 
+    transform 0.4s ease-out, 
+    box-shadow 0.4s ease-out,
+    background-color 0.4s ease-out,
+    border-color 0.4s ease-out;
+  overflow: hidden; /* Clip everything inside circle */
+  aspect-ratio: 1;
 }
 
+/* Dark Mode Default */
+:global(.dark) .specialtyCard {
+  background-color: var(--card-color);
+  border-color: white !important;
+}
+
+/* Card inner content override - attempt via deep selector or wrapper */
+.iconContainer {
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 50% !important; /* Force size */
+  height: auto !important;
+  z-index: 11;
+  transition: transform 0.4s ease;
+  transform-origin: center;
+}
+
+.icon path {
+  fill: var(--specialty-bg, var(--g1));
+  transition: fill 0.3s ease;
+}
+
+/* Dark Mode Default Icon */
+:global(.dark) .icon path {
+  fill: white;
+}
+
+/* Text - initially hidden behind */
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--specialty-text-color); /* Adaptive: Black in Light, White in Dark */
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  z-index: 1; /* Below card */
+  transition: all 0.4s ease-out; /* More "easeOut" per request */
+  pointer-events: none;
+}
+
+/* Underline Animation */
 .text::after {
   content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
   height: 3px;
-  bottom: -8px;
+  bottom: -4px;
   left: 0;
-  background-color: var(--g1);
-  transition: transform 0.6s ease 0.2s;
+  background-color: var(--specialty-bg, var(--g1));
+  transition: transform 0.4s ease 0.1s;
+  transform-origin: center;
 }
 
-:global(.light) .text {
-  color: white;
-}
-
-:global(.light) .text::after {
-  background-color: white;
-}
-
-/* Hover & Focus states */
+/* Hover States */
 @media (hover: hover) and (pointer: fine) {
-  .specialtyCard:hover .text {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(64px);
+  .wrapper:hover .specialtyCard {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    
+    /* Light Mode Hover: Filled Background */
+    background-color: var(--specialty-bg, var(--g1));
+    border-color: white;
   }
   
-  .specialtyCard:hover .text::after {
+  /* Dark Mode Hover: Colored Border only */
+  :global(.dark) .wrapper:hover .specialtyCard {
+    background-color: var(--card-color);
+    border-color: var(--specialty-bg, var(--g1)) !important;
+  }
+
+  .wrapper:hover .text {
+    opacity: 1;
+    top: 105%; /* Reduced distance from 115% */
+  }
+
+  .wrapper:hover .text::after {
     transform: scaleX(1);
   }
-}
 
-/* Using our Card's centerFocus class (Mobile Scroll) */
-.specialtyCard.centerFocus .text {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(64px);
+  .wrapper:hover .icon {
+    transform: scale(1.1);
+  }
+  
+  /* Light Mode Hover Icon: White */
+  .wrapper:hover .icon path {
+    fill: white;
+  }
+  
+  /* Dark Mode Hover Icon: Colored */
+  :global(.dark) .wrapper:hover .icon path {
+    fill: var(--specialty-bg, var(--g1));
+  }
 }
-
-.specialtyCard.centerFocus .text::after {
+/* ... (lines 142-149) ... */
+.wrapper:focus-within .text,
+.specialtyCard.centerFocus + .text { 
+   opacity: 1;
+   top: 105%;
+}
+.wrapper:focus-within .text::after {
   transform: scaleX(1);
-}
-
-/* Icon Animations */
-.icon {
-  width: 50%;
-  position: absolute;
-  transition: transform 0.6s ease;
-  z-index: 6;
-}
-
-.icon path {
-  transition: fill 0.5s ease-in-out;
-}
-
-:global(.light) .icon path {
-  fill: white;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .specialtyCard:hover .icon {
-    transform: translateY(-2rem);
-  }
-}
-
-.specialtyCard.centerFocus .icon {
-  transform: translateY(-2rem);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  :global(.dark) .specialtyCard:hover .icon path {
-    fill: var(--g1);
-  }
-}
-
-:global(.dark) .specialtyCard.centerFocus .icon path {
-  fill: var(--g1);
 }
